@@ -43,3 +43,37 @@
         height: 180px;
     }
 }
+.resetpassword{
+    width: 50%; 
+    background-color: rgba(171, 168, 168, 0.395);
+     text-align: center;
+     padding: 5px;
+     padding-bottom: 10px;
+    margin: 30px;
+     border-radius: 10px;
+     border-right: 1px solid white;
+     border-bottom: 1px solid white;
+     box-shadow: 4px 4px 15px 8px rgba(0, 0, 0, 0.291);
+}
+.resettitle{
+    color: rgb(28, 27, 27);
+}
+.resetemail{
+    width: 85%;
+}
+.innerresetpassword{
+    width: 80%;
+    margin: auto;
+    display: flex;  
+}
+.resetform{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.resetBtn{
+    background-color: azure;
+    color: black;
+    padding: 10px;
+    font-size: 18px;
+}

@@ -201,7 +201,7 @@ nav > ul{
     }
     nav{
         visibility: hidden;
-        position: absolute;
+        position: absolute; 
         display: none ;
     }
     .outlet{

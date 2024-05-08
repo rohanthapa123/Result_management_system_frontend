@@ -31,12 +31,10 @@ import AddSubject from "./pages/subject/addSubject";
 import ExamPage from "./pages/exam/examPage";
 import AddExam from "./pages/exam/addExam";
 import MarkPage from "./pages/mark/admin/markPage";
-import AddMark from "./pages/mark/teacher/addMark";
 import AdminPage from "./pages/admin/adminPage";
 import AddAdmin from "./pages/admin/addAdmin";
 import TeacherExamPage from "./pages/exam/teacher/examPage";
 import TeacherMarkPage from "./pages/mark/teacher/markPage";
-import TeacherAddMark from "./pages/mark/teacher/addMark";
 import ResultPage from "./pages/result/student/result";
 import StudentDashboard from "./pages/dashboard/student/student_dashboard";
 import EditNotice from "./pages/notice/editNotice";
@@ -47,6 +45,7 @@ import EditSection from "./pages/section/editSection";
 import EditTeacher from "./pages/teacher/editTeacher";
 import EditStudent from "./pages/student/editStudent";
 import EditAdmin from "./pages/admin/editAdmin";
+import TeacherDashboard from "./pages/dashboard/teacher/TeacherDashboard";
 
 function App() {
   return (
@@ -107,6 +106,7 @@ function App() {
           <Route path="notice" element={<StudentNotice />} />
           <Route path="complains" element={<StudentComplain />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<Navigate to={"/login"} />} />
         </Route>
         <Route
           path="/teacher/*"
@@ -117,16 +117,17 @@ function App() {
             />
           }
         >
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="students" element={<StudentPage />} />
+          <Route path="dashboard" element={<TeacherDashboard />} />
           <Route path="exam" element={<TeacherExamPage />} />
           <Route path="mark" element={<TeacherMarkPage />} />
-          <Route path="mark/add" element={<TeacherAddMark />} />
           <Route path="notice" element={<NoticePage />} />
           <Route path="notice/add" element={<AddNotice role="teacher" />} />
-          <Route path="notice/edit/:id" element={<EditNotice role="teacher" />} />
-          <Route path="teachers" element={<TeacherPage />} />
+          <Route
+            path="notice/edit/:id"
+            element={<EditNotice role="teacher" />}
+          />
           <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<Navigate to={"/login"} />} />
         </Route>
         <Route path="*" element={<Navigate to={"/login"} />} />
       </Routes>
