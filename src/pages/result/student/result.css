@@ -42,5 +42,16 @@
 }
 .filterResult > button{
     color: black;
+    padding: 5px;
+    font-size: 18px;
 
+}
+.filterResult > button:hover {
+    background-color: rgb(47, 95, 82);
+    color: white;
+}
+.selectterm{
+
+    min-width: 300px;
+    max-width: 30%;
 }

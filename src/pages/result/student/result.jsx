@@ -9,6 +9,8 @@ const ResultPage = () => {
     const [user, setUser] = useState();
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0)
+    const [fail, setFail] = useState(false);
+    const [gpaaverage, setGpaaverage] = useState()
     const getResult = async () => {
         try {
             setLoading(true);
@@ -30,14 +32,25 @@ const ResultPage = () => {
         console.log(marks)
         const totalMarks = marks?.reduce((total, item) => total + item.marks_obtained, 0);
         setTotal(totalMarks);
-        // totalMarks / marks.length
+        let gpa = 0;
+        console.log(marks)
+        marks?.forEach((item) => {
+            if (item.grade === "F") {
+                setFail(true);
+            }
+            gpa = gpa + gradeToGPA[item.grade]
+        })
+        console.log(gpa)
+        setGpaaverage(gpa / marks.length)
+        console.log(gpaaverage)
+        // totalMarks / marks .length
         console.log(total)
     }
     const printResult = () => {
         window.print();
     }
     const gradeToGPA = {
-        "A": "4.0",
+        "A": 4.0,
         "A-": 3.6,
         "B+": 3.2,
         "B": 2.8,
@@ -51,7 +64,7 @@ const ResultPage = () => {
         <div>
             <div className='filterResult'>
 
-                <select onChange={(e) => setTerm(e.target.value)} name="term" id="">
+                <select className='selectterm' onChange={(e) => setTerm(e.target.value)} name="term" id="">
                     <option value="">Select Term</option>
                     <option value="1">First Term</option>
                     <option value="2">Mid Term</option>
@@ -107,15 +120,16 @@ const ResultPage = () => {
                             <td colSpan={2}>Total</td>
                             <td>{total}</td>
                             <td colSpan={2} >Average grade point</td>
-                            <td>{"4.0"}</td>
+                            <td>{fail ? "*" : gpaaverage.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td colSpan={3}></td>
-                            <td colSpan={2}>Remarks: Good</td>
+                            <td colSpan={2}>Remarks: {fail ? "Fail" : "Good"}</td>
                         </tr>
 
                     </tbody>
                 </table>
+                <br /><br />
                 <span><em><u>* This sheet is for the general idea of grade(s) you secured. This is not for official use. </u></em></span>
 
             </div> : ""
