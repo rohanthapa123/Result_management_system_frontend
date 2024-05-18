@@ -106,7 +106,7 @@ const StudentPage = () => {
       const response = await axios.request({
         url: 'http://localhost:8080/api/users/bulkactionupdate',
         method: 'PATCH',
-        data: { userIds: Array.from(selectedStudent) , newClass : toUpdateClass},
+        data: { userIds: Array.from(selectedStudent), newClass: toUpdateClass },
         withCredentials: true,
       });
       toast.warn("All student successfully Updated to new class")
@@ -141,9 +141,10 @@ const StudentPage = () => {
     <>
       {
         toogleUpdateClass ? <div className="updateClass">
-          <div className="close" onClick={()=> {setToogleUpdateClass(false)}}> <IoClose color="black" size={26} /> </div>
+          <div className="close" onClick={() => { setToogleUpdateClass(false) }}> <IoClose color="black" size={26} /> </div>
           <h1>Enroll to new class:</h1>
           <ClassInput small={true} handleChange={handleToUpdateClass} />
+          
           <div>
 
             <button className="updatebtn" onClick={handleBulkUpdate}>Update</button>

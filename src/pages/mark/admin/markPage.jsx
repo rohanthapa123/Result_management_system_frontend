@@ -34,6 +34,7 @@ const MarkPage = () => {
       if (selectedClass && term) {
         const marksData = await getAllMarksOfClassByExam(selectedClass, term);
         // setStudentMarks(marksData);
+        console.log(marksData)
         setStudentMarks(marksData.map(student => ({
           ...student,
           subjects_marks: student.subjects_marks.sort((a, b) => a.subject_id - b.subject_id)
@@ -130,7 +131,7 @@ const MarkPage = () => {
       <br />
       <hr />
       <table>
-        <thead>
+        {studentMarks.length > 0 && <thead>
           <tr>
             <th>First Name</th>
             <th>Middle Name</th>
@@ -141,7 +142,7 @@ const MarkPage = () => {
               <th key={subject.subject_id}>{subject.subject_name}</th>
             ))}
           </tr>
-        </thead>
+        </thead>}
         <tbody>
           {studentMarks.map((student) => (
             <tr key={student.student_id}>

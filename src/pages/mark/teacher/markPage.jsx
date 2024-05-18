@@ -87,7 +87,7 @@ const TeacherMarkPage = () => {
     try {
       if (window.confirm("Confirm your marks")) {
 
-        const response = await axios.post(`http://localhost:8080/api/insertMarks`, result, {
+        const response = await axios.post(`http://localhost:8080/api/insertMarks`, {result , class: selectedClass}, {
           withCredentials: true,
         });
         if (response.status == 200) {
@@ -150,7 +150,7 @@ const TeacherMarkPage = () => {
         <tbody>
           {
             result?.map((studentMark) => {
-              return <tr>
+              return <tr key={studentMark.student_id}>
                 <td>{studentMark.name} </td>
                 <td>
                   <input min={"0"} max={"100"} type="number" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="marks_obtained" value={studentMark.marks_obtained || ""} id="" />
