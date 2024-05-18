@@ -10,12 +10,14 @@ import ClassInput from "../../components/ClassInput";
 import Search from "../../components/Search/Search";
 import { deleteUser, getStudents } from "../../services/fetchFunction";
 import "./student.css";
+import SectionInput from "../../components/SectionInput";
 const StudentPage = () => {
   const [students, setStudents] = useState();
   const [_class, setClass] = useState();
   const [searchText, setSearchText] = useState();
   const [selectedStudent, setSelectedStudent] = useState(new Set());
   const [toUpdateClass, setToUpdateClass] = useState()
+  const [toUpdateSection, setToUpdateSection] = useState()
   const [toogleUpdateClass, setToogleUpdateClass] = useState(false)
   const debounce = (func, delay) => {
     let timer;
@@ -98,6 +100,10 @@ const StudentPage = () => {
     setToUpdateClass(e.target.value);
     console.log(e.target.value, " is new class for thosse student");
   }
+  const handleToUpdateSection = (e) => {
+    setToUpdateSection(e.target.value);
+    console.log(e.target.value, " is new section for thosse student");
+  }
 
   const handleBulkUpdate = async () => {
     // console.log(selectedStudent.size)
@@ -106,7 +112,7 @@ const StudentPage = () => {
       const response = await axios.request({
         url: 'http://localhost:8080/api/users/bulkactionupdate',
         method: 'PATCH',
-        data: { userIds: Array.from(selectedStudent), newClass: toUpdateClass },
+        data: { userIds: Array.from(selectedStudent) , newClass : toUpdateClass , newSection : toUpdateSection},
         withCredentials: true,
       });
       toast.warn("All student successfully Updated to new class")
@@ -141,10 +147,10 @@ const StudentPage = () => {
     <>
       {
         toogleUpdateClass ? <div className="updateClass">
-          <div className="close" onClick={() => { setToogleUpdateClass(false) }}> <IoClose color="black" size={26} /> </div>
+          <div className="close" onClick={()=> {setToogleUpdateClass(false)}}> <IoClose color="black" size={26} /> </div>
           <h1>Enroll to new class:</h1>
           <ClassInput small={true} handleChange={handleToUpdateClass} />
-          
+          <SectionInput small={true} handleChange={handleToUpdateSection} class_id={toUpdateClass} />
           <div>
 
             <button className="updatebtn" onClick={handleBulkUpdate}>Update</button>

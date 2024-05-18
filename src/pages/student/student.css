@@ -170,7 +170,7 @@ td > img{
 }
 
 .faded{
-    opacity: 25%;
+    opacity: 20%;
     transition: 300ms ease-in-out;
 }
 .close{
