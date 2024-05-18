@@ -194,8 +194,6 @@ export const getStudents = async (id  , searchText) => {
       });
       // console.log(response.data.data)
       return response.data.data;
-      }else{
-
       }
       const response = await axios.get("http://localhost:8080/api/students", {
         withCredentials: true,

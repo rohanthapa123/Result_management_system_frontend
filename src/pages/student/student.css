@@ -113,7 +113,70 @@ td > img{
     right: 10px;
     font-size: 18px;
 }
-
+.action{
+    width: fit-content !important;
+}
 .btn{
     color: black;
+}
+.selectcheckbox{
+    padding: 15px;
+    height: 18px;
+    width: 100%;
+}
+
+.bulkaction{
+    
+    
+    padding: 5px;
+    font-size: 15px;
+    margin-right: 5px;
+    cursor: pointer;
+    
+}
+.updatebtn{
+    font-size: 16px;
+    color: black;
+    background-color: lightblue;
+    padding: 5px;
+    margin: 10px;
+}
+.bulkactiondiv{
+    margin-left: 15px;
+}
+
+.heading_edit{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+.updateClass{
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%,-50%);
+    padding: 30px;
+    background-color: rgba(171, 168, 168, 0.395);
+     text-align: center;
+     border-radius: 10px;
+     border-right: 1px solid white;
+     border-bottom: 1px solid white;
+     box-shadow: 4px 4px 15px 8px rgba(0, 0, 0, 0.291);
+     transition: 500ms ease-in-out;
+}
+
+.faded{
+    opacity: 25%;
+    transition: 300ms ease-in-out;
+}
+.close{
+    position: absolute;
+    right: 6%;
+    top: 10%;
+    cursor: pointer;
+
 }
