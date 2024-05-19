@@ -109,16 +109,19 @@ const StudentPage = () => {
     // console.log(selectedStudent.size)
     // console.log(selectedStudent)
     try {
-      const response = await axios.request({
-        url: 'http://localhost:8080/api/users/bulkactionupdate',
-        method: 'PATCH',
-        data: { userIds: Array.from(selectedStudent) , newClass : toUpdateClass , newSection : toUpdateSection},
-        withCredentials: true,
-      });
-      toast.warn("All student successfully Updated to new class")
-      setSelectedStudent(new Set())
-      setToogleUpdateClass(false);
-      getData();
+      if (window.confirm("Are you sure to update ??")) {
+
+        const response = await axios.request({
+          url: 'http://localhost:8080/api/users/bulkactionupdate',
+          method: 'PATCH',
+          data: { userIds: Array.from(selectedStudent), newClass: toUpdateClass, newSection: toUpdateSection },
+          withCredentials: true,
+        });
+        toast.warn("All student successfully Updated to new class")
+        setSelectedStudent(new Set())
+        setToogleUpdateClass(false);
+        getData();
+      }
     } catch (error) {
       console.log(error)
       toast.error("Failed to Update")
@@ -128,16 +131,19 @@ const StudentPage = () => {
     // console.log("Bulk delete success")
     // console.log(selectedStudent)
     try {
-      const response = await axios.request({
-        url: 'http://localhost:8080/api/users/bulkactiondelete',
-        method: 'DELETE',
-        data: { userIds: Array.from(selectedStudent) },
-        withCredentials: true,
-      });
-      // console.log(response);
-      toast.warn("All item successfully Deleted")
-      setSelectedStudent(new Set())
-      getData();
+      if (window.confirm("Are you sure to Delete all ??")) {
+
+        const response = await axios.request({
+          url: 'http://localhost:8080/api/users/bulkactiondelete',
+          method: 'DELETE',
+          data: { userIds: Array.from(selectedStudent) },
+          withCredentials: true,
+        });
+        // console.log(response);
+        toast.warn("All item successfully Deleted")
+        setSelectedStudent(new Set())
+        getData();
+      }
     } catch (error) {
       console.log(error)
       toast.error("Failed to Delete")
@@ -147,7 +153,7 @@ const StudentPage = () => {
     <>
       {
         toogleUpdateClass ? <div className="updateClass">
-          <div className="close" onClick={()=> {setToogleUpdateClass(false)}}> <IoClose color="black" size={26} /> </div>
+          <div className="close" onClick={() => { setToogleUpdateClass(false) }}> <IoClose color="black" size={26} /> </div>
           <h1>Enroll to new class:</h1>
           <ClassInput small={true} handleChange={handleToUpdateClass} />
           <SectionInput small={true} handleChange={handleToUpdateSection} class_id={toUpdateClass} />
