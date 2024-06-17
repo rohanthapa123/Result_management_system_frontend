@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import "./result.css"
 import Spinner from '../../../components/loader/Spinner';
+import { toast } from 'react-toastify';
 const ResultPage = () => {
     const [term, setTerm] = useState();
     const [result, setResult] = useState();
@@ -13,17 +14,22 @@ const ResultPage = () => {
     const [gpaaverage, setGpaaverage] = useState()
     const getResult = async () => {
         try {
-            setLoading(true);
-            const response = await axios.get(`http://localhost:8080/api/result/${term}`, {
-                withCredentials: true,
-            })
-            // console.log(response.data.data);
-            setResult(response.data.data.markData[0])
-            setUser(response.data.data.userData)
-            setStudent(response.data.data.studentData)
-            // console.log(result)
-            calculateTotal(response.data.data.markData[0]);
-            setLoading(false);
+            if (term) {
+
+                setLoading(true);
+                const response = await axios.get(`http://localhost:8080/api/result/${term}`, {
+                    withCredentials: true,
+                })
+                // console.log(response.data.data);
+                setResult(response.data.data.markData[0])
+                setUser(response.data.data.userData)
+                setStudent(response.data.data.studentData)
+                // console.log(result)
+                calculateTotal(response.data.data.markData[0]);
+                setLoading(false);
+            } else {
+                toast.warning("Select term");
+            }
         } catch (error) {
             console.log(error)
         }
@@ -47,7 +53,12 @@ const ResultPage = () => {
         console.log(total)
     }
     const printResult = () => {
-        window.print();
+        if (result) {
+
+            window.print();
+        } else {
+            toast.error("No result to print")
+        }
     }
     const gradeToGPA = {
         "A": 4.0,

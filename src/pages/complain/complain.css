@@ -58,10 +58,14 @@ button{
     font-size: 24px;
     background-color: #37244163;
     color: wheat;
+    
     backdrop-filter: blur(10px);
     border-right: 1px solid white;
     border-bottom: 1px solid white;
     box-shadow: 4px 5px 20px 8px rgba(0,0,0,0.37);
+}
+#complain::placeholder{
+    color: wheat;
 }
 #complain :focus{
     outline: none;
