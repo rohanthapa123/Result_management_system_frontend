@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import "./teacher.css"
-import oip from "../../assets/OIP.jpeg"
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
-import { deleteUser, getTeachers } from '../../services/fetchFunction'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import oip from "../../assets/OIP.jpeg"
+import { deleteUser, getTeachers } from '../../services/fetchFunction'
+import "./teacher.css"
 const TeacherPage = () => {
   const [teachers, setTeacher] = useState();
   const getData = async () => {

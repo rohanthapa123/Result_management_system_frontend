@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./admin.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
 import { getAdminById } from '../../services/fetchFunction';
+import "./admin.css";
 const EditAdmin = () => {
     const navigate = useNavigate();
     const [validationError, setValidationError] = useState({

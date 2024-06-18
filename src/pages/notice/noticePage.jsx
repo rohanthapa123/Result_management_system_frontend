@@ -1,11 +1,11 @@
+import axios from 'axios'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
-import React, { useCallback, useEffect, useState } from 'react'
-import "./notice.css"
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { getNotices } from '../../services/fetchFunction'
 import { toast } from 'react-toastify'
+import { getNotices } from '../../services/fetchFunction'
+import "./notice.css"
 const NoticePage = () => {
     const [notices, setNotices] = useState();
 
@@ -60,7 +60,7 @@ const NoticePage = () => {
                 <tbody>
                     {
                         notices?.map((notice, index) => {
-                            return <tr key={notice.notice_id} className={index % 2 == 0 ? "even" : "odd"}>
+                            return <tr key={notice.notice_id} className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{notice.notice_text}</td>
                                 <td>{notice.date_posted}</td>
                                 <td><Link className={"link"} to={`edit/${notice.notice_id}`}><FaEdit size={20} color="green" /></Link> </td>

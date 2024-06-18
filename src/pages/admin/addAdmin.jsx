@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import "./admin.css"
 import axios from 'axios';
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
+import "./admin.css";
 const AddAdmin = () => {
     const navigate = useNavigate();
     const [validationError, setValidationError] = useState({

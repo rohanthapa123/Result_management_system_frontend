@@ -66,3 +66,11 @@ input , select{
     background-color: #c2c4c9bf;
     color: black;
 }
+
+.heading_edit{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+}

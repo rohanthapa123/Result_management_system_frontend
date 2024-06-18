@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import "./dashboardLayout.css"
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { PiStudent } from "react-icons/pi"
-import { MdAnnouncement, MdDashboard, MdLogout, MdReportProblem } from "react-icons/md";
 import axios from 'axios';
+import React from 'react';
+import { MdAnnouncement, MdDashboard, MdLogout, MdReportProblem } from "react-icons/md";
+import { PiStudent } from "react-icons/pi";
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/DashboardComponent/NavBar';
+import "./dashboardLayout.css";
 const StudentDashboardLayout = () => {
 
     const navigate = useNavigate();

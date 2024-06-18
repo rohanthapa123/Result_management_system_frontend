@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { getSubjects } from '../services/fetchFunction';
-import Select from 'react-select';
 
 const SubjectInput = ({ value, class_id, handleChange }) => {
     const [subjects, setSubjects] = useState();

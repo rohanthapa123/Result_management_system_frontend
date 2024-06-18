@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import "./class.css"
-import { deleteClass, getClass } from '../../services/fetchFunction';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa'
-import { MdDelete } from 'react-icons/md'
 import { toast } from 'react-toastify';
+import { deleteClass, getClass } from '../../services/fetchFunction';
+import "./class.css";
 const ClassPage = () => {
   const [classes, setClasses] = useState();
   const getData = async () => {

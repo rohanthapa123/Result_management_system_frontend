@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import "./subject.css"
 import axios from 'axios';
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import ClassInput from '../../components/ClassInput';
 import { toast } from 'react-toastify';
+import "./subject.css";
 const AddSubject = () => {
     const navigate = useNavigate();
 

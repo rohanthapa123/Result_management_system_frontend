@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import "./exam.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
+import { toast } from 'react-toastify';
 import ClassInput from '../../components/ClassInput';
 import SubjectInput from '../../components/SubjectInput';
 import { getExamById } from '../../services/fetchFunction';
-import { toast } from 'react-toastify';
+import "./exam.css";
 const EditExam = () => {
     const navigate = useNavigate();
     const { id } = useParams();

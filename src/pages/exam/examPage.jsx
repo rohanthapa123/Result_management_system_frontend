@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import "./exam.css"
-import { deleteExams, deleteSection, getExams } from '../../services/fetchFunction';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa'
-import { MdDelete } from 'react-icons/md'
-import ClassInput from '../../components/ClassInput';
 import { toast } from 'react-toastify';
+import ClassInput from '../../components/ClassInput';
+import { deleteExams, getExams } from '../../services/fetchFunction';
+import "./exam.css";
 const ExamPage = () => {
     const [exams, setExams] = useState();
     const [selectedClass, setSelectedClass] = useState();

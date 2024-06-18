@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./section.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import { getClass } from '../../services/fetchFunction';
 import { toast } from 'react-toastify';
+import { getClass } from '../../services/fetchFunction';
+import "./section.css";
 const AddSection = () => {
     const navigate = useNavigate();
     const [classes, setClasses] = useState();

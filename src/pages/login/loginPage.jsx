@@ -1,8 +1,8 @@
-import "./loginPage.css"
+import "./loginPage.css";
 
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");

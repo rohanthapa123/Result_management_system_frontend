@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import "./section.css"
-import { deleteSection, getClass, getSectionByClass } from '../../services/fetchFunction';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa'
-import { MdDelete } from 'react-icons/md'
-import ClassInput from '../../components/ClassInput';
 import { toast } from 'react-toastify';
-import { getSections } from '../../services/FetchFunctions/Section/SectionFetch';
+import ClassInput from '../../components/ClassInput';
 import Pagination from '../../components/pagination/Pagination';
+import { getSections } from '../../services/FetchFunctions/Section/SectionFetch';
+import { deleteSection } from '../../services/fetchFunction';
+import "./section.css";
 const SectionPage = () => {
   const [sections, setSections] = useState([]);
   const [choosedClass, setChoosedClass] = useState(null);

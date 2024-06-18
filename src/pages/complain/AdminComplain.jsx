@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { getComplains, solveComplain } from '../../services/fetchFunction';
-import "./complain.css"
+import "./complain.css";
 const AdminComplain = () => {
   const [complains, setComplains] = useState()
   const getComplainData = async () => {
@@ -10,8 +10,8 @@ const AdminComplain = () => {
   useEffect(() => {
     getComplainData();
   }, [])
-  const handleResolve = async (id) =>{
-    if(window.confirm("Are you sure you solved the problem?")){
+  const handleResolve = async (id) => {
+    if (window.confirm("Are you sure you solved the problem?")) {
       //update the database status for that complain 
       console.log(id)
       await solveComplain(id);
@@ -20,7 +20,7 @@ const AdminComplain = () => {
   }
   return (
     <>
-    <h1>Complains</h1>
+      <h2 className='heading_edit'>Complains</h2>
       <table>
         <thead>
           <tr>
@@ -34,13 +34,13 @@ const AdminComplain = () => {
         </thead>
         <tbody className='tbody'>
           {
-            complains?.map((complain , index) => {
-              return <tr key={complain.complain_id} className={complain.status ? index % 2 == 0 ? "even" : "odd" : 'red'}>
+            complains?.map((complain, index) => {
+              return <tr key={complain.complain_id} className={complain.status ? index % 2 === 0 ? "even" : "odd" : 'red'}>
 
                 <td>{complain.created_at}</td>
                 <td>{complain.fname} {complain.lname}</td>
                 <td>{complain.message}</td>
-                <td>{complain.status ? <span className='solved'>Solved</span> : <span className='pending'>Pending</span> }</td>
+                <td>{complain.status ? <span className='solved'>Solved</span> : <span className='pending'>Pending</span>}</td>
                 <td>{complain.status ? <button className='solvedBtn' disabled>Solved</button > : <button onClick={() => handleResolve(complain.complain_id)} className='pendingBtn' >Resolve</button>}</td>
               </tr>
 

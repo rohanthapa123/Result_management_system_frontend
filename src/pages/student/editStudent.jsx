@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import "./student.css"
-import { getClass, getSectionByClass, getSectionByID, getStudentById } from '../../services/fetchFunction';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import ClassInput from '../../components/ClassInput';
 import { toast } from 'react-toastify';
+import ClassInput from '../../components/ClassInput';
+import { getSectionByClass, getStudentById } from '../../services/fetchFunction';
+import "./student.css";
 const EditStudent = () => {
     const navigate = useNavigate();
     // const [classes, setClasses] = useState();

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { getClass, getExamByClass, getExams, getMarksOfClassByExam, getSectionByClass } from '../../../services/fetchFunction';
 import axios from 'axios';
-import "../markpage.css"
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { getClassAssignedToTeacher } from '../../../services/FetchFunctions/Class/ClassFetch';
+import { getClass, getExams, getMarksOfClassByExam } from '../../../services/fetchFunction';
+import "../markpage.css";
 const TeacherMarkPage = () => {
   const [classes, setClasses] = useState();
   const [exams, setExams] = useState();

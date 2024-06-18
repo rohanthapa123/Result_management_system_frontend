@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import "./subject.css"
-import { deleteSubject, getSubjects } from '../../services/fetchFunction';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa'
-import { MdDelete } from 'react-icons/md'
 import ClassInput from '../../components/ClassInput';
 import Pagination from '../../components/pagination/Pagination';
+import { deleteSubject, getSubjects } from '../../services/fetchFunction';
+import "./subject.css";
 // import { toast } from 'react-toastify';//ddone when fetching !!!
 const SubjectPage = () => {
     const [subjects, setSubjects] = useState();
     const [_class, setClass] = useState();
 
-    const [limit, setLimit] = useState(12);
+    const [limit] = useState(12);
     const [totalPages, setTotalPage] = useState(2);
     const [offset, setOffset] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
@@ -61,6 +61,7 @@ const SubjectPage = () => {
     // })
     useEffect(() => {
         getData(_class, limit, offset);
+        // eslint-disable-next-line
     }, [_class]);
     const handleDelete = useCallback(async (id) => {
         try {
@@ -71,6 +72,7 @@ const SubjectPage = () => {
         } catch (error) {
             console.log(error)
         }
+        // eslint-disable-next-line
     }, []);
     const handleChange = (e) => {
         console.log(e.target.value)
@@ -83,7 +85,7 @@ const SubjectPage = () => {
 
             <div className='heading_edit'>
 
-                <h1>Subjects</h1>
+                <h2>Subjects</h2>
                 <ClassInput handleChange={handleChange} small={true} />
                 <Link className="link" to={"add"}><button className="add">Add New Subject</button></Link>
             </div>
@@ -100,7 +102,7 @@ const SubjectPage = () => {
                 <tbody>
                     {
                         subjects?.map((subject, index) => {
-                            return <tr key={subject.subject_id} className={index % 2 == 0 ? "even" : "odd"}>
+                            return <tr key={subject.subject_id} className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{subject.subject_name}</td>
                                 <td>{subject.subject_code}</td>
                                 <td>{subject.desc}</td>

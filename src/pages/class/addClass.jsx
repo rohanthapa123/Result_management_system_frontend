@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./class.css"
 import axios from 'axios';
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
-import SubjectInput from '../../components/SubjectInput';
-import { getSubjects } from '../../services/fetchFunction';
-import Select from 'react-select';
 import MultipleSubject from '../../components/MultipleSubject';
+import "./class.css";
 const AddClass = () => {
     const navigate = useNavigate();
     

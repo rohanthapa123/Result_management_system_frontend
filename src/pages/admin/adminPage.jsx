@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import "./admin.css"
-import oip from "../../assets/OIP.jpeg"
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
-import { deleteUser, getAdmins } from '../../services/fetchFunction'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import oip from "../../assets/OIP.jpeg"
+import { deleteUser, getAdmins } from '../../services/fetchFunction'
+import "./admin.css"
 const AdminPage
   = () => {
     const [admins, setAdmins] = useState();

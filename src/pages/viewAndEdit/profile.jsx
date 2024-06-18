@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import oip from "../../assets/OIP.jpeg";
-import "./profile.css";
-import { FaEdit } from 'react-icons/fa';
-import { getMyDetails } from '../../services/fetchFunction';
 import axios from 'axios';
-import { LuUploadCloud } from "react-icons/lu"
+import React, { useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { LuUploadCloud } from "react-icons/lu";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import oip from "../../assets/OIP.jpeg";
+import { getMyDetails } from '../../services/fetchFunction';
+import "./profile.css";
 const Profile = () => {
   const navigate = useNavigate()
   const [userData, setUserData] = useState();

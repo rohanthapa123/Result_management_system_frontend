@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 import oiep from "../../assets/OIP.jpeg";
 import ClassInput from "../../components/ClassInput";
 import Search from "../../components/Search/Search";
+import SectionInput from "../../components/SectionInput";
 import { deleteUser, getStudents } from "../../services/fetchFunction";
 import "./student.css";
-import SectionInput from "../../components/SectionInput";
 const StudentPage = () => {
   const [students, setStudents] = useState();
   const [_class, setClass] = useState();
@@ -65,7 +65,7 @@ const StudentPage = () => {
         console.log(error);
       }
     }
-  }, []);
+  });
   const handleChange = (e) => {
     setClass(e.target.value);
   };
@@ -111,7 +111,7 @@ const StudentPage = () => {
     try {
       if (window.confirm("Are you sure to update ??")) {
 
-        const response = await axios.request({
+        await axios.request({
           url: `${process.env.REACT_APP_SERVER_URL}/api/users/bulkactionupdate`,
           method: 'PATCH',
           data: { userIds: Array.from(selectedStudent), newClass: toUpdateClass, newSection: toUpdateSection },
@@ -133,7 +133,7 @@ const StudentPage = () => {
     try {
       if (window.confirm("Are you sure to Delete all ??")) {
 
-        const response = await axios.request({
+        await axios.request({
           url: `${process.env.REACT_APP_SERVER_URL}/api/users/bulkactiondelete`,
           method: 'DELETE',
           data: { userIds: Array.from(selectedStudent) },
@@ -163,7 +163,7 @@ const StudentPage = () => {
           </div>
         </div> : null
       }
-      <div className="heading_edit">
+      <div className="heading_edit_student heading_edit">
 
         <h2>Students</h2>
         {
@@ -212,7 +212,7 @@ const StudentPage = () => {
           {students?.map((student, index) => {
             return (
               <tr
-                className={index % 2 == 0 ? "even" : "odd"}
+                className={index % 2 === 0 ? "even" : "odd"}
                 key={student.student_id}
               >
                 <td>

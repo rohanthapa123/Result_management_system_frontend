@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import "./class.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import { getClassById } from '../../services/fetchFunction';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
+import { getClassById } from '../../services/fetchFunction';
+import "./class.css";
 const EditClass = () => {
     const navigate = useNavigate();
     const { id } = useParams();

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { getMyComplains } from '../../services/fetchFunction';
-import "./complain.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { IoMdSend } from 'react-icons/io';
 import Spinner from '../../components/loader/Spinner';
+import { getMyComplains } from '../../services/fetchFunction';
+import "./complain.css";
 const StudentComplain = () => {
   const [complains, setComplains] = useState();
   const [loading, setLoading] = useState(false)

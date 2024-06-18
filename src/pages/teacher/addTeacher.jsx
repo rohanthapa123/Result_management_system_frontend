@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import "./teacher.css"
 import axios from 'axios';
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import SubjectInput from '../../components/SubjectInput';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
+import "./teacher.css";
 const AddTeacher = () => {
     const navigate = useNavigate();
     const [selectedOptions, setSelectedOptions] = useState();

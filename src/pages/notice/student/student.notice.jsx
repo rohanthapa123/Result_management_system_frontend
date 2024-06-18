@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import OpenNotice from '../../../components/OpenNotice/OpenNotice'
-import { getClassNotice, getNotices } from '../../../services/fetchFunction';
+import { getNotices } from '../../../services/fetchFunction';
 import Spinner from '../../../components/loader/Spinner';
-
+import "./studentNotice.css"
 const StudentNotice = () => {
   const [classNotice, setClassNotice] = useState();
   const [loading, setLoading] = useState(false)

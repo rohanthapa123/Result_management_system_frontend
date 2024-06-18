@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import "./dashboardLayout.css"
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { PiExam } from "react-icons/pi"
-import { MdAnnouncement, MdDashboard, MdFlightClass, MdLogout, MdReportProblem } from "react-icons/md";
 import axios from 'axios';
-import NavBar from '../components/DashboardComponent/NavBar';
+import React from 'react';
 import { FaXmarksLines } from 'react-icons/fa6';
+import { MdAnnouncement, MdDashboard, MdLogout } from "react-icons/md";
+import { PiExam } from "react-icons/pi";
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import NavBar from '../components/DashboardComponent/NavBar';
+import "./dashboardLayout.css";
 const TeacherDashboardLayout = () => {
 
     const navigate = useNavigate();

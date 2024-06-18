@@ -1,8 +1,8 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import "./result.css"
-import Spinner from '../../../components/loader/Spinner';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import Spinner from '../../../components/loader/Spinner';
+import "./result.css";
 const ResultPage = () => {
     const [term, setTerm] = useState();
     const [result, setResult] = useState();

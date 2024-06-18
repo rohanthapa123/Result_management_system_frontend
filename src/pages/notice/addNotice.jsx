@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./notice.css"
-import axios from 'axios'
+import axios from 'axios';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import "./notice.css";
 // import { getClass } from '../../services/fetchFunction';
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { toast } from 'react-toastify';
-import { IoMdArrowRoundBack } from "react-icons/io"
 import MultiClass from '../../components/MultiClass';
 const AddNotice = ({ role }) => {
     // const [classes, setClasses] = useState();

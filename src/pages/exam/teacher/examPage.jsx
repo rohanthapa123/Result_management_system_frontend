@@ -1,6 +1,6 @@
-import React, {  useEffect, useState } from 'react'
-import "../exam.css"
+import React, { useEffect, useState } from 'react';
 import { getExamForTeacher } from '../../../services/fetchFunction';
+import "../exam.css";
 const TeacherExamPage = () => {
     const [exams, setExams] = useState([]);
 

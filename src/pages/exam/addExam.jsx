@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./exam.css"
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import ClassInput from '../../components/ClassInput';
 import SubjectInput from '../../components/SubjectInput';
+import "./exam.css";
 const AddExam = () => {
     const navigate = useNavigate();
     const [examData, setExamData] = useState({

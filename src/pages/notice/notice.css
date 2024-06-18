@@ -1,8 +1,9 @@
 .heading_edit{
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     height: 80px;
+    width: 100%;
 }
 table{
     width: 100%;

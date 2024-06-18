@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import "./dashboard.css"
-import { chart as ChartJS, defaults } from "chart.js/auto"
-import { Bar, Line } from 'react-chartjs-2'
 import axios from 'axios';
+import { defaults } from "chart.js/auto";
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import "./dashboard.css";
 
 defaults.maintainAspectRatio = true;
 defaults.responsive = true;

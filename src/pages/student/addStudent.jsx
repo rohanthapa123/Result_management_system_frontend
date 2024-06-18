@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import "./student.css"
-import { getClass, getSectionByClass } from '../../services/fetchFunction';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
+import { getClass, getSectionByClass } from '../../services/fetchFunction';
+import "./student.css";
 const AddStudent = () => {
     const navigate = useNavigate();
     const [classes, setClasses] = useState();
