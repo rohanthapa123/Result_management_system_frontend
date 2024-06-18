@@ -15,26 +15,26 @@ defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = "black";
 defaults.plugins.title.align = "start";
 
+const colors = [
+    'rgba(255, 99, 132, 0.7)',  // light red
+    'rgba(54, 162, 235, 0.7)',  // light blue
+    'rgba(75, 192, 192, 0.7)',  // light green
+    'rgba(153, 102, 255, 0.7)', // light purple
+    'rgba(255, 159, 64, 0.7)'   // light orange
+];
+
+const borderColor = [
+    'red',  // red
+    'blue',  // blue
+    'green',  // green
+    'purple', // purple
+    'orange'   // orange
+];
 const StudentDashboard = () => {
 
     const [terms, setTerms] = useState()
     const [marks, setMarks] = useState()
     const [allTermMarks, setAllTermMarks] = useState()
-    const colors = [
-        'rgba(255, 99, 132, 0.7)',  // light red
-        'rgba(54, 162, 235, 0.7)',  // light blue
-        'rgba(75, 192, 192, 0.7)',  // light green
-        'rgba(153, 102, 255, 0.7)', // light purple
-        'rgba(255, 159, 64, 0.7)'   // light orange
-    ];
-
-    const borderColor = [
-        'red',  // red
-        'blue',  // blue
-        'green',  // green
-        'purple', // purple
-        'orange'   // orange
-    ];
 
     // const getTerminalData = async (e) => {
 
@@ -105,7 +105,7 @@ const StudentDashboard = () => {
     //         // console.log(res)
     //         setTerms(res.data.data)
     //     }
-        
+
     //     getTerms();
     //     getTerminalData()
     //     getAllTermMarks();
@@ -226,9 +226,9 @@ const StudentDashboard = () => {
                                     borderRadius: 15,
                                 }}
                                 options={{
-                                    plugins:{
-                                        title:{
-                                            text : "Semester Performance"
+                                    plugins: {
+                                        title: {
+                                            text: "Semester Performance"
                                         }
                                     }
                                 }}
