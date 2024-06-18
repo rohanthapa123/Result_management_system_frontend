@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getClass, getSubjects } from '../services/fetchFunction';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { getClass } from '../services/fetchFunction';
 // import Select from 'react-select';
 
 const MultiClass = ({ selectedOptions, handleChangeClass }) => {

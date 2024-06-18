@@ -57,12 +57,12 @@ const TeacherMarkPage = () => {
         grade = "F"
       }
       setResult(prev => prev.map((student) => {
-        return student.student_id == student_id ? { ...student, [name]: value, grade: grade, remarks: remarks } : student;
+        return student.student_id === student_id ? { ...student, [name]: value, grade: grade, remarks: remarks } : student;
       }))
     }
 
     setResult(prev => prev.map((student) => {
-      return student.student_id == student_id ? { ...student, [name]: value } : student;
+      return student.student_id === student_id ? { ...student, [name]: value } : student;
     }))
     console.log(result)
   }
@@ -89,7 +89,7 @@ const TeacherMarkPage = () => {
         const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/insertMarks`, {result , class: selectedClass}, {
           withCredentials: true,
         });
-        if (response.status == 200) {
+        if (response.status === 200) {
           // window.alert("Successfully inserted marks");
           toast.success("Marks inserted successfully");
         }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -40,22 +40,22 @@ const EditExam = () => {
         })
 
     }
+    const getData = useCallback(async () => {
+        const result = await getExamById(id);
+        console.log("result", result)
+        const filteredData = {
+            exam_name: result[0].exam_name,
+            class_id: result[0].class_id,
+            subject_id: result[0].subject_id,
+            exam_date: result[0].exam_date,
+            term: result[0].term,
+            exam_id : id,
+        }
+        setExamData(filteredData)
+    },[id])
     useEffect(() => {
-        const getData = async () => {
-            const result = await getExamById(id);
-            console.log("result", result)
-            const filteredData = {
-                exam_name: result[0].exam_name,
-                class_id: result[0].class_id,
-                subject_id: result[0].subject_id,
-                exam_date: result[0].exam_date,
-                term: result[0].term,
-                exam_id : id,
-            }
-            setExamData(filteredData)
-        };
         getData();
-    }, [])
+    }, [getData])
     return (
         <div>
             <div className='backmenu'>

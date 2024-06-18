@@ -11,7 +11,7 @@ import "./section.css";
 const SectionPage = () => {
   const [sections, setSections] = useState([]);
   const [choosedClass, setChoosedClass] = useState(null);
-  const [limit, setLimit] = useState(12);
+  const [limit] = useState(12);
   const [totalPages, setTotalPage] = useState();
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,7 +77,7 @@ const SectionPage = () => {
     // console.log("running")
     getSection(choosedClass, limit, offset);
     // }
-  }, [choosedClass])
+  }, [choosedClass , limit, offset])
   return (
     <>
       <div className='heading_edit'>
@@ -100,7 +100,7 @@ const SectionPage = () => {
         <tbody>
           {
             sections?.map((section, index) => {
-              return <tr key={section.section_id} className={index % 2 == 0 ? "even" : "odd"}>
+              return <tr key={section.section_id} className={index % 2 === 0 ? "even" : "odd"}>
                 <td>{section.section_name}</td>
                 <td>{section.section_capacity}</td>
                 <td className='action'><Link to={`edit/${section.section_id}`}><FaEdit size={20} color="green" /></Link></td>

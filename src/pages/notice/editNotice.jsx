@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,7 +8,6 @@ import { getNoticeById } from '../../services/fetchFunction';
 import "./notice.css";
 const EditNotice = ({ role }) => {
     const { id } = useParams();
-    const [classes, setClasses] = useState();
 
     const [selectedOptions, setSelectedOptions] = useState();
     const [noticeData, setNoticeData] = useState({
@@ -17,7 +16,7 @@ const EditNotice = ({ role }) => {
         notice_id : id,
     })
     const navigate = useNavigate()
-    const getData = async () => {
+    const getData = useCallback(async () => {
         console.log(id)
 
         // const classData = await getClass();
@@ -25,10 +24,10 @@ const EditNotice = ({ role }) => {
         const noticeData = await getNoticeById(id);
         setNoticeData(noticeData[0]);
         setSelectedOptions(noticeData[0].class)
-    }
+    },[id])
     useEffect(() => {
         getData();
-    }, [])
+    }, [getData])
     const updateNotice = async (e) => {
         e.preventDefault();
         try {

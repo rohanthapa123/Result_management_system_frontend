@@ -354,7 +354,7 @@ export const deleteSubject = async (id) => {
       toast.error("This subject cannot be deleted");
     }
     return error;
-    console.log(error);
+    // console.log(error);
   }
 };
 

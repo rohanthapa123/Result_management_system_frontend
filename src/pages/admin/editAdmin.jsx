@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -67,14 +67,14 @@ const EditAdmin = () => {
             })
         }
     }
+    const getData = useCallback(async () => {
+        const result = await getAdminById(id);
+        console.log(result);
+        setAdminData(result[0]);
+    },[id]);
     useEffect(() => {
-        const getData = async () => {
-            const result = await getAdminById(id);
-            console.log(result);
-            setAdminData(result[0]);
-        }
         getData();
-    }, [])
+    }, [getData])
 
     return (
         <div>

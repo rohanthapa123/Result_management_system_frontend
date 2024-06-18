@@ -84,7 +84,7 @@ const Profile = () => {
           <h3 className='topic'>Change Picture</h3>
           <label className='uploadLabel' htmlFor="change_picture">
             <div className='input'>
-              {file && <img src={URL.createObjectURL(file)} className='previewImage' />}
+              {file && <img src={URL.createObjectURL(file)} className='previewImage' alt='profileprofile' />}
               <LuUploadCloud size={50} color='green' style={{ margin: 'auto' }} />
               <p>{file?.name}</p>
             </div>

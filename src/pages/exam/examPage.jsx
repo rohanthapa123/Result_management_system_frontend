@@ -71,7 +71,7 @@ const ExamPage = () => {
                 <tbody>
                     {
                         exams?.map((exam, index) => {
-                            return <tr key={exam.exam_id} className={index % 2 == 0 ? "even" : "odd"}>
+                            return <tr key={exam.exam_id} className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{exam.exam_name}</td>
                                 <td>{exam.class_name}</td>
                                 <td>{exam.subject_name}</td>

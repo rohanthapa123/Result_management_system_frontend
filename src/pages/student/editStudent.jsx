@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -57,13 +57,13 @@ const EditStudent = () => {
             })
         }
     }
-    const getStudentData = async () => {
+    const getStudentData = useCallback(async () => {
         // const classData = await getClass();
         // setClasses(classData)
         const result = await getStudentById(id);
         // console.log(result[0])
         setStudentData({ ...result[0], role: "student" })
-    }
+    },[id])
     const getSectionData = async (class_id) => {
         if (class_id) {
 
@@ -73,7 +73,7 @@ const EditStudent = () => {
     }
     useEffect(() => {
         getStudentData();
-    }, [])
+    }, [getStudentData])
     useEffect(() => {
         getSectionData(studentData.class_id);
     }, [studentData.class_id])

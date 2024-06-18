@@ -59,7 +59,7 @@ const StudentComplain = () => {
           <tbody className='tbody'>
             {
               complains?.map((complain, index) => {
-                return <tr key={complain.complain_id} className={complain.status ? index % 2 == 0 ? "even" : "odd" : 'red'}>
+                return <tr key={complain.complain_id} className={complain.status ? index % 2 === 0 ? "even" : "odd" : 'red'}>
 
                   <td>{complain.created_at}</td>
                   <td>{complain.message}</td>

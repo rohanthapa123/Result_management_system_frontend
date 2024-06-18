@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -35,22 +35,24 @@ const EditClass = () => {
         })
 
     }
-    useEffect(() => {
-        const getData = async () => {
-            const result = await getClassById(id)
-            console.log("result", result)
-            const filteredData = {
-                class_name: result[0].class_name,
-                desc: result[0].desc,
-                academic_year: result[0].academic_year,
-                subjects : result[0].subjects,
-                class_id: result[0].class_id
-            }
-            setSelectedOptions(result[0].subjects)
-            setClassData(filteredData);
+    const getData = useCallback(async () => {
+        const result = await getClassById(id)
+        console.log("result", result)
+        const filteredData = {
+            class_name: result[0].class_name,
+            desc: result[0].desc,
+            academic_year: result[0].academic_year,
+            subjects : result[0].subjects,
+            class_id: result[0].class_id
         }
+        setSelectedOptions(result[0].subjects)
+        setClassData(filteredData);
+    },[id]);
+    
+    useEffect(() => {
         getData();
-    }, [])
+    }, [getData])
+
     const handleChangeSubject = (selectedOptions) =>{
         setSelectedOptions(selectedOptions);
         console.log(selectedOptions)

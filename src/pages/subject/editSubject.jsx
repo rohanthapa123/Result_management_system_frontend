@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -47,22 +47,22 @@ const EditSubject = () => {
         })
 
     }
-    useEffect(() => {
-        const getData = async () => {
-            const result = await getSubjectsById(id);
-            console.log("result", result[0])
-            const filterData = {
-                subject_name: result[0].subject_name,
-                subject_code: result[0].subject_code,
-                class_id: result[0].class_id,
-                subject_id: result[0].subject_id,
-            }
-            setSubjectData(filterData)
-
-
+    const getData = useCallback( async () => {
+        const result = await getSubjectsById(id);
+        console.log("result", result[0])
+        const filterData = {
+            subject_name: result[0].subject_name,
+            subject_code: result[0].subject_code,
+            desc: result[0].desc,
+            subject_id: result[0].subject_id,
         }
+        setSubjectData(filterData)
+
+
+    },[id])
+    useEffect(() => {
         getData();
-    }, [])
+    }, [getData])
     return (
         <div>
             <div className='backmenu'>
@@ -86,7 +86,7 @@ const EditSubject = () => {
                 </div>
                 <div className='input-container'>
 
-                    <label htmlFor="cid">Class</label>
+                    <label htmlFor="cid">Description</label>
                     <input value={subjectData.desc} onChange={handleChange} id='desc' type="text" name="desc" placeholder='Enter description' />
                 </div>
                 <button className='btn'>Submit</button>

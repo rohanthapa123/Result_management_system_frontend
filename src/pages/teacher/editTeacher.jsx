@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -62,33 +62,33 @@ const EditTeacher = () => {
             })
         }
     }
-    useEffect(() => {
-        const getData = async () => {
-            const result = await getTeacherById(id);
-            console.log("result", result)
-            const filteredData = {
-                fname: result[0].fname,
-                mname: result[0].mname,
-                lname: result[0].lname,
-                dob: result[0].dob,
-                gender: result[0].gender,
-                primary_contact: result[0].primary_contact,
-                secondary_contact: result[0].secondary_contact,
-                temporary_address: result[0].temporary_address,
-                permanent_address: result[0].permanent_address,
-                email: result[0].email,
-                subjects: result[0].subjects,
-                role: 'teacher',
-                teacher_id: id,
-                user_id: result[0].user_id
+    const getData = useCallback(async () => {
+        const result = await getTeacherById(id);
+        console.log("result", result)
+        const filteredData = {
+            fname: result[0].fname,
+            mname: result[0].mname,
+            lname: result[0].lname,
+            dob: result[0].dob,
+            gender: result[0].gender,
+            primary_contact: result[0].primary_contact,
+            secondary_contact: result[0].secondary_contact,
+            temporary_address: result[0].temporary_address,
+            permanent_address: result[0].permanent_address,
+            email: result[0].email,
+            subjects: result[0].subjects,
+            role: 'teacher',
+            teacher_id: id,
+            user_id: result[0].user_id
 
-            }
-            setSelectedOptions(result[0].subjects)
-            setTeacherData(filteredData);
-            // setSubjects(data)
         }
+        setSelectedOptions(result[0].subjects)
+        setTeacherData(filteredData);
+        // setSubjects(data)
+    },[id])
+    useEffect(() => {
         getData();
-    }, [])
+    }, [getData])
 
     return (
         <div>

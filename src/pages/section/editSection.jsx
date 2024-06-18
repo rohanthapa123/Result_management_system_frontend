@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -42,15 +42,15 @@ const EditSection = () => {
         })
 
     }
+    const getData = useCallback(async () => {
+        const result = await getSectionByID(id);
+        console.log(result)
+        setSectionData(result[0]);
+        // setClasses(data)
+    },[id])
     useEffect(() => {
-        const getData = async () => {
-            const result = await getSectionByID(id);
-            console.log(result)
-            setSectionData(result[0]);
-            // setClasses(data)
-        }
         getData();
-    }, [])
+    }, [getData])
     return (
         <div>
             <div className='backmenu'>

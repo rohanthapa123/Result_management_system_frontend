@@ -29,7 +29,7 @@ const StudentPage = () => {
     };
   };
 
-  const getData = async (id) => {
+  const getData = useCallback(async (id) => {
     if (id) {
       const data = await getStudents(id);
       setStudents(data);
@@ -43,10 +43,10 @@ const StudentPage = () => {
         setStudents(data);
       }
     }
-  };
+  },[_class])
   useEffect(() => {
     getData(_class);
-  }, [_class]);
+  }, [getData]);
 
   const debouncedSearch = useCallback(
     debounce(async (text) => {
@@ -56,7 +56,7 @@ const StudentPage = () => {
     [_class]
   );
 
-  const handleDelete = useCallback(async (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure to Delete?")) {
       try {
         await deleteUser(id);
@@ -65,7 +65,7 @@ const StudentPage = () => {
         console.log(error);
       }
     }
-  });
+  };
   const handleChange = (e) => {
     setClass(e.target.value);
   };

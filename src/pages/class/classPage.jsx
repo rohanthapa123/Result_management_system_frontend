@@ -47,7 +47,7 @@ const ClassPage = () => {
         <tbody>
           {
             classes?.map((_class, index) => {
-              return <tr key={_class.class_id} className={index % 2 == 0 ? "even" : "odd"}>
+              return <tr key={_class.class_id} className={index % 2 === 0 ? "even" : "odd"}>
                 <td>{_class.class_name}</td>
                 <td>{_class.desc}</td>
                 <td>{_class.academic_year}</td>

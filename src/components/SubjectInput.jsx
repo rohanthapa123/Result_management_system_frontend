@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { getSubjects } from '../services/fetchFunction';
 
 const SubjectInput = ({ value, class_id, handleChange }) => {
     const [subjects, setSubjects] = useState();
     // const [_class_id , setClassId] = useState(value)
-    const getData = async () => {
-        // console.log(_class_id)
-        if (class_id) {
-
-            const data = await getSubjects(class_id, 100, 0);
-            setSubjects(data.result)
-            console.log(data)
-        } else {
-            const data = await getSubjects(null, 100, 0);
-            // setSubjects(data)
-            setSubjects(data.result)
-            console.log(data)
-
+    const getData = useCallback(async () => {
+        try {
+            let data;
+            if (class_id) {
+                data = await getSubjects(class_id, 100, 0);
+            } else {
+                data = await getSubjects(null, 100, 0);
+            }
+            setSubjects(data.result);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching subjects:', error);
         }
-    }
+    }, [class_id]);
+
     useEffect(() => {
         getData();
-    }, [class_id])
+    }, [getData]);
     return (
         <>
 
-            <select value={value} className='selectBox' name="subject_id" id="class"  onChange={handleChange}>
+            <select value={value} className='selectBox' name="subject_id" id="class" onChange={handleChange}>
 
                 <option value={''}>Choose Subject</option>
                 {

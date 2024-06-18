@@ -22,7 +22,7 @@ const AddExam = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(examData)
-        const response = axios.post(`${process.env.REACT_APP_SERVER_URL}/api/exam`, examData, {
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/exam`, examData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

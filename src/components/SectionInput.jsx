@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import "./component.css";
 import { getSectionByClass } from '../services/fetchFunction';
 
 const SectionInput = ({ value, small, class_id, handleChange }) => {
     const [sections, setSections] = useState();
 
-    const getData = async () => {
-        if (class_id) {
+   
 
+    const getData = useCallback(async () => {
+        if (class_id) {
             const data = await getSectionByClass(class_id);
             console.log(data)
-            setSections(data)
+            setSections(data);
         }
-    }
+    }, [class_id]);
+
     useEffect(() => {
         getData();
-    }, [class_id])
+    }, [getData]);
+
     return (
         <select value={value} className={`${small ? "small" : ''} selectBox`} name="class_id" id="class" onChange={handleChange}>
 
