@@ -4,7 +4,7 @@ export const getSections = async (id, limit, offset) => {
   try {
     if (id) {
       const response = await axios.get(
-        `http://localhost:8080/api/section/?class_id=${id}&limit=${limit}&offset=${offset}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/section/?class_id=${id}&limit=${limit}&offset=${offset}`,
         {
           withCredentials: true,
         }
@@ -13,7 +13,7 @@ export const getSections = async (id, limit, offset) => {
       return response.data.data;
     } else {
       const response = await axios.get(
-        `http://localhost:8080/api/section/?limit=${limit}&offset=${offset}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/section/?limit=${limit}&offset=${offset}`,
         {
           withCredentials: true,
         }

@@ -1,11 +1,8 @@
 import "./loginPage.css"
 
-import image from "../../assets/sms image.png"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import OpenNotice from "../../components/OpenNotice/OpenNotice";
-import ScrollingNotice from "../../components/OpenNotice/ScrollingNotice/ScrollingNotice";
 const LoginPage = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
@@ -23,7 +20,7 @@ const LoginPage = () => {
         event.preventDefault();
         try {
 
-            const response = await axios.post("http://localhost:8080/api/login", values, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -61,7 +58,7 @@ const LoginPage = () => {
     useEffect(() => {
         const checkAuthStatus = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/check-auth", { withCredentials: true });
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/check-auth`, { withCredentials: true });
 
                 if (response.data.authenticated) {
                     navigate(`/${response.data.role}/dashboard`);

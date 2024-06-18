@@ -21,7 +21,7 @@ const EditClass = () => {
         console.log(classData)
         // alert("Form can be submitted")
 
-        axios.patch("http://localhost:8080/api/class/edit", classData, {
+        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/class/edit`, classData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

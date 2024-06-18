@@ -3,7 +3,7 @@ import axios from "axios";
 export const getAllMarksOfClassByExam = async (class_id, term) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/viewmark/?class_id=${class_id}&term=${term}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/viewmark/?class_id=${class_id}&term=${term}`,
       {
         withCredentials: true,
       }

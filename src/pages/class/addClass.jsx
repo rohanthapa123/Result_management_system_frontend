@@ -34,7 +34,7 @@ const AddClass = () => {
         console.log(classData)
         // alert("Form can be submitted")
 
-        axios.post("http://localhost:8080/api/class", classData, {
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/class`, classData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

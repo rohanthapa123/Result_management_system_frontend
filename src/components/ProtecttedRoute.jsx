@@ -9,7 +9,7 @@ const ProtectedRoute = ({ Component, permittedRole }) => {
     const checkAuthentication = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/check-auth",
+          `${process.env.REACT_APP_SERVER_URL}/api/check-auth`,
           { withCredentials: true }
         );
         // console.log(response.data.role)

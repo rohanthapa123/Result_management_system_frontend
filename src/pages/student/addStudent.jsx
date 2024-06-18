@@ -59,7 +59,7 @@ const AddStudent = () => {
             console.log(studentData)
             // alert("Form can be submitted")
 
-            axios.post("http://localhost:8080/api/register", studentData, {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, studentData, {
                 withCredentials: true,
             }).then(response => {
                 console.log(response.data)

@@ -25,7 +25,7 @@ const AddSection = () => {
         console.log(sectionData)
         // alert("Form can be submitted")
 
-        const response = axios.post("http://localhost:8080/api/section", sectionData, {
+        const response = axios.post(`${process.env.REACT_APP_SERVER_URL}/api/section`, sectionData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

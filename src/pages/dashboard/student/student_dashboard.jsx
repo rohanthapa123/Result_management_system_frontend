@@ -4,9 +4,16 @@ import { chart as ChartJS, defaults } from "chart.js/auto"
 import { Bar, Line } from 'react-chartjs-2'
 import axios from 'axios';
 
+defaults.maintainAspectRatio = true;
 defaults.responsive = true;
 defaults.color = "black";
-defaults.scales.color = "black"
+defaults.scales.color = "black";
+defaults.font.size = 15;
+
+defaults.plugins.title.display = true;
+defaults.plugins.title.font.size = 20;
+defaults.plugins.title.color = "black";
+defaults.plugins.title.align = "start";
 
 const StudentDashboard = () => {
 
@@ -33,13 +40,13 @@ const StudentDashboard = () => {
 
         // console.log(e.target.value)
         let res;
-        if(e?.target?.value){
+        if (e?.target?.value) {
 
-            res = await axios.get(`http://localhost:8080/api/terminalMarks/${e.target.value}`, {
+            res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/terminalMarks/${e.target.value}`, {
                 withCredentials: true,
             });
-        } else{
-            res = await axios.get(`http://localhost:8080/api/terminalMarks/1`, {
+        } else {
+            res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/terminalMarks/1`, {
                 withCredentials: true,
             });
         }
@@ -66,7 +73,7 @@ const StudentDashboard = () => {
         // console.log(marks)
     }
     const getAllTermMarks = async () => {
-        const res = await axios.get("http://localhost:8080/api/allterminalmarks", {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/allterminalmarks`, {
             withCredentials: true,
         });
         // console.log(res.data.data[0])
@@ -92,7 +99,7 @@ const StudentDashboard = () => {
 
     useEffect(() => {
         const getTerms = async () => {
-            const res = await axios.get("http://localhost:8080/api/terms", {
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/terms`, {
                 withCredentials: true,
             });
             // console.log(res)
@@ -120,7 +127,11 @@ const StudentDashboard = () => {
                             }}
                             options={{
                                 indexAxis: 'y',
-
+                                plugins: {
+                                    title: {
+                                        text: "Terminal Performance"
+                                    }
+                                }
                             }}
                         /> : <h1>Select Term:No data available</h1>
                 }
@@ -143,6 +154,13 @@ const StudentDashboard = () => {
                                     labels: ["1st term", "Mid term", "Final term"],
                                     datasets: allTermMarks,
                                     borderRadius: 15,
+                                }}
+                                options={{
+                                    plugins:{
+                                        title:{
+                                            text : "Semester Performance"
+                                        }
+                                    }
                                 }}
                             /> : <h1>No data</h1>
                     }

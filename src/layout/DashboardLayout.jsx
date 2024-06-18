@@ -13,7 +13,7 @@ const DashboardLayout = () => {
     const params = useParams();
     const location = useLocation();
     const handleLogout = async () => {
-        await axios.post("http://localhost:8080/api/logout", null, {
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
             withCredentials: true,
         })
         localStorage.clear();

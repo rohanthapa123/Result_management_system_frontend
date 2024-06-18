@@ -87,7 +87,7 @@ const TeacherMarkPage = () => {
     try {
       if (window.confirm("Confirm your marks")) {
 
-        const response = await axios.post(`http://localhost:8080/api/insertMarks`, {result , class: selectedClass}, {
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/insertMarks`, {result , class: selectedClass}, {
           withCredentials: true,
         });
         if (response.status == 200) {

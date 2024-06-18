@@ -23,7 +23,7 @@ const StudentComplain = () => {
     e.preventDefault();
     if (window.confirm("Did you mentioned your problem correctly?")) {
       //update the database status for that complain 
-      axios.post("http://localhost:8080/api/complain", complainData, {
+      axios.post(`${process.env.REACT_APP_SERVER_URL}/api/complain`, complainData, {
         withCredentials: true,
       }).then((response) => {
         console.log(response);

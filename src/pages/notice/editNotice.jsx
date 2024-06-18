@@ -33,7 +33,7 @@ const EditNotice = ({ role }) => {
         e.preventDefault();
         try {
             // console.log()
-            const response = await axios.patch("http://localhost:8080/api/notice/update", noticeData, {
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/notice/update`, noticeData, {
                 withCredentials: true,
             })
             if (response.status === 200) {

@@ -52,7 +52,7 @@ const EditAdmin = () => {
             console.log(adminData)
             // alert("Form can be submitted")
 
-            axios.patch("http://localhost:8080/api/update", adminData, {
+            axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/update`, adminData, {
                 withCredentials: true,
             }).then(response => {
                 console.log(response.data)

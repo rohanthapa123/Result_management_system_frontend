@@ -30,7 +30,7 @@ const AddSubject = () => {
         console.log(subjectData)
         // alert("Form can be submitted")
 
-        axios.post("http://localhost:8080/api/subject", subjectData, {
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/subject`, subjectData, {
             withCredentials: true,
         }).then(response => {
             // console.log(response.data)

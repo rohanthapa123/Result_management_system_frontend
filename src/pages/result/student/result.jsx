@@ -17,7 +17,7 @@ const ResultPage = () => {
             if (term) {
 
                 setLoading(true);
-                const response = await axios.get(`http://localhost:8080/api/result/${term}`, {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/result/${term}`, {
                     withCredentials: true,
                 })
                 // console.log(response.data.data);

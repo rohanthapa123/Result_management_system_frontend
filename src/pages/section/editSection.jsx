@@ -28,7 +28,7 @@ const EditSection = () => {
         console.log(sectionData)
         // alert("Form can be submitted")
 
-        axios.patch("http://localhost:8080/api/section/edit", sectionData, {
+        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/section/edit`, sectionData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

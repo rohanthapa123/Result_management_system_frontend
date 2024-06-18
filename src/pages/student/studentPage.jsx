@@ -112,7 +112,7 @@ const StudentPage = () => {
       if (window.confirm("Are you sure to update ??")) {
 
         const response = await axios.request({
-          url: 'http://localhost:8080/api/users/bulkactionupdate',
+          url: `${process.env.REACT_APP_SERVER_URL}/api/users/bulkactionupdate`,
           method: 'PATCH',
           data: { userIds: Array.from(selectedStudent), newClass: toUpdateClass, newSection: toUpdateSection },
           withCredentials: true,
@@ -134,7 +134,7 @@ const StudentPage = () => {
       if (window.confirm("Are you sure to Delete all ??")) {
 
         const response = await axios.request({
-          url: 'http://localhost:8080/api/users/bulkactiondelete',
+          url: `${process.env.REACT_APP_SERVER_URL}/api/users/bulkactiondelete`,
           method: 'DELETE',
           data: { userIds: Array.from(selectedStudent) },
           withCredentials: true,
@@ -229,7 +229,7 @@ const StudentPage = () => {
                   <img
                     src={
                       student.image
-                        ? `http://localhost:8080/api/images/${student.image}`
+                        ? `${process.env.REACT_APP_SERVER_URL}/api/images/${student.image}`
                         : oiep
                     }
                     height={50}

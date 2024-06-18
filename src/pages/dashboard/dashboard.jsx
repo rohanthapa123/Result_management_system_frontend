@@ -8,7 +8,7 @@ const Dashboard = () => {
     const [resetEmail, setResetEmail] = useState();
     useEffect(() => {
         const fetchRoleCount = async () => {
-            await axios.get("http://localhost:8080/api/users/count", {
+            await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/count`, {
                 withCredentials: true,
             }).then((response) => {
                 // console.log
@@ -24,7 +24,7 @@ const Dashboard = () => {
         if (window.confirm(`Are you sure to reset password for ${resetEmail}`)) {
             // console.log(resetEmail)
             try {
-                await axios.post(`http://localhost:8080/api/resetpassword`, {
+                await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/resetpassword`, {
                     email: resetEmail
                 }, {
                     withCredentials: true,

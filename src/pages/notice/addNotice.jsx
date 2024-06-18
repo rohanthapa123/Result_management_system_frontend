@@ -26,7 +26,7 @@ const AddNotice = ({ role }) => {
         e.preventDefault();
         try {
             // console.log()
-            const response = await axios.post("http://localhost:8080/api/notice", noticeData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/notice`, noticeData, {
                 withCredentials: true,
             })
             toast.success("Notice Added Succussfully")

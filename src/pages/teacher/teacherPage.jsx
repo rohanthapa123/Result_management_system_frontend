@@ -50,7 +50,7 @@ const TeacherPage = () => {
           {
             teachers?.map((teacher, index) => {
               return <tr className={index % 2 == 0 ? "even" : "odd"} key={teacher.teacher_id}>
-                <td><img src={teacher.image ? `http://localhost:8080/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
+                <td><img src={teacher.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
                 <td>{teacher.fname}</td>
                 <td>{teacher.mname}</td>
                 <td>{teacher.lname}</td>

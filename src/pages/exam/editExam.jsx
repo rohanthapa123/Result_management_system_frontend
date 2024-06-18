@@ -26,7 +26,7 @@ const EditExam = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(examData)
-        axios.patch("http://localhost:8080/api/exam/edit", examData, {
+        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/exam/edit`, examData, {
             withCredentials: true,
         }).then(response => {
             console.log(response.data)

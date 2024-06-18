@@ -32,7 +32,7 @@ const EditSubject = () => {
         }
         // alert("Form can be submitted")
 
-        axios.patch("http://localhost:8080/api/subject/edit", subjectData, {
+        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/subject/edit`, subjectData, {
             withCredentials: true,
         }).then(response => {
             // console.log(response.data)

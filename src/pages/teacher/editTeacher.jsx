@@ -48,7 +48,7 @@ const EditTeacher = () => {
             console.log(teacherData)
             // alert("Form can be submitted")
 
-            axios.patch("http://localhost:8080/api/update/", teacherData, {
+            axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/update/`, teacherData, {
                 withCredentials: true,
             }).then(response => {
                 console.log(response.data)

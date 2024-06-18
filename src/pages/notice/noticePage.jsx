@@ -15,7 +15,7 @@ const NoticePage = () => {
         if (window.confirm("Are you sure to delete")) {
 
             try {
-                await axios.delete(`http://localhost:8080/api/notice/${id}`, {
+                await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/notice/${id}`, {
                     withCredentials: true
                 })
                 toast.warn("Deleted Successfully")

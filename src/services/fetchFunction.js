@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 export const getNotices = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/notice", {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notice`, {
       withCredentials: true,
     });
     console.log(response.data.data);
@@ -14,7 +14,7 @@ export const getNotices = async () => {
 };
 export const getNoticeById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/notice/${id}`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notice/${id}`, {
       withCredentials: true,
     });
     console.log("response of getNotice by ID", response.data);
@@ -25,7 +25,7 @@ export const getNoticeById = async (id) => {
 };
 export const getClassNotice = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/classnotice", {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classnotice`, {
       withCredentials: true,
     });
     console.log(response.data.data);
@@ -37,7 +37,7 @@ export const getClassNotice = async () => {
 
 export const getClass = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/class", {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/class`, {
       withCredentials: true,
     });
     // console.log(response.data.data)
@@ -49,7 +49,7 @@ export const getClass = async () => {
 
 export const getClassById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/class/${id}`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/class/${id}`, {
       withCredentials: true,
     });
     // console.log(response.data.data)
@@ -62,14 +62,14 @@ export const getClassById = async (id) => {
 export const getExams = async (id) => {
   try {
     if(id){
-      const response = await axios.get(`http://localhost:8080/api/exam/?class_id=${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/exam/?class_id=${id}`, {
         withCredentials: true,
       });
       // console.log(response.data.data)
       return response.data.data;
     }else{
 
-      const response = await axios.get("http://localhost:8080/api/exam", {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/exam`, {
         withCredentials: true,
       });
       // console.log(response.data.data)
@@ -81,7 +81,7 @@ export const getExams = async (id) => {
 };
 export const getMarksOfClassByExam = async (class_id, exam_id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/studentMark`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/studentMark`, {
       params: { class_id: class_id, exam_id: exam_id },
       withCredentials: true,
     });
@@ -94,7 +94,7 @@ export const getMarksOfClassByExam = async (class_id, exam_id) => {
 export const getExamForTeacher = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/examforteacher`,
+      `${process.env.REACT_APP_SERVER_URL}/api/examforteacher`,
       {
         withCredentials: true,
       }
@@ -108,7 +108,7 @@ export const getExamForTeacher = async () => {
 export const getExamByClass = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/exambyclass/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/exambyclass/${id}`,
       {
         withCredentials: true,
       }
@@ -121,7 +121,7 @@ export const getExamByClass = async (id) => {
 };
 export const getExamById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/exam/${id}`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/exam/${id}`, {
       withCredentials: true,
     });
     // console.log(response.data.data);
@@ -133,7 +133,7 @@ export const getExamById = async (id) => {
 export const getSubjects = async (id , limit , offset) => {
   try {
     if(id){
-      const response = await axios.get(`http://localhost:8080/api/subject/?class_id=${id}&limit=${limit}&offset=${offset}`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/subject/?class_id=${id}&limit=${limit}&offset=${offset}`, {
         withCredentials: true,
       });
       console.log(response.data)
@@ -141,7 +141,7 @@ export const getSubjects = async (id , limit , offset) => {
       
     }else{
       
-      const response = await axios.get(`http://localhost:8080/api/subject/?limit=${limit}&offset=${offset}`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/subject/?limit=${limit}&offset=${offset}`, {
         withCredentials: true,
       });
       // console.log(response.data)
@@ -154,7 +154,7 @@ export const getSubjects = async (id , limit , offset) => {
 export const getSubjectsByClassId = async (class_id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/subjectbyclass/${class_id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/subjectbyclass/${class_id}`,
       {
         withCredentials: true,
       }
@@ -168,7 +168,7 @@ export const getSubjectsByClassId = async (class_id) => {
 export const getSubjectsById = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/subject/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/subject/${id}`,
       {
         withCredentials: true,
       }
@@ -182,20 +182,20 @@ export const getSubjectsById = async (id) => {
 export const getStudents = async (id  , searchText) => {
   try {
     if(id && !searchText){
-      const response = await axios.get(`http://localhost:8080/api/students/?class_id=${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/students/?class_id=${id}`, {
         withCredentials: true,
       });
       // console.log(response.data.data)
       return response.data.data;
     }else{
       if(searchText){
-        const response = await axios.get(`http://localhost:8080/api/students/?search=${searchText}`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/students/?search=${searchText}`, {
         withCredentials: true,
       });
       // console.log(response.data.data)
       return response.data.data;
       }
-      const response = await axios.get("http://localhost:8080/api/students", {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/students`, {
         withCredentials: true,
       });
       // console.log(response.data.data)
@@ -208,7 +208,7 @@ export const getStudents = async (id  , searchText) => {
 export const getStudentById = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/students/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/students/${id}`,
       {
         withCredentials: true,
       }
@@ -221,7 +221,7 @@ export const getStudentById = async (id) => {
 };
 export const getAdmins = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/admins", {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/admins`, {
       withCredentials: true,
     });
     // console.log(response.data.data)
@@ -232,7 +232,7 @@ export const getAdmins = async () => {
 };
 export const getAdminById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/admin/${id}`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`, {
       withCredentials: true,
     });
     // console.log(response.data.data)
@@ -243,7 +243,7 @@ export const getAdminById = async (id) => {
 };
 export const getTeachers = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/teachers", {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/teachers`, {
       withCredentials: true,
     });
     // console.log(response.data.data)
@@ -255,7 +255,7 @@ export const getTeachers = async () => {
 export const getTeacherById = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/teachers/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/teachers/${id}`,
       {
         withCredentials: true,
       }
@@ -269,7 +269,7 @@ export const getTeacherById = async (id) => {
 export const getSectionByClass = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/sectionbyclass/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/sectionbyclass/${id}`,
       {
         withCredentials: true,
       }
@@ -284,7 +284,7 @@ export const getSectionByClass = async (id) => {
 export const getSectionByID = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/section/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/section/${id}`,
       {
         withCredentials: true,
       }
@@ -301,7 +301,7 @@ export const deleteUser = async (id) => {
   try {
     console.log("deleting user id is" + id);
     await axios
-      .delete(`http://localhost:8080/api/users/${id}`, {
+      .delete(`${process.env.REACT_APP_SERVER_URL}/api/users/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -317,7 +317,7 @@ export const deleteUser = async (id) => {
 };
 export const deleteClass = async (id) => {
   try {
-    await axios.delete(`http://localhost:8080/api/class/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/class/${id}`, {
       withCredentials: true,
     });
   } catch (error) {
@@ -326,7 +326,7 @@ export const deleteClass = async (id) => {
 };
 export const deleteSection = async (id) => {
   try {
-    await axios.delete(`http://localhost:8080/api/section/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/section/${id}`, {
       withCredentials: true,
     });
   } catch (error) {
@@ -335,7 +335,7 @@ export const deleteSection = async (id) => {
 };
 export const deleteExams = async (id) => {
   try {
-    await axios.delete(`http://localhost:8080/api/exam/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/exam/${id}`, {
       withCredentials: true,
     });
   } catch (error) {
@@ -344,7 +344,7 @@ export const deleteExams = async (id) => {
 };
 export const deleteSubject = async (id) => {
   try {
-    await axios.delete(`http://localhost:8080/api/subject/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/subject/${id}`, {
       withCredentials: true,
     });
 
@@ -360,7 +360,7 @@ export const deleteSubject = async (id) => {
 
 export const getMyDetails = async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/myprofile`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/myprofile`, {
       withCredentials: true,
     });
 
@@ -372,7 +372,7 @@ export const getMyDetails = async () => {
 
 export const getComplains = async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/complain`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/complain`, {
       withCredentials: true,
     });
     return response.data.data;
@@ -383,7 +383,7 @@ export const getComplains = async () => {
 export const solveComplain = async (id) => {
   try {
     const response = await axios.put(
-      `http://localhost:8080/api/complain/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/complain/${id}`,
       null,
       {
         withCredentials: true,
@@ -396,7 +396,7 @@ export const solveComplain = async (id) => {
 };
 export const getMyComplains = async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/mycomplain`, {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/mycomplain`, {
       withCredentials: true,
     });
     return response.data.data;
@@ -407,7 +407,7 @@ export const getMyComplains = async () => {
 
 // export const getSubjects = async () =>{
 //     try {
-//         const response = await axios.get('http://localhost:8080/api/subjects')
+//         const response = await axios.get('${process.env.REACT_APP_SERVER_URL}/api/subjects')
 //     } catch (error) {
 //         console.log(error)
 //     }

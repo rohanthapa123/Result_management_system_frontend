@@ -27,7 +27,7 @@ const Profile = () => {
       setError("Passsword Doesnot Match")
       return;
     }
-    await axios.post("http://localhost:8080/api/changepassword", password, {
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/changepassword`, password, {
       withCredentials: true,
     }).then((response) => {
       // console.log(response)
@@ -57,7 +57,7 @@ const Profile = () => {
     }
     const fd = new FormData();
     fd.append('image', file);
-    axios.post("http://localhost:8080/api/changeprofile", fd, {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/changeprofile`, fd, {
       withCredentials: true,
     }).then((response) => {
       toast.success("Image uploaded successfully")
@@ -131,7 +131,7 @@ const Profile = () => {
         <div onClick={(e) => setFlag(true)} className='image_edit_icon'>
           <FaEdit className='icon' size={50} color='green' />
         </div>
-        <img className='profile_picture' src={userData?.image ? `http://localhost:8080/api/images/${userData.image}` : oip} alt="" srcSet="" />
+        <img className='profile_picture' src={userData?.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${userData.image}` : oip} alt="" srcSet="" />
 
       </div>
       <div className='general_info'>

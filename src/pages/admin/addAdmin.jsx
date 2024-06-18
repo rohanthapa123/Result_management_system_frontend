@@ -50,7 +50,7 @@ const AddAdmin = () => {
             console.log(adminData)
             // alert("Form can be submitted")
 
-            axios.post("http://localhost:8080/api/register", adminData, {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, adminData, {
                 withCredentials: true,
             }).then(response => {
                 console.log(response.data)
