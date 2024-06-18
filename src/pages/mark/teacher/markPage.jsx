@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { getClass, getExams, getMarksOfClassByExam } from '../../../services/fetchFunction';
 import "../markpage.css";
@@ -15,14 +15,14 @@ const TeacherMarkPage = () => {
     const classData = await getClass();
     setClasses(classData);
   }
-  const getExamData = async () => {
+  const getExamData = useCallback(async () => {
     console.log(selectedClass)
     if (selectedClass) {
 
       const examData = await getExams(selectedClass);
       setExams(examData);
     }
-  }
+  },[selectedClass])
 
   const handleResultChange = (event, student_id) => {
     const { name, value } = event.target;
@@ -67,7 +67,7 @@ const TeacherMarkPage = () => {
     console.log(result)
   }
 
-  const getMarksOfClass = async () => {
+  const getMarksOfClass = useCallback(async () => {
     if (selectedClass && selectedExam) {
       setStudentMarks([]);
 
@@ -81,7 +81,9 @@ const TeacherMarkPage = () => {
       // console.log("result", result)
     }
 
-  }
+  },[selectedClass , selectedExam])
+
+
   const insertMark = async () => {
     try {
       if (window.confirm("Confirm your marks")) {
@@ -106,7 +108,7 @@ const TeacherMarkPage = () => {
   useEffect(() => {
     getExamData();
     getMarksOfClass();
-  }, [selectedClass, selectedExam])
+  }, [getMarksOfClass , getExamData])
   return (
     <div>
       {/* <input type="search" name="searchmark" id="" placeholder='Search Student Name' /> */}
