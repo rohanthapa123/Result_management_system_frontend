@@ -7,11 +7,13 @@ import { toast } from 'react-toastify';
 import oip from "../../assets/OIP.jpeg";
 import { getMyDetails } from '../../services/fetchFunction';
 import "./profile.css";
+import Spinner from '../../components/loader/Spinner';
 const Profile = () => {
   const navigate = useNavigate()
   const [userData, setUserData] = useState();
   const [flag, setFlag] = useState(false);
   const [error, setError] = useState("")
+  const [loading , setLoading] = useState(false)
   const [password, setPassword] = useState({
     currentPassword: '',
     newPassword: '',
@@ -40,10 +42,12 @@ const Profile = () => {
   const [changePasswordFlag, setChangePasswordFlag] = useState(false);
   const [file, setFile] = useState()
   const fetchUserData = async () => {
+    setLoading(true)
     const user = await getMyDetails();
     console.log("user", user);
     localStorage.setItem("image", user.image)
     setUserData(user);
+    setLoading(false)
   }
   const handleChange = (e) => {
     console.log(e.target.files[0])
@@ -134,7 +138,8 @@ const Profile = () => {
         <img className='profile_picture' src={userData?.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${userData.image}` : oip} alt="" srcSet="" />
 
       </div>
-      <div className='general_info'>
+      {
+        loading ? <Spinner /> : <div className='general_info'>
         <div>
           <h1 className='head'>Personal Information</h1>
 
@@ -176,6 +181,7 @@ const Profile = () => {
         </div>
 
       </div>
+      }
       <button onClick={() => setChangePasswordFlag(true)} className='change-password'>Change Password</button>
 
     </div>

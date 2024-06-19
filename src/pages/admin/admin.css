@@ -74,3 +74,15 @@ input , select{
     height: 80px;
     width: 100%;
 }
+
+
+.dpprofile{
+    height: 50px;
+    width: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(99, 99, 99, 0.487);
+    display: block;
+}

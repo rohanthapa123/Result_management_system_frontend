@@ -111,15 +111,10 @@ nav > ul{
     font-size: 24px;
     justify-content: space-between;
     width: 100%;
+    position: relative;
 }
 
-.profile{
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid rgba(99, 99, 99, 0.487);
-}
+
 
 .outlet{
     /* margin: 10px; */

@@ -5,12 +5,17 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { deleteClass, getClass } from '../../services/fetchFunction';
 import "./class.css";
+import Spinner from '../../components/loader/Spinner';
 const ClassPage = () => {
   const [classes, setClasses] = useState();
+  const [loading , setLoading] = useState(false)
+
   const getData = async () => {
+    setLoading(true)
     const data = await getClass();
     setClasses(data)
-    console.log(data)
+    // console.log(data)
+    setLoading(false)
   }
   useEffect(() => {
     getData();
@@ -34,7 +39,8 @@ const ClassPage = () => {
         <h2>Class</h2>
         <Link className="link" to={"add"}><button className="add">Create Class </button></Link>
       </div>
-      <table >
+      {
+        loading ? <Spinner /> : <table >
         <thead>
           <tr>
             <th>Class Name</th>
@@ -58,6 +64,7 @@ const ClassPage = () => {
           }
         </tbody>
       </table>
+      }
     </>
   )
 }

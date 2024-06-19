@@ -2,11 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./dashboard.css";
+import Spinner from "../../components/loader/Spinner";
 const Dashboard = () => {
     const [roleCount, setRoleCount] = useState();
+    const [loading, setLoading] = useState(false)
     const [resetEmail, setResetEmail] = useState();
     useEffect(() => {
         const fetchRoleCount = async () => {
+            setLoading(true)
             await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/count`, {
                 withCredentials: true,
             }).then((response) => {
@@ -15,6 +18,7 @@ const Dashboard = () => {
             }).catch((error) => {
                 console.log(error)
             })
+            setLoading(false)
         }
         fetchRoleCount();
     }, [])
@@ -38,30 +42,34 @@ const Dashboard = () => {
     }
     return (
         <>
-            <div className="countContainer">
-                {
-                    roleCount?.map((role) => {
-                        return <div className="count">
-                            <h3>No of {role.role}</h3>
-                            <h1>{role.no_of_user}</h1>
+            {
+                loading ? <Spinner /> : <>
+                    <div className="countContainer">
+                        {
+                            roleCount?.map((role) => {
+                                return <div className="count">
+                                    <h3>No of {role.role}</h3>
+                                    <h1>{role.no_of_user}</h1>
+                                </div>
+                            })
+                        }
+
+
+                    </div>
+                    <h1 className="resettitle">Graph for student perfomance in exam overall coming soon ...</h1>
+                    <div className="resetpassword">
+                        <h1 className="resettitle">Enter email to reset password</h1>
+                        <div className="innerresetpassword">
+                            <form className="resetform" onSubmit={resetsEmail}>
+
+                                <input className="resetemail" onChange={(e) => setResetEmail(e.target.value)} value={resetEmail} type="email" name="email" placeholder="Enter email here.." id="" />
+                                <button className="resetBtn">Submit</button>
+                            </form>
                         </div>
-                    })
-                }
 
-
-            </div>
-            <h1 className="resettitle">Graph for student perfomance in exam overall coming soon ...</h1>
-            <div className="resetpassword">
-                <h1 className="resettitle">Enter email to reset password</h1>
-                <div className="innerresetpassword">
-                    <form className="resetform" onSubmit={resetsEmail}>
-
-                        <input className="resetemail" onChange={(e) => setResetEmail(e.target.value)} value={resetEmail} type="email" name="email" placeholder="Enter email here.." id="" />
-                        <button className="resetBtn">Submit</button>
-                    </form>
-                </div>
-
-            </div>
+                    </div>
+                </>
+            }
         </>
     )
 }

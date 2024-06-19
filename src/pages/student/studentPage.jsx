@@ -11,6 +11,7 @@ import Search from "../../components/Search/Search";
 import SectionInput from "../../components/SectionInput";
 import { deleteUser, getStudents } from "../../services/fetchFunction";
 import "./student.css";
+import Spinner from "../../components/loader/Spinner";
 
 const StudentPage = () => {
   const [students, setStudents] = useState();
@@ -19,6 +20,7 @@ const StudentPage = () => {
   const [toUpdateClass, setToUpdateClass] = useState();
   const [toUpdateSection, setToUpdateSection] = useState();
   const [toogleUpdateClass, setToogleUpdateClass] = useState(false);
+  const [loading , setLoading] = useState(false)
 
   const debounce = (func, delay) => {
     let timer;
@@ -31,8 +33,10 @@ const StudentPage = () => {
   };
 
   const getData = useCallback(async (id, search = '') => {
+    setLoading(true)
     const data = await getStudents(id, search);
     setStudents(data);
+    setLoading(false)
   }, []);
 
   useEffect(() => {
@@ -165,7 +169,8 @@ const StudentPage = () => {
         </Link>
       </div>
 
-      <table className={toogleUpdateClass ? "faded" : ""}>
+      {
+        loading ? <Spinner /> : <table className={toogleUpdateClass ? "faded" : ""}>
         <thead>
           <tr>
             <th>
@@ -203,6 +208,7 @@ const StudentPage = () => {
                   height={50}
                   width={50}
                   alt="profile"
+                  className="dpprofile"
                 />
               </td>
               <td>{student.fname}</td>
@@ -224,6 +230,7 @@ const StudentPage = () => {
           ))}
         </tbody>
       </table>
+      }
     </>
   );
 };

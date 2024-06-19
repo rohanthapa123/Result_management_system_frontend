@@ -7,6 +7,7 @@ import "../markpage.css";
 import { getAllMarksOfClassByExam } from '../../../services/FetchFunctions/MarkFetch/markfetch';
 import { toast } from 'react-toastify';
 import { CSVLink } from 'react-csv';
+import Spinner from '../../../components/loader/Spinner';
 
 // const ExcelFile = ExcelExport.ExcelFile;
 // const ExcelSheet = ExcelExport.ExcelSheet;
@@ -17,6 +18,7 @@ const MarkPage = () => {
   const [term, setTerm] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [studentMarks, setStudentMarks] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   const [csvData, setCsvData] = useState([]);
   const [csvHeaders, setCsvHeaders] = useState([]);
@@ -31,7 +33,9 @@ const MarkPage = () => {
 
   useEffect(() => {
     const getAllMarks = async () => {
+
       if (selectedClass && term) {
+        setLoading(true)
         const marksData = await getAllMarksOfClassByExam(selectedClass, term);
         // setStudentMarks(marksData);
         console.log(marksData)
@@ -39,6 +43,7 @@ const MarkPage = () => {
           ...student,
           subjects_marks: student.subjects_marks.sort((a, b) => a.subject_id - b.subject_id)
         })));
+        setLoading(false)
       }
     };
     getAllMarks();
@@ -130,7 +135,8 @@ const MarkPage = () => {
       </div>
       <br />
       <hr />
-      <table>
+      {
+        loading ? <Spinner /> : <table>
         {studentMarks.length > 0 && <thead>
           <tr>
             <th>First Name</th>
@@ -158,6 +164,7 @@ const MarkPage = () => {
           ))}
         </tbody>
       </table>
+      }
     </div>
   );
 };

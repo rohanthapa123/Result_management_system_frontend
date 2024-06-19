@@ -8,6 +8,7 @@ import Pagination from '../../components/pagination/Pagination';
 import { getSections } from '../../services/FetchFunctions/Section/SectionFetch';
 import { deleteSection } from '../../services/fetchFunction';
 import "./section.css";
+import Spinner from '../../components/loader/Spinner';
 const SectionPage = () => {
   const [sections, setSections] = useState([]);
   const [choosedClass, setChoosedClass] = useState(null);
@@ -15,6 +16,7 @@ const SectionPage = () => {
   const [totalPages, setTotalPage] = useState();
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading , setLoading] = useState(false)
 
   const getPrevPage = () => {
     const prevPage = currentPage - 1;
@@ -52,7 +54,8 @@ const SectionPage = () => {
   }, []);
 
   const getSection = async (choosedClass, limit, offset) => {
-    console.log(choosedClass, limit, offset)
+    // console.log(choosedClass, limit, offset)
+    setLoading(true)
     if (choosedClass) {
       const data = await getSections(choosedClass, limit, offset);
       setSections(data.result)
@@ -64,6 +67,7 @@ const SectionPage = () => {
       setTotalPage(data.totalPage)
 
     }
+    setLoading(false)
     // console.log(data)
   }
   const handleChange = (e) => {
@@ -88,7 +92,8 @@ const SectionPage = () => {
         <Link className="link" to={"add"}><button className="add">Create Section</button></Link>
       </div>
       <br />
-      <table>
+      {
+        loading ? <Spinner /> : <table>
         <thead>
           <tr>
             <th>Section</th>
@@ -110,6 +115,7 @@ const SectionPage = () => {
           }
         </tbody>
       </table>
+      }
       <div className="paginationPart">
         <Pagination currentPage={currentPage} getPrevPage={getPrevPage} getNextPage={getNextPage} totalPage={totalPages} />
       </div>

@@ -6,40 +6,44 @@ import { toast } from 'react-toastify'
 import oip from "../../assets/OIP.jpeg"
 import { deleteUser, getAdmins } from '../../services/fetchFunction'
 import "./admin.css"
-const AdminPage
-  = () => {
-    const [admins, setAdmins] = useState();
-    const getData = async () => {
-      const data = await getAdmins();
-      console.log(data)
-      setAdmins(data)
-    }
-    useEffect(() => {
-      getData();
-      // console.log(admins)
-    }, [])
-    const handleDelete = useCallback(async (id) => {
-      if (window.confirm("Are you sure to Delete?")) {
-        try {
-          await deleteUser(id);
-          toast.warn("Admin deleted successfully");
-          getData();
-        } catch (error) {
-          console.log(error)
-        }
+import Spinner from '../../components/loader/Spinner'
+const AdminPage = () => {
+  const [admins, setAdmins] = useState();
+  const [loading, setLoading] = useState(false)
+  const getData = async () => {
+    setLoading(true)
+    const data = await getAdmins();
+    console.log(data)
+    setAdmins(data)
+    setLoading(false)
+  }
+  useEffect(() => {
+    getData();
+    // console.log(admins)
+  }, [])
+  const handleDelete = useCallback(async (id) => {
+    if (window.confirm("Are you sure to Delete?")) {
+      try {
+        await deleteUser(id);
+        toast.warn("Admin deleted successfully");
+        getData();
+      } catch (error) {
+        console.log(error)
       }
-    }, []);
-    return (
-      <>
-        <div className='heading_edit'>
-          <div>
+    }
+  }, []);
+  return (
+    <>
+      <div className='heading_edit'>
+        <div>
 
           <h2>Admins</h2>
           <p><i>(NOTE: Admins are like god so add them carefully)</i></p>
-          </div>
-          <Link className="link" to={"add"}><button className="add">Add Admin</button></Link>
         </div>
-        <table >
+        <Link className="link" to={"add"}><button className="add">Add Admin</button></Link>
+      </div>
+      {
+        loading ? <Spinner /> : <table >
           <thead>
             <tr>
               <th></th>
@@ -55,7 +59,7 @@ const AdminPage
             {
               admins?.map((admin, index) => {
                 return <tr className={index % 2 === 0 ? "even" : "odd"} key={admin.admin_id}>
-                  <td><img src={admin.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${admin.image}` : oip} height={50} width={50} alt="profile" /></td>
+                  <td><img className='dpprofile' src={admin.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${admin.image}` : oip} height={50} width={50} alt="profile" /></td>
                   <td>{admin.fname}</td>
                   <td>{admin.mname}</td>
                   <td>{admin.lname}</td>
@@ -67,8 +71,9 @@ const AdminPage
             }
           </tbody>
         </table>
-      </>
-    )
-  }
+      }
+    </>
+  )
+}
 
 export default AdminPage

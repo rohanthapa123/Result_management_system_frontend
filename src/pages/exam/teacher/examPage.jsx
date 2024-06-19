@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { getExamForTeacher } from '../../../services/fetchFunction';
 import "../exam.css";
+import Spinner from '../../../components/loader/Spinner';
 const TeacherExamPage = () => {
     const [exams, setExams] = useState([]);
-
+    const [loading , setLoading] = useState()
 
     
 
     const getExamData = async () => {
+        setLoading(true)
         const data = await getExamForTeacher();
         // console.log(data)
         setExams(data)
+        setLoading(false)
     }
     useEffect(() => {
         getExamData();
@@ -19,7 +22,8 @@ const TeacherExamPage = () => {
         <>
             <h2>Exams</h2>
 
-            <table>
+            {
+                loading ? <Spinner /> : <table>
                 <thead>
                     <tr>
                         <th>Exam Name</th>
@@ -41,6 +45,7 @@ const TeacherExamPage = () => {
                     }
                 </tbody>
             </table>
+            }
         </>
     )
 }

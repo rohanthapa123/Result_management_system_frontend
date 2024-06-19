@@ -6,12 +6,16 @@ import { toast } from 'react-toastify'
 import oip from "../../assets/OIP.jpeg"
 import { deleteUser, getTeachers } from '../../services/fetchFunction'
 import "./teacher.css"
+import Spinner from '../../components/loader/Spinner'
 const TeacherPage = () => {
   const [teachers, setTeacher] = useState();
+  const [loading , setLoading] = useState(false)
   const getData = async () => {
+    setLoading(true)
     const data = await getTeachers();
     console.log(data)
     setTeacher(data)
+    setLoading(false)
   }
   useEffect(() => {
     getData();
@@ -34,7 +38,8 @@ const TeacherPage = () => {
         <h2>Teacher</h2>
         <Link className="link" to={"add"}><button className="add">Add Teacher</button></Link>
       </div>
-      <table >
+      {
+        loading ? <Spinner /> : <table >
         <thead>
           <tr>
             <th></th>
@@ -50,7 +55,7 @@ const TeacherPage = () => {
           {
             teachers?.map((teacher, index) => {
               return <tr className={index % 2 === 0 ? "even" : "odd"} key={teacher.teacher_id}>
-                <td><img src={teacher.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
+                <td><img className='dpprofile' src={teacher.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
                 <td>{teacher.fname}</td>
                 <td>{teacher.mname}</td>
                 <td>{teacher.lname}</td>
@@ -62,6 +67,7 @@ const TeacherPage = () => {
           }
         </tbody>
       </table>
+      }
     </>
   )
 }

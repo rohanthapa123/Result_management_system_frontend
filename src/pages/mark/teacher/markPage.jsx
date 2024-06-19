@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { getClass, getExams, getMarksOfClassByExam } from '../../../services/fetchFunction';
 import "../markpage.css";
+import Spinner from '../../../components/loader/Spinner';
 const TeacherMarkPage = () => {
   const [classes, setClasses] = useState();
   const [exams, setExams] = useState();
@@ -10,6 +11,7 @@ const TeacherMarkPage = () => {
   const [selectedClass, setSelectedClass] = useState();
   const [selectedExam, setSelectedExam] = useState();
   const [result, setResult] = useState();
+  const [loading , setLoading] = useState()
 
   const getClassData = async () => {
     const classData = await getClass();
@@ -69,6 +71,7 @@ const TeacherMarkPage = () => {
 
   const getMarksOfClass = useCallback(async () => {
     if (selectedClass && selectedExam) {
+      setLoading(true)
       setStudentMarks([]);
 
       const studentMarksData = await getMarksOfClassByExam(selectedClass, selectedExam);
@@ -78,6 +81,7 @@ const TeacherMarkPage = () => {
         return { name: student.fname + " " + student.mname + " " + student.lname, student_id: student.student_id, subject_id: student.subject_id, exam_id: student.exam_id, marks_obtained: student.marks_obtained, remarks: student.remarks, grade: student.grade }
       })
       setResult(filtered);
+      setLoading(false)
       // console.log("result", result)
     }
 
@@ -134,7 +138,8 @@ const TeacherMarkPage = () => {
       <br />
       <hr />
 
-      <table>
+      {
+        loading ? <Spinner /> : <table>
         {
           result ? <thead>
             <tr>
@@ -173,6 +178,7 @@ const TeacherMarkPage = () => {
 
         </tbody>
       </table>
+      }
       {
         result ? <button className='submitmarks' onClick={insertMark}>Insert Marks</button> : ""
       }

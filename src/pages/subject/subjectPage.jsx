@@ -6,6 +6,7 @@ import ClassInput from '../../components/ClassInput';
 import Pagination from '../../components/pagination/Pagination';
 import { deleteSubject, getSubjects } from '../../services/fetchFunction';
 import "./subject.css";
+import Spinner from '../../components/loader/Spinner';
 // import { toast } from 'react-toastify';//ddone when fetching !!!
 const SubjectPage = () => {
     const [subjects, setSubjects] = useState();
@@ -15,6 +16,7 @@ const SubjectPage = () => {
     const [totalPages, setTotalPage] = useState(2);
     const [offset, setOffset] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading , setLoading] = useState(false)
 
     const getPrevPage = () => {
         const prevPage = currentPage - 1;
@@ -40,6 +42,7 @@ const SubjectPage = () => {
 
 
     const getData = async (_class, limit, offset) => {
+        setLoading(true)
         if (_class) {
             // console.log(_class)
             const data = await getSubjects(_class, limit, offset);
@@ -55,6 +58,7 @@ const SubjectPage = () => {
             setTotalPage(data.totalPage)
 
         }
+        setLoading(false)
     }
     // useEffect(()=>{
     //     getData
@@ -89,7 +93,8 @@ const SubjectPage = () => {
                 <ClassInput handleChange={handleChange} small={true} />
                 <Link className="link" to={"add"}><button className="add">Add New Subject</button></Link>
             </div>
-            <table >
+            {
+                loading ? <Spinner /> : <table >
                 <thead>
                     <tr>
                         <th>Subject Name</th>
@@ -113,6 +118,7 @@ const SubjectPage = () => {
                     }
                 </tbody>
             </table>
+            }
             <div className="paginationPart">
                 <Pagination getNextPage={getNextPage} getPrevPage={getPrevPage} currentPage={currentPage} totalPage={totalPages} />
             </div>

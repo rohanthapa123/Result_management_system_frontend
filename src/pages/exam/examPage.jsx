@@ -6,8 +6,10 @@ import { toast } from 'react-toastify';
 import ClassInput from '../../components/ClassInput';
 import { deleteExams, getExams } from '../../services/fetchFunction';
 import "./exam.css";
+import Spinner from '../../components/loader/Spinner';
 const ExamPage = () => {
     const [exams, setExams] = useState();
+    const [loading , setLoading] = useState();
     const [selectedClass, setSelectedClass] = useState();
     const handleChange = (e) => {
         setSelectedClass(e.target.value);
@@ -16,7 +18,6 @@ const ExamPage = () => {
         try {
             if (window.confirm("Are you sure you want to delete")) {
                 await deleteExams(id)
-
                 toast.warning("Exam deleted Successfully")
             }
             getExamData();
@@ -26,6 +27,7 @@ const ExamPage = () => {
     }, []);
 
     const getExamData = async (id) => {
+        setLoading(true)
         if (id) {
             const data = await getExams(id);
             console.log(data)
@@ -38,6 +40,7 @@ const ExamPage = () => {
             console.log(data)
             setExams(data)
         }
+        setLoading(false)
     }
     useEffect(() => {
         getExamData();
@@ -54,7 +57,8 @@ const ExamPage = () => {
                 <Link className="link" to={"add"}><button className="add">Create Exam</button></Link>
             </div>
 
-            <table>
+            {
+                loading ? <Spinner /> : <table>
                 {
                     exams?.length > 0 ? <thead>
                     <tr>
@@ -84,6 +88,7 @@ const ExamPage = () => {
                     }
                 </tbody>
             </table>
+            }
         </>
     )
 }

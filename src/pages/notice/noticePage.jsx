@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getNotices } from '../../services/fetchFunction'
 import "./notice.css"
+import Spinner from '../../components/loader/Spinner'
 const NoticePage = () => {
     const [notices, setNotices] = useState();
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -32,10 +34,14 @@ const NoticePage = () => {
     }, []);
     const getData = async () => {
         try {
+            setLoading(true)
             const data = await getNotices();
             setNotices(data)
+            setLoading(false)
         } catch (error) {
             console.log(error)
+            setLoading(false)
+            toast.error("Error occured")
         }
     }
     useEffect(() => {
@@ -48,29 +54,32 @@ const NoticePage = () => {
                 <h2>Notices</h2>
                 <Link className='link btn' to={"add"}><button className="add">Add Notices</button></Link>
             </div>
-            <table >
-                <thead>
-                    <tr>
-                        <th>Notice</th>
-                        <th>Created At</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        notices?.map((notice, index) => {
-                            return <tr key={notice.notice_id} className={index % 2 === 0 ? "even" : "odd"}>
-                                <td>{notice.notice_text}</td>
-                                <td>{notice.date_posted}</td>
-                                <td><Link className={"link"} to={`edit/${notice.notice_id}`}><FaEdit size={20} color="green" /></Link> </td>
-                                <td><button onClick={(e) => handleDelete(notice.notice_id)}><MdDelete size={20} color="red" /></button></td>
+            {
+                loading ? <Spinner /> :
+                    <table >
+                        <thead>
+                            <tr>
+                                <th>Notice</th>
+                                <th>Created At</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
-                        })
-                    }
+                        </thead>
+                        <tbody>
+                            {
+                                notices?.map((notice, index) => {
+                                    return <tr key={notice.notice_id} className={index % 2 === 0 ? "even" : "odd"}>
+                                        <td>{notice.notice_text}</td>
+                                        <td>{notice.date_posted}</td>
+                                        <td><Link className={"link"} to={`edit/${notice.notice_id}`}><FaEdit size={20} color="green" /></Link> </td>
+                                        <td><button onClick={(e) => handleDelete(notice.notice_id)}><MdDelete size={20} color="red" /></button></td>
+                                    </tr>
+                                })
+                            }
 
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+            }
         </>
     )
 }
