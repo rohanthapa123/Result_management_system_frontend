@@ -204,7 +204,7 @@ const StudentPage = () => {
               </td>
               <td>
                 <img
-                  src={student.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${student.image}` : oiep}
+                  src={student.image ? `${student.image}` : oiep}
                   height={50}
                   width={50}
                   alt="profile"

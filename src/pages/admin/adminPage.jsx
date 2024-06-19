@@ -59,7 +59,7 @@ const AdminPage = () => {
             {
               admins?.map((admin, index) => {
                 return <tr className={index % 2 === 0 ? "even" : "odd"} key={admin.admin_id}>
-                  <td><img className='dpprofile' src={admin.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${admin.image}` : oip} height={50} width={50} alt="profile" /></td>
+                  <td><img className='dpprofile' src={admin.image ? `${admin.image}` : oip} height={50} width={50} alt="profile" /></td>
                   <td>{admin.fname}</td>
                   <td>{admin.mname}</td>
                   <td>{admin.lname}</td>
