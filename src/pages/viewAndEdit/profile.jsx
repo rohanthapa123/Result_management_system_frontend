@@ -135,7 +135,7 @@ const Profile = () => {
         <div onClick={(e) => setFlag(true)} className='image_edit_icon'>
           <FaEdit className='icon' size={50} color='green' />
         </div>
-        <img className='profile_picture' src={userData?.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${userData.image}` : oip} alt="" srcSet="" />
+        <img className='profile_picture' src={userData?.image ? `${userData.image}` : oip} alt="" srcSet="" />
 
       </div>
       {
