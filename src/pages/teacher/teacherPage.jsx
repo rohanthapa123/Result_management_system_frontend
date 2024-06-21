@@ -9,17 +9,17 @@ import "./teacher.css"
 import Spinner from '../../components/loader/Spinner'
 const TeacherPage = () => {
   const [teachers, setTeacher] = useState();
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const getData = async () => {
     setLoading(true)
     const data = await getTeachers();
-    console.log(data)
+    //console.log(data)
     setTeacher(data)
     setLoading(false)
   }
   useEffect(() => {
     getData();
-    // console.log(teachers)
+    // //console.log(teachers)
   }, [])
   const handleDelete = useCallback(async (id) => {
     if (window.confirm("Are you sure to Delete?")) {
@@ -28,7 +28,7 @@ const TeacherPage = () => {
         toast.warning("Teacher deleted successfully")
         getData();
       } catch (error) {
-        console.log(error)
+        //console.log(error)
       }
     }
   }, []);

@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
 import { getClass, getSectionByClass } from '../../services/fetchFunction';
 import "./student.css";
 const AddStudent = () => {
@@ -46,7 +46,7 @@ const AddStudent = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setStudentData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleSubmit = (e) => {
@@ -56,18 +56,18 @@ const AddStudent = () => {
         if (hasErrors) {
             toast.warning("Fill form correctly")
         } else {
-            console.log(studentData)
+            //console.log(studentData)
             // alert("Form can be submitted")
 
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, studentData, {
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, studentData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Student Added Successfully")
                 navigate("/admin/students");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response);
+                    //console.log(error.response);
                     toast.error(error.response.data.error)
                     alert(error.response.data.error)
                 }

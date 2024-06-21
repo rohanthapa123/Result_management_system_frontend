@@ -13,13 +13,13 @@ const AdminPage = () => {
   const getData = async () => {
     setLoading(true)
     const data = await getAdmins();
-    console.log(data)
+    //console.log(data)
     setAdmins(data)
     setLoading(false)
   }
   useEffect(() => {
     getData();
-    // console.log(admins)
+    // //console.log(admins)
   }, [])
   const handleDelete = useCallback(async (id) => {
     if (window.confirm("Are you sure to Delete?")) {
@@ -28,7 +28,7 @@ const AdminPage = () => {
         toast.warn("Admin deleted successfully");
         getData();
       } catch (error) {
-        console.log(error)
+        //console.log(error)
       }
     }
   }, []);
@@ -54,7 +54,7 @@ const AdminPage = () => {
               <th>Edit</th>
               <th>Delete</th>
             </tr>
-          </thead> 
+          </thead>
           <tbody>
             {
               admins?.map((admin, index) => {

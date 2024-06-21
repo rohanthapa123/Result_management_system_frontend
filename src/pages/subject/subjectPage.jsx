@@ -16,7 +16,7 @@ const SubjectPage = () => {
     const [totalPages, setTotalPage] = useState(2);
     const [offset, setOffset] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
-    const [loading , setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const getPrevPage = () => {
         const prevPage = currentPage - 1;
@@ -30,7 +30,7 @@ const SubjectPage = () => {
 
     const getNextPage = () => {
         const nextPage = currentPage + 1;
-        console.log(totalPages)
+        //console.log(totalPages)
         if (nextPage <= totalPages) {
 
             const newOffset = currentPage * limit;
@@ -44,16 +44,16 @@ const SubjectPage = () => {
     const getData = async (_class, limit, offset) => {
         setLoading(true)
         if (_class) {
-            // console.log(_class)
+            // //console.log(_class)
             const data = await getSubjects(_class, limit, offset);
-            console.log(data)
+            //console.log(data)
             setSubjects(data.result)
             setTotalPage(data.totalPage)
 
         } else {
-            // console.log(_class)
+            // //console.log(_class)
             const data = await getSubjects(null, limit, offset);
-            console.log(data)
+            //console.log(data)
             setSubjects(data.result)
             setTotalPage(data.totalPage)
 
@@ -74,12 +74,12 @@ const SubjectPage = () => {
                 await getData(_class, limit, offset);
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
         // eslint-disable-next-line
     }, []);
     const handleChange = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setCurrentPage(1);
         setOffset(0);
         setClass(e.target.value)
@@ -95,29 +95,29 @@ const SubjectPage = () => {
             </div>
             {
                 loading ? <Spinner /> : <table className='dashboardtable' >
-                <thead>
-                    <tr>
-                        <th>Subject Name</th>
-                        <th>Subject Code</th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        subjects?.map((subject, index) => {
-                            return <tr key={subject.subject_id} className={index % 2 === 0 ? "even" : "odd"}>
-                                <td>{subject.subject_name}</td>
-                                <td>{subject.subject_code}</td>
-                                <td>{subject.desc}</td>
-                                <td className='action'><Link to={`edit/${subject.subject_id}`}><FaEdit size={20} color="green" /></Link></td>
-                                <td className='action'><button onClick={(e) => handleDelete(subject.subject_id)}><MdDelete size={20} color="red" /></button></td>
-                            </tr>
-                        })
-                    }
-                </tbody>
-            </table>
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Subject Code</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            subjects?.map((subject, index) => {
+                                return <tr key={subject.subject_id} className={index % 2 === 0 ? "even" : "odd"}>
+                                    <td>{subject.subject_name}</td>
+                                    <td>{subject.subject_code}</td>
+                                    <td>{subject.desc}</td>
+                                    <td className='action'><Link to={`edit/${subject.subject_id}`}><FaEdit size={20} color="green" /></Link></td>
+                                    <td className='action'><button onClick={(e) => handleDelete(subject.subject_id)}><MdDelete size={20} color="red" /></button></td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                </table>
             }
             <div className="paginationPart">
                 <Pagination getNextPage={getNextPage} getPrevPage={getPrevPage} currentPage={currentPage} totalPage={totalPages} />

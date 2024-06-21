@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import Spinner from '../../../components/loader/Spinner';
+import axiosInstance from '../../../services/axiosInstance';
 import { getClass, getExams, getMarksOfClassByExam } from '../../../services/fetchFunction';
 import "../markpage.css";
-import Spinner from '../../../components/loader/Spinner';
 const TeacherMarkPage = () => {
   const [classes, setClasses] = useState();
   const [exams, setExams] = useState();
@@ -11,28 +11,28 @@ const TeacherMarkPage = () => {
   const [selectedClass, setSelectedClass] = useState();
   const [selectedExam, setSelectedExam] = useState();
   const [result, setResult] = useState();
-  const [loading , setLoading] = useState()
+  const [loading, setLoading] = useState()
 
   const getClassData = async () => {
     const classData = await getClass();
     setClasses(classData);
   }
   const getExamData = useCallback(async () => {
-    console.log(selectedClass)
+    //console.log(selectedClass)
     if (selectedClass) {
 
       const examData = await getExams(selectedClass);
       setExams(examData);
     }
-  },[selectedClass])
+  }, [selectedClass])
 
   const handleResultChange = (event, student_id) => {
     const { name, value } = event.target;
     if (name === 'marks_obtained') {
       Number(value);
       let grade, remarks;
-      console.log(value)
-      if(value > 100 || value < 0){
+      //console.log(value)
+      if (value > 100 || value < 0) {
         window.alert("Value Exceeded Limit");
         return;
       }
@@ -66,7 +66,7 @@ const TeacherMarkPage = () => {
     setResult(prev => prev.map((student) => {
       return student.student_id === student_id ? { ...student, [name]: value } : student;
     }))
-    console.log(result)
+    //console.log(result)
   }
 
   const getMarksOfClass = useCallback(async () => {
@@ -75,35 +75,35 @@ const TeacherMarkPage = () => {
       setStudentMarks([]);
 
       const studentMarksData = await getMarksOfClassByExam(selectedClass, selectedExam);
-      // console.log(studentMarksData);
+      // //console.log(studentMarksData);
       setStudentMarks(studentMarksData);
       const filtered = studentMarksData.map((student) => {
         return { name: student.fname + " " + student.mname + " " + student.lname, student_id: student.student_id, subject_id: student.subject_id, exam_id: student.exam_id, marks_obtained: student.marks_obtained, remarks: student.remarks, grade: student.grade }
       })
       setResult(filtered);
       setLoading(false)
-      // console.log("result", result)
+      // //console.log("result", result)
     }
 
-  },[selectedClass , selectedExam])
+  }, [selectedClass, selectedExam])
 
 
   const insertMark = async () => {
     try {
       if (window.confirm("Confirm your marks")) {
 
-        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/insertMarks`, {result , class: selectedClass}, {
+        const response = await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/insertMarks`, { result, class: selectedClass }, {
           withCredentials: true,
         });
         if (response.status === 200) {
           // window.alert("Successfully inserted marks");
           toast.success("Marks inserted successfully");
         }
-        // console.log(response.status)
+        // //console.log(response.status)
         return response.data.data;
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
   useEffect(() => {
@@ -112,7 +112,7 @@ const TeacherMarkPage = () => {
   useEffect(() => {
     getExamData();
     getMarksOfClass();
-  }, [getMarksOfClass , getExamData])
+  }, [getMarksOfClass, getExamData])
   return (
     <div>
       {/* <input type="search" name="searchmark" id="" placeholder='Search Student Name' /> */}
@@ -140,44 +140,44 @@ const TeacherMarkPage = () => {
 
       {
         loading ? <Spinner /> : <table>
-        {
-          result ? <thead>
-            <tr>
-              <th>Name</th>
-              {
-                studentMarks[0] ? <th>{studentMarks[0].subject_name}</th> : <th>subject</th>
-              }
-              <th>remarks</th>
-              <th>gpa</th>
-            </tr>
-          </thead>
-            : ""
-        }
-        <tbody>
           {
-            result?.map((studentMark) => {
-              return <tr key={studentMark.student_id}>
-                <td>{studentMark.name} </td>
-                <td>
-                  <input min={"0"} max={"100"} type="number" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="marks_obtained" value={studentMark.marks_obtained || ""} id="" />
-
-                </td>
-                <td>
-                  <input type="text" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="remarks" value={studentMark.remarks || ""} id="" />
-
-                </td>
-                <td>
-
-                  <input type="text" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="grade" value={studentMark.grade || ""} id="" />
-                </td>
-
-
+            result ? <thead>
+              <tr>
+                <th>Name</th>
+                {
+                  studentMarks[0] ? <th>{studentMarks[0].subject_name}</th> : <th>subject</th>
+                }
+                <th>remarks</th>
+                <th>gpa</th>
               </tr>
-            })
+            </thead>
+              : ""
           }
+          <tbody>
+            {
+              result?.map((studentMark) => {
+                return <tr key={studentMark.student_id}>
+                  <td>{studentMark.name} </td>
+                  <td>
+                    <input min={"0"} max={"100"} type="number" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="marks_obtained" value={studentMark.marks_obtained || ""} id="" />
 
-        </tbody>
-      </table>
+                  </td>
+                  <td>
+                    <input type="text" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="remarks" value={studentMark.remarks || ""} id="" />
+
+                  </td>
+                  <td>
+
+                    <input type="text" onChange={(e) => { handleResultChange(e, studentMark.student_id) }} name="grade" value={studentMark.grade || ""} id="" />
+                  </td>
+
+
+                </tr>
+              })
+            }
+
+          </tbody>
+        </table>
       }
       {
         result ? <button className='submitmarks' onClick={insertMark}>Insert Marks</button> : ""

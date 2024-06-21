@@ -16,7 +16,7 @@ const SectionPage = () => {
   const [totalPages, setTotalPage] = useState();
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const getPrevPage = () => {
     const prevPage = currentPage - 1;
@@ -30,7 +30,7 @@ const SectionPage = () => {
 
   const getNextPage = () => {
     const nextPage = currentPage + 1;
-    console.log(totalPages)
+    //console.log(totalPages)
     if (nextPage <= totalPages) {
 
       const newOffset = currentPage * limit;
@@ -49,12 +49,12 @@ const SectionPage = () => {
         getSection();
       }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
     }
   }, []);
 
   const getSection = async (choosedClass, limit, offset) => {
-    // console.log(choosedClass, limit, offset)
+    // //console.log(choosedClass, limit, offset)
     setLoading(true)
     if (choosedClass) {
       const data = await getSections(choosedClass, limit, offset);
@@ -62,26 +62,26 @@ const SectionPage = () => {
       setTotalPage(data.totalPage)
     } else {
       const data = await getSections(null, limit, offset);
-      console.log(data)
+      //console.log(data)
       setSections(data.result)
       setTotalPage(data.totalPage)
 
     }
     setLoading(false)
-    // console.log(data)
+    // //console.log(data)
   }
   const handleChange = (e) => {
     setChoosedClass(e.target.value);
     setOffset(0);
     setCurrentPage(1);
-    // console.log(e.target.value)
+    // //console.log(e.target.value)
   }
   useEffect(() => {
     // if (choosedSection) {
-    // console.log("running")
+    // //console.log("running")
     getSection(choosedClass, limit, offset);
     // }
-  }, [choosedClass , limit, offset])
+  }, [choosedClass, limit, offset])
   return (
     <>
       <div className='heading_edit'>
@@ -94,27 +94,27 @@ const SectionPage = () => {
       <br />
       {
         loading ? <Spinner /> : <table className='dashboardtable'>
-        <thead>
-          <tr>
-            <th>Section</th>
-            <th>Capacity</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            sections?.map((section, index) => {
-              return <tr key={section.section_id} className={index % 2 === 0 ? "even" : "odd"}>
-                <td>{section.section_name}</td>
-                <td>{section.section_capacity}</td>
-                <td className='action'><Link to={`edit/${section.section_id}`}><FaEdit size={20} color="green" /></Link></td>
-                <td className='action'><button onClick={(e) => handleDelete(section.section_id)}><MdDelete size={20} color="red" /></button></td>
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Capacity</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              sections?.map((section, index) => {
+                return <tr key={section.section_id} className={index % 2 === 0 ? "even" : "odd"}>
+                  <td>{section.section_name}</td>
+                  <td>{section.section_capacity}</td>
+                  <td className='action'><Link to={`edit/${section.section_id}`}><FaEdit size={20} color="green" /></Link></td>
+                  <td className='action'><button onClick={(e) => handleDelete(section.section_id)}><MdDelete size={20} color="red" /></button></td>
+                </tr>
+              })
+            }
+          </tbody>
+        </table>
       }
       <div className="paginationPart">
         <Pagination currentPage={currentPage} getPrevPage={getPrevPage} getNextPage={getNextPage} totalPage={totalPages} />

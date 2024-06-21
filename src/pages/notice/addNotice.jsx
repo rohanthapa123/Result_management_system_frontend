@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./notice.css";
@@ -6,6 +6,7 @@ import "./notice.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { toast } from 'react-toastify';
 import MultiClass from '../../components/MultiClass';
+import axiosInstance from '../../services/axiosInstance';
 const AddNotice = ({ role }) => {
     // const [classes, setClasses] = useState();
     const [noticeData, setNoticeData] = useState({
@@ -25,8 +26,8 @@ const AddNotice = ({ role }) => {
     const submitNotice = async (e) => {
         e.preventDefault();
         try {
-            // console.log()
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/notice`, noticeData, {
+            // //console.log()
+            const response = await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/notice`, noticeData, {
                 withCredentials: true,
             })
             toast.success("Notice Added Succussfully")
@@ -34,16 +35,16 @@ const AddNotice = ({ role }) => {
                 navigate(`/${role}/notice`)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
     const handleChange = (e) => {
         setNoticeData(prev => ({ ...prev, [e.target.name]: e.target.value }))
-        console.log(noticeData)
+        //console.log(noticeData)
     }
-    const handleChangeClass = (selectedOptions) =>{
+    const handleChangeClass = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setNoticeData(prev => ({ ...prev, class: selectedOptions }));
     }
     return (
@@ -70,7 +71,7 @@ const AddNotice = ({ role }) => {
                         }
 
                     </select> */}
-                    <MultiClass selectedOptions={selectedOptions} handleChangeClass={handleChangeClass}  />
+                    <MultiClass selectedOptions={selectedOptions} handleChangeClass={handleChangeClass} />
                 </div>
                 <div className="contain input-container">
                     <label htmlFor="message">Message</label>

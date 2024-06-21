@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { LuUploadCloud } from "react-icons/lu";
@@ -8,12 +8,13 @@ import oip from "../../assets/OIP.jpeg";
 import { getMyDetails } from '../../services/fetchFunction';
 import "./profile.css";
 import Spinner from '../../components/loader/Spinner';
+import axiosInstance from '../../services/axiosInstance';
 const Profile = () => {
   const navigate = useNavigate()
   const [userData, setUserData] = useState();
   const [flag, setFlag] = useState(false);
   const [error, setError] = useState("")
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState({
     currentPassword: '',
     newPassword: '',
@@ -21,7 +22,7 @@ const Profile = () => {
   })
   const handlePassChange = (e) => {
     setPassword(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    console.log(password)
+    //console.log(password)
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,13 +30,13 @@ const Profile = () => {
       setError("Passsword Doesnot Match")
       return;
     }
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/changepassword`, password, {
+    await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/changepassword`, password, {
       withCredentials: true,
     }).then((response) => {
-      // console.log(response)
+      // //console.log(response)
       navigate("/login")
     }).catch((error) => {
-      console.log(error)
+      //console.log(error)
       setError(error.response.data.message)
     })
   }
@@ -44,32 +45,32 @@ const Profile = () => {
   const fetchUserData = async () => {
     setLoading(true)
     const user = await getMyDetails();
-    console.log("user", user);
+    //console.log("user", user);
     localStorage.setItem("image", user.image)
     setUserData(user);
     setLoading(false)
   }
   const handleChange = (e) => {
-    console.log(e.target.files[0])
+    //console.log(e.target.files[0])
     setFile(e.target.files[0]);
 
   }
   const handleUpload = () => {
     if (!file) {
-      console.log("Select File");
+      //console.log("Select File");
       return;
     }
     const fd = new FormData();
     fd.append('image', file);
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/changeprofile`, fd, {
+    axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/changeprofile`, fd, {
       withCredentials: true,
     }).then((response) => {
       toast.success("Image uploaded successfully")
-      console.log(response)
+      //console.log(response)
     }).catch((error) => {
       toast.error(error.response.data.error);
       // alert(error.response.data.error)
-      console.log(error.response)
+      //console.log(error.response)
     }).finally(() => {
       setFlag(false);
       fetchUserData();
@@ -140,47 +141,47 @@ const Profile = () => {
       </div>
       {
         loading ? <Spinner /> : <div className='general_info'>
-        <div>
-          <h1 className='head'>Personal Information</h1>
+          <div>
+            <h1 className='head'>Personal Information</h1>
+
+          </div>
+          <div className="details-container">
+            <div>Name:</div>
+            <div>{userData?.fname}  {userData?.mname}  {userData?.lname} ({userData?.role})</div>
+
+          </div>
+          <div className="details-container">
+            <div>DOB:</div>
+            <div>{userData?.dob}</div>
+
+          </div>
+          <div className="details-container">
+            <div>Gender</div>
+            <div>{userData?.gender === 'M' ? "Male" : userData?.gender === 'F' ? "Female" : userData?.gender === 'O' ? "Other" : 'NULL'}</div>
+          </div>
+          <div className="details-container">
+            <div>Email</div>
+            <div>{userData?.email}</div>
+
+          </div>
+          <div className="details-container">
+            <div>Primary Contact</div>
+            <div>{userData?.primary_contact}</div>
+          </div>
+          <div className="details-container">
+            <div>Secondary Contact</div>
+            <div>{userData?.secondary_contact}</div>
+          </div>
+          <div className="details-container">
+            <div>Permanent Address</div>
+            <div>{userData?.permanent_address}</div>
+          </div>
+          <div className="details-container">
+            <div>Secondary Address</div>
+            <div>{userData?.temporary_address}</div>
+          </div>
 
         </div>
-        <div className="details-container">
-          <div>Name:</div>
-          <div>{userData?.fname}  {userData?.mname}  {userData?.lname} ({userData?.role})</div>
-
-        </div>
-        <div className="details-container">
-          <div>DOB:</div>
-          <div>{userData?.dob}</div>
-
-        </div>
-        <div className="details-container">
-          <div>Gender</div>
-          <div>{userData?.gender === 'M' ? "Male" : userData?.gender === 'F' ? "Female" : userData?.gender === 'O' ? "Other" : 'NULL'}</div>
-        </div>
-        <div className="details-container">
-          <div>Email</div>
-          <div>{userData?.email}</div>
-
-        </div>
-        <div className="details-container">
-          <div>Primary Contact</div>
-          <div>{userData?.primary_contact}</div>
-        </div>
-        <div className="details-container">
-          <div>Secondary Contact</div>
-          <div>{userData?.secondary_contact}</div>
-        </div>
-        <div className="details-container">
-          <div>Permanent Address</div>
-          <div>{userData?.permanent_address}</div>
-        </div>
-        <div className="details-container">
-          <div>Secondary Address</div>
-          <div>{userData?.temporary_address}</div>
-        </div>
-
-      </div>
       }
       <button onClick={() => setChangePasswordFlag(true)} className='change-password'>Change Password</button>
 

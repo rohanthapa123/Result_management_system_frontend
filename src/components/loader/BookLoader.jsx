@@ -12,8 +12,8 @@ const BookLoader = () => {
         <div className={`${styles.book__pg} ${styles.book__pg4}`}></div>
         <div className={`${styles.book__pg} ${styles.book__pg5}`}></div>
       </div>
-      <div class={styles.area} >
-            <ul class={styles.circles}>
+      <div className={styles.area} >
+            <ul className={styles.circles}>
                     <li></li>
                     <li></li>
                     <li></li>

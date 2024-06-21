@@ -1,10 +1,10 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ClassInput from '../../components/ClassInput';
 import SubjectInput from '../../components/SubjectInput';
+import axiosInstance from '../../services/axiosInstance';
 import { getExamById } from '../../services/fetchFunction';
 import "./exam.css";
 const EditExam = () => {
@@ -16,25 +16,25 @@ const EditExam = () => {
         subject_id: '',
         exam_date: '',
         term: '',
-        exam_id : id,
+        exam_id: id,
     });
     const handleChange = (e) => {
         const { name, value } = e.target;
         setExamData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(examData)
-        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/exam/edit`, examData, {
+        //console.log(examData)
+        axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/exam/edit`, examData, {
             withCredentials: true,
         }).then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             toast.success("Exam successfully Updated");
             navigate("/admin/exam");
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })
@@ -42,17 +42,17 @@ const EditExam = () => {
     }
     const getData = useCallback(async () => {
         const result = await getExamById(id);
-        console.log("result", result)
+        //console.log("result", result)
         const filteredData = {
             exam_name: result[0].exam_name,
             class_id: result[0].class_id,
             subject_id: result[0].subject_id,
             exam_date: result[0].exam_date,
             term: result[0].term,
-            exam_id : id,
+            exam_id: id,
         }
         setExamData(filteredData)
-    },[id])
+    }, [id])
     useEffect(() => {
         getData();
     }, [getData])

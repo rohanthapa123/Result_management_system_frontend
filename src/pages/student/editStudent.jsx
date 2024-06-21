@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +5,7 @@ import { toast } from 'react-toastify';
 import ClassInput from '../../components/ClassInput';
 import { getSectionByClass, getStudentById } from '../../services/fetchFunction';
 import "./student.css";
+import axiosInstance from '../../services/axiosInstance';
 const EditStudent = () => {
     const navigate = useNavigate();
     // const [classes, setClasses] = useState();
@@ -17,7 +17,23 @@ const EditStudent = () => {
         secondary_contact: ''
 
     });
-    const [studentData, setStudentData] = useState({});
+    const [studentData, setStudentData] = useState({
+        fname: '',
+        mname: '',
+        lname: '',
+        email: '',
+        dob: '',
+        primary_contact: '',
+        secondary_contact: '',
+        temporary_address: '',
+        permanent_address: '',
+        gender: '',
+        class_id: '',
+        section_id: '',
+        roll_no: '',
+        blood_group: '',
+        nationality: ''
+    });
     const regexPatterns = {
 
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -30,7 +46,7 @@ const EditStudent = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setStudentData(prev => ({ ...prev, [name]: value }));
-        console.log(studentData)
+        //console.log(studentData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleSubmit = (e) => {
@@ -40,18 +56,18 @@ const EditStudent = () => {
         if (hasErrors) {
             alert("Fill form correctly")
         } else {
-            console.log(studentData)
+            //console.log(studentData)
             // alert("Form can be submitted")
 
-            axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/update`, studentData, {
+            axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/update`, studentData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Student Edited Successfully")
                 navigate("/admin/students");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     alert(error.response.data.error)
                 }
             })
@@ -61,9 +77,9 @@ const EditStudent = () => {
         // const classData = await getClass();
         // setClasses(classData)
         const result = await getStudentById(id);
-        // console.log(result[0])
+        // //console.log(result[0])
         setStudentData({ ...result[0], role: "student" })
-    },[id])
+    }, [id])
     const getSectionData = async (class_id) => {
         if (class_id) {
 

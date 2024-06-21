@@ -8,7 +8,7 @@ const StudentNotice = () => {
   const getClassNoticeData = async () => {
     setLoading(true);
     const data = await getNotices();
-    console.log(data)
+    //console.log(data)
     setClassNotice(data);
     setLoading(false);
   }

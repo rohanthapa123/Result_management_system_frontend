@@ -13,7 +13,7 @@ const SubjectInput = ({ value, class_id, handleChange }) => {
                 data = await getSubjects(null, 100, 0);
             }
             setSubjects(data.result);
-            console.log(data);
+            //console.log(data);
         } catch (error) {
             console.error('Error fetching subjects:', error);
         }

@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Spinner from '../../../components/loader/Spinner';
+import axiosInstance from '../../../services/axiosInstance';
 import "./result.css";
 const ResultPage = () => {
     const [term, setTerm] = useState();
@@ -17,40 +17,40 @@ const ResultPage = () => {
             if (term) {
 
                 setLoading(true);
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/result/${term}`, {
+                const response = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/result/${term}`, {
                     withCredentials: true,
                 })
-                // console.log(response.data.data);
+                // //console.log(response.data.data);
                 setResult(response.data.data.markData[0])
                 setUser(response.data.data.userData)
                 setStudent(response.data.data.studentData)
-                // console.log(result)
+                // //console.log(result)
                 calculateTotal(response.data.data.markData[0]);
                 setLoading(false);
             } else {
                 toast.warning("Select term");
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
     const calculateTotal = (marks) => {
-        console.log(marks)
+        //console.log(marks)
         const totalMarks = marks?.reduce((total, item) => total + item.marks_obtained, 0);
         setTotal(totalMarks);
         let gpa = 0;
-        console.log(marks)
+        //console.log(marks)
         marks?.forEach((item) => {
             if (item.grade === "F") {
                 setFail(true);
             }
             gpa = gpa + gradeToGPA[item.grade]
         })
-        console.log(gpa)
+        //console.log(gpa)
         setGpaaverage(gpa / marks.length)
-        console.log(gpaaverage)
+        //console.log(gpaaverage)
         // totalMarks / marks .length
-        console.log(total)
+        //console.log(total)
     }
     const printResult = () => {
         if (result) {
@@ -117,7 +117,7 @@ const ResultPage = () => {
                     </thead>
                     <tbody>
                         {result?.map((item, index) => {
-                            return <tr key={item.mark_id}>
+                            return <tr key={`${item.mark_id}-${index} `}>
                                 <td>{index + 1}</td>
                                 <td>{item.subject_name}</td>
                                 <td>{item.marks_obtained}</td>

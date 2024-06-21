@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MultiClass from '../../components/MultiClass';
+import axiosInstance from '../../services/axiosInstance';
 import { getNoticeById } from '../../services/fetchFunction';
 import "./notice.css";
 const EditNotice = ({ role }) => {
@@ -13,26 +13,26 @@ const EditNotice = ({ role }) => {
     const [noticeData, setNoticeData] = useState({
         class_id: [],
         notice_text: '',
-        notice_id : id,
+        notice_id: id,
     })
     const navigate = useNavigate()
     const getData = useCallback(async () => {
-        console.log(id)
+        //console.log(id)
 
         // const classData = await getClass();
         // setClasses(classData);
         const noticeData = await getNoticeById(id);
         setNoticeData(noticeData[0]);
         setSelectedOptions(noticeData[0].class)
-    },[id])
+    }, [id])
     useEffect(() => {
         getData();
     }, [getData])
     const updateNotice = async (e) => {
         e.preventDefault();
         try {
-            // console.log()
-            const response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/notice/update`, noticeData, {
+            // //console.log()
+            const response = await axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/notice/update`, noticeData, {
                 withCredentials: true,
             })
             if (response.status === 200) {
@@ -41,16 +41,16 @@ const EditNotice = ({ role }) => {
             }
         } catch (error) {
             toast.error("Error updating notice");
-            console.log(error)
+            //console.log(error)
         }
     }
     const handleChange = (e) => {
         setNoticeData(prev => ({ ...prev, [e.target.name]: e.target.value }))
-        console.log(noticeData)
+        //console.log(noticeData)
     }
-    const handleChangeClass = (selectedOptions) =>{
+    const handleChangeClass = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setNoticeData(prev => ({ ...prev, class: selectedOptions }));
     }
     return (
