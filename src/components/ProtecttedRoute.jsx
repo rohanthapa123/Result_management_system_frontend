@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import Spinner from "./loader/Spinner";
 import BookLoader from "./loader/BookLoader";
 
 const ProtectedRoute = ({ Component, permittedRole }) => {
