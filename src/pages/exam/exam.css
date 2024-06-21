@@ -33,3 +33,7 @@ td{
 .headings{
     font-size: 40px;
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

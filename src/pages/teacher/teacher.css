@@ -57,3 +57,7 @@ td> button{
     border: 2px solid rgba(99, 99, 99, 0.487);
     display: block;
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

@@ -56,7 +56,6 @@ const Dashboard = () => {
 
 
                     </div>
-                    <h1 className="resettitle">Graph for student perfomance in exam overall coming soon ...</h1>
                     <div className="resetpassword">
                         <h1 className="resettitle">Enter email to reset password</h1>
                         <div className="innerresetpassword">

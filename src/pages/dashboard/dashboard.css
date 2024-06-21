@@ -10,7 +10,7 @@
     background-color: rgba(171, 168, 168, 0.395);
      text-align: center;
      padding: 20px;
-     width: 80%;
+     width: 100%;
      margin: auto;
      margin-bottom: 15px;
      border-radius: 10px;
@@ -32,24 +32,14 @@
 }
 
 
-@media screen and (min-width:768px) {
-    .countContainer{
-        display: flex;
-        gap: 10px;
-    }
-    .countContainer > div{
-        margin: 0;
-        width: 30%;
-        height: 180px;
-    }
-}
 .resetpassword{
-    width: 50%; 
+    width: 100%; 
     background-color: rgba(171, 168, 168, 0.395);
-     text-align: center;
-     padding: 5px;
-     padding-bottom: 10px;
-    margin: 30px;
+    text-align: center;
+    padding: 15px;
+    padding-bottom: 10px;
+    margin: auto;
+    margin-top: 50px;
      border-radius: 10px;
      border-right: 1px solid white;
      border-bottom: 1px solid white;
@@ -59,21 +49,48 @@
     color: rgb(28, 27, 27);
 }
 .resetemail{
-    width: 85%;
+    width: 90%;
 }
 .innerresetpassword{
-    width: 80%;
+    width: 95%;
     margin: auto;
     display: flex;  
 }
 .resetform{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 .resetBtn{
     background-color: azure;
     color: black;
     padding: 10px;
     font-size: 18px;
-}
+    } 
+        @media screen and (min-width:768px) {
+            .countContainer{
+                display: flex;
+                gap: 10px;
+            }
+            .countContainer > div{
+                margin: 0;
+                width: 30%;
+                height: 180px;
+            }
+            .resetpassword{
+                width: 70%;
+                margin: 50px;
+                margin-top: 50px;
+            }
+            .resetform{
+                flex-direction: row;
+            }
+        }
+
+        @media screen and (min-width:1024px) {
+            .resetpassword{
+                width: 50%;
+                margin: 50px;
+                margin-top: 50px;
+            }
+        }

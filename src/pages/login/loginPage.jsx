@@ -11,6 +11,7 @@ const LoginPage = () => {
         password: ''
     })
     const [loggedIn, setLoggedIn] = useState(false)
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const handleInput = (event) => {
         setValues(prev => ({ ...prev, [event.target.name]: event.target.value }))
@@ -19,7 +20,7 @@ const LoginPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-
+            setLoading(true)
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,7 +42,9 @@ const LoginPage = () => {
             } else {
                 console.log("Login Failed");
             }
+            setLoading(false)
         } catch (error) {
+            setLoading(false);
             setEmailError("");
             setPasswordError("")
             if (error.response.data.message) {
@@ -91,11 +94,13 @@ const LoginPage = () => {
                             <input className="loginInput" type="password" name="password" onChange={handleInput} placeholder="Enter your password" />
                             <span>{passwordError}</span>
                         </div>
-                        <button className="loginBtn">Submit</button>
-                    </form>
-                    <p className="reset"><i>Contact College Admin to reset password</i> </p>
-                </div>
-            </div>
+                        {
+                            loading ? <button className="loginBtn"><div className="loadingsubmit" /></button> : <button className="loginBtn">Submit</button>
+                        }
+            </form>
+            <p className="reset"><i>Contact College Admin to reset password</i> </p>
+        </div >
+            </div >
         </>
     )
 }

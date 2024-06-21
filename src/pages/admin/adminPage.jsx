@@ -43,7 +43,7 @@ const AdminPage = () => {
         <Link className="link" to={"add"}><button className="add">Add Admin</button></Link>
       </div>
       {
-        loading ? <Spinner /> : <table >
+        loading ? <Spinner /> : <table className='dashboardtable' >
           <thead>
             <tr>
               <th></th>
@@ -54,7 +54,7 @@ const AdminPage = () => {
               <th>Edit</th>
               <th>Delete</th>
             </tr>
-          </thead>
+          </thead> 
           <tbody>
             {
               admins?.map((admin, index) => {

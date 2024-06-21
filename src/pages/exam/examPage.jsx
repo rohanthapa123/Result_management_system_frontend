@@ -58,7 +58,7 @@ const ExamPage = () => {
             </div>
 
             {
-                loading ? <Spinner /> : <table>
+                loading ? <Spinner /> : <table className='dashboardtable'>
                 {
                     exams?.length > 0 ? <thead>
                     <tr>

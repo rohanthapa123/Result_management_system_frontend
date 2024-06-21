@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Spinner from "./loader/Spinner";
+import BookLoader from "./loader/BookLoader";
 
 const ProtectedRoute = ({ Component, permittedRole }) => {
   const [auth, setAuth] = useState(null); // Use null to indicate loading state
@@ -45,7 +46,7 @@ const ProtectedRoute = ({ Component, permittedRole }) => {
 
   // While authentication status is loading, you can choose to show a loading spinner or a message
   if (auth === null) {
-    return <Spinner /> ;
+    return <BookLoader /> ;
   }
   const hasRequiredRole = permittedRole ? userrole === permittedRole : true;
 
