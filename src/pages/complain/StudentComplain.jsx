@@ -46,7 +46,7 @@ const StudentComplain = () => {
       </form>
       <h1>My Complains</h1>
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
           <thead>
             <tr>
 

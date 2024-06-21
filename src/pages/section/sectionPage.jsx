@@ -93,7 +93,7 @@ const SectionPage = () => {
       </div>
       <br />
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
         <thead>
           <tr>
             <th>Section</th>

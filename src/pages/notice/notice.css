@@ -96,3 +96,7 @@ textarea{
     position: absolute;
     left: 10%;
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

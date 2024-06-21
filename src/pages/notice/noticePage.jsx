@@ -56,7 +56,7 @@ const NoticePage = () => {
             </div>
             {
                 loading ? <Spinner /> :
-                    <table >
+                    <table className='dashboardtable' >
                         <thead>
                             <tr>
                                 <th>Notice</th>

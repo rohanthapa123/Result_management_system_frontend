@@ -39,7 +39,7 @@ const TeacherPage = () => {
         <Link className="link" to={"add"}><button className="add">Add Teacher</button></Link>
       </div>
       {
-        loading ? <Spinner /> : <table >
+        loading ? <Spinner /> : <table className='dashboardtable' >
         <thead>
           <tr>
             <th></th>

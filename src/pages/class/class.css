@@ -43,3 +43,7 @@ td> button{
     background-color: #a5a8b1;
     color: black;
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

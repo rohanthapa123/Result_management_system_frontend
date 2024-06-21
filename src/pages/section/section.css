@@ -35,3 +35,8 @@
     bottom: 10px;
     width: 100%;
 }
+
+
+.dashboardtable{
+    min-width: 800px;
+}
