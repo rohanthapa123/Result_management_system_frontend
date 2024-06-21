@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { FaXmarksLines } from 'react-icons/fa6';
 import { MdAnnouncement, MdDashboard, MdLogout } from "react-icons/md";
@@ -6,16 +5,15 @@ import { PiExam } from "react-icons/pi";
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/DashboardComponent/NavBar';
 import "./dashboardLayout.css";
+import axiosInstance from '../services/axiosInstance';
 const TeacherDashboardLayout = () => {
 
     const navigate = useNavigate();
     const handleLogout = async () => {
-        await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
-            withCredentials: true,
-        })
+        await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null)
         localStorage.clear();
         navigate("/login");
-        // console.log(resp);
+        // //console.log(resp);
     }
     return (
         <div className='parent'>

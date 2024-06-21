@@ -38,7 +38,7 @@ const MarkPage = () => {
         setLoading(true)
         const marksData = await getAllMarksOfClassByExam(selectedClass, term);
         // setStudentMarks(marksData);
-        console.log(marksData)
+        //console.log(marksData)
         setStudentMarks(marksData.map(student => ({
           ...student,
           subjects_marks: student.subjects_marks.sort((a, b) => a.subject_id - b.subject_id)
@@ -51,7 +51,7 @@ const MarkPage = () => {
 
   const exportToPDF = () => {
     if (studentMarks.length > 0) {
-      console.log("Shets")
+      //console.log("Shets")
       const doc = new jsPDF();
       const tableColumn = ["First Name", "Middle Name", "Last Name", ...studentMarks[0]?.subjects_marks.map(subject => subject.subject_name)];
       const tableRows = [];
@@ -137,33 +137,33 @@ const MarkPage = () => {
       <hr />
       {
         loading ? <Spinner /> : <table className='dashboardtable'>
-        {studentMarks.length > 0 && <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            {/* <th>User ID</th> */}
-            {/* <th>Student ID</th> */}
-            {studentMarks.length > 0 && studentMarks[0].subjects_marks.map((subject) => (
-              <th key={subject.subject_id}>{subject.subject_name}</th>
-            ))}
-          </tr>
-        </thead>}
-        <tbody>
-          {studentMarks.map((student) => (
-            <tr key={student.student_id}>
-              <td>{student.fname}</td>
-              <td>{student.mname}</td>
-              <td>{student.lname}</td>
-              {/* <td>{student.user_id}</td> */}
-              {/* <td>{student.student_id}</td> */}
-              {student.subjects_marks.map((subject) => (
-                <td key={subject.subject_id}>{/*subject.subject_name*/}{subject.marks_obtained || "- "}</td>
+          {studentMarks.length > 0 && <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              {/* <th>User ID</th> */}
+              {/* <th>Student ID</th> */}
+              {studentMarks.length > 0 && studentMarks[0].subjects_marks.map((subject) => (
+                <th key={subject.subject_id}>{subject.subject_name}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>}
+          <tbody>
+            {studentMarks.map((student) => (
+              <tr key={student.student_id}>
+                <td>{student.fname}</td>
+                <td>{student.mname}</td>
+                <td>{student.lname}</td>
+                {/* <td>{student.user_id}</td> */}
+                {/* <td>{student.student_id}</td> */}
+                {student.subjects_marks.map((subject) => (
+                  <td key={subject.subject_id}>{/*subject.subject_name*/}{subject.marks_obtained || "- "}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       }
     </div>
   );

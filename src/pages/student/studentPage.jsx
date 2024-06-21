@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
@@ -9,9 +8,10 @@ import oiep from "../../assets/OIP.jpeg";
 import ClassInput from "../../components/ClassInput";
 import Search from "../../components/Search/Search";
 import SectionInput from "../../components/SectionInput";
+import Spinner from "../../components/loader/Spinner";
+import axiosInstance from "../../services/axiosInstance";
 import { deleteUser, getStudents } from "../../services/fetchFunction";
 import "./student.css";
-import Spinner from "../../components/loader/Spinner";
 
 const StudentPage = () => {
   const [students, setStudents] = useState();
@@ -20,7 +20,7 @@ const StudentPage = () => {
   const [toUpdateClass, setToUpdateClass] = useState();
   const [toUpdateSection, setToUpdateSection] = useState();
   const [toogleUpdateClass, setToogleUpdateClass] = useState(false);
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const debounce = (func, delay) => {
     let timer;
@@ -55,7 +55,7 @@ const StudentPage = () => {
         await deleteUser(id);
         getData(_class);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
   };
@@ -102,7 +102,7 @@ const StudentPage = () => {
   const handleBulkUpdate = async () => {
     try {
       if (window.confirm("Are you sure to update ??")) {
-        await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/users/bulkactionupdate`, {
+        await axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/users/bulkactionupdate`, {
           userIds: Array.from(selectedStudent),
           newClass: toUpdateClass,
           newSection: toUpdateSection,
@@ -113,7 +113,7 @@ const StudentPage = () => {
         getData(_class);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       toast.error("Failed to Update");
     }
   };
@@ -121,7 +121,7 @@ const StudentPage = () => {
   const handleBulkDelete = async () => {
     try {
       if (window.confirm("Are you sure to Delete all ??")) {
-        await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/users/bulkactiondelete`, {
+        await axiosInstance.delete(`${process.env.REACT_APP_SERVER_URL}/api/users/bulkactiondelete`, {
           data: { userIds: Array.from(selectedStudent) },
           withCredentials: true,
         });
@@ -130,7 +130,7 @@ const StudentPage = () => {
         getData(_class);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       toast.error("Failed to Delete");
     }
   };
@@ -171,65 +171,65 @@ const StudentPage = () => {
 
       {
         loading ? <Spinner /> : <table className={toogleUpdateClass ? "faded" : ""}>
-        <thead className="dashboardtable">
-          <tr>
-            <th>
-              <input
-                onChange={handleSelectAll}
-                checked={selectedStudent.size === students?.length && students?.length > 0}
-                type="checkbox"
-                className="selectcheckbox"
-              />
-            </th>
-            <th></th>
-            <th>Fname</th>
-            <th>Mname</th>
-            <th>Lname</th>
-            <th>Class</th>
-            <th>Email</th>
-            <th className="action">Edit</th>
-            <th className="action">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students?.map((student, index) => (
-            <tr className={index % 2 === 0 ? "even" : "odd"} key={student.student_id}>
-              <td>
+          <thead className="dashboardtable">
+            <tr>
+              <th>
                 <input
-                  checked={selectedStudent.has(student.user_id)}
-                  onChange={() => handleSelectedRow(student.user_id)}
+                  onChange={handleSelectAll}
+                  checked={selectedStudent.size === students?.length && students?.length > 0}
                   type="checkbox"
                   className="selectcheckbox"
                 />
-              </td>
-              <td>
-                <img
-                  src={student.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${student.image}` : oiep}
-                  height={50}
-                  width={50}
-                  alt="profile"
-                  className="dpprofile"
-                />
-              </td>
-              <td>{student.fname}</td>
-              <td>{student.mname}</td>
-              <td>{student.lname}</td>
-              <td>{student.class_name}</td>
-              <td>{student.email}</td>
-              <td className="action">
-                <Link to={`edit/${student.student_id}`}>
-                  <FaEdit size={20} color="green" />
-                </Link>
-              </td>
-              <td className="action">
-                <button onClick={() => handleDelete(student.user_id)}>
-                  <MdDelete size={20} color="red" />
-                </button>
-              </td>
+              </th>
+              <th></th>
+              <th>Fname</th>
+              <th>Mname</th>
+              <th>Lname</th>
+              <th>Class</th>
+              <th>Email</th>
+              <th className="action">Edit</th>
+              <th className="action">Delete</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {students?.map((student, index) => (
+              <tr className={index % 2 === 0 ? "even" : "odd"} key={student.student_id}>
+                <td>
+                  <input
+                    checked={selectedStudent.has(student.user_id)}
+                    onChange={() => handleSelectedRow(student.user_id)}
+                    type="checkbox"
+                    className="selectcheckbox"
+                  />
+                </td>
+                <td>
+                  <img
+                    src={student.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${student.image}` : oiep}
+                    height={50}
+                    width={50}
+                    alt="profile"
+                    className="dpprofile"
+                  />
+                </td>
+                <td>{student.fname}</td>
+                <td>{student.mname}</td>
+                <td>{student.lname}</td>
+                <td>{student.class_name}</td>
+                <td>{student.email}</td>
+                <td className="action">
+                  <Link to={`edit/${student.student_id}`}>
+                    <FaEdit size={20} color="green" />
+                  </Link>
+                </td>
+                <td className="action">
+                  <button onClick={() => handleDelete(student.user_id)}>
+                    <MdDelete size={20} color="red" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       }
     </>
   );

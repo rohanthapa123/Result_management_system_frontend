@@ -1,10 +1,11 @@
-import axios from 'axios';
+
 import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
 import "./teacher.css";
+import axiosInstance from '../../services/axiosInstance';
 const AddTeacher = () => {
     const navigate = useNavigate();
     const [selectedOptions, setSelectedOptions] = useState();
@@ -41,12 +42,12 @@ const AddTeacher = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setTeacherData(prev => ({ ...prev, [name]: value }));
-        console.log(teacherData)
+        //console.log(teacherData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setTeacherData(prev => ({ ...prev, subjects: selectedOptions }));
     }
     const handleSubmit = (e) => {
@@ -56,18 +57,18 @@ const AddTeacher = () => {
             // alert("Fill form correctly")
             toast.warning("Fill form correctly");
         } else {
-            console.log(teacherData)
+            //console.log(teacherData)
             // alert("Form can be submitted")
 
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, teacherData, {
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, teacherData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Teacher Added Successfully")
                 navigate("/admin/teachers");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     // alert(error.response.data.error)
                     toast.error(error.response.data.error)
                 }

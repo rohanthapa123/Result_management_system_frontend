@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import ClassInput from '../../components/ClassInput';
 import SubjectInput from '../../components/SubjectInput';
+import axiosInstance from '../../services/axiosInstance';
 import "./exam.css";
 const AddExam = () => {
     const navigate = useNavigate();
@@ -17,26 +17,26 @@ const AddExam = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setExamData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(examData)
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/exam`, examData, {
+        //console.log(examData)
+        axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/exam`, examData, {
             withCredentials: true,
         }).then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             navigate("/admin/exam");
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })
 
     }
     useEffect(() => {
-        console.log("rerender")
+        //console.log("rerender")
     }, [examData.class_id])
 
     return (

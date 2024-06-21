@@ -1,8 +1,9 @@
-import axios from 'axios';
+
 import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
 import "./admin.css";
 const AddAdmin = () => {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ const AddAdmin = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setAdminData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleSubmit = (e) => {
@@ -47,18 +48,18 @@ const AddAdmin = () => {
         if (hasErrors) {
             alert("Fill form correctly")
         } else {
-            console.log(adminData)
+            //console.log(adminData)
             // alert("Form can be submitted")
 
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, adminData, {
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, adminData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Admin created successfully")
                 navigate("/admin/admins");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     toast.error(error.response.data.error)
                     // alert(error.response.data.error)
                 }

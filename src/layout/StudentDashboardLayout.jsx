@@ -1,20 +1,20 @@
-import axios from 'axios';
 import React from 'react';
 import { MdAnnouncement, MdDashboard, MdLogout, MdReportProblem } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/DashboardComponent/NavBar';
 import "./dashboardLayout.css";
+import axiosInstance from '../services/axiosInstance';
 const StudentDashboardLayout = () => {
 
     const navigate = useNavigate();
     const handleLogout = async () => {
-        await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
+        await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
             withCredentials: true,
         })
         localStorage.clear()
         navigate("/login");
-        // console.log(resp);
+        // //console.log(resp);
     }
     return (
         <div className='parent'>

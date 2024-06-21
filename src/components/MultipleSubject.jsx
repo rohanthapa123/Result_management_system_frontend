@@ -3,17 +3,17 @@ import { getSubjects } from '../services/fetchFunction';
 import Select from 'react-select';
 // import Select from 'react-select';
 
-const MultipleSubject = ({ selectedOptions , handleChangeSubject}) => {
+const MultipleSubject = ({ selectedOptions, handleChangeSubject }) => {
 
-    const [options  , setOptions] = useState()
+    const [options, setOptions] = useState()
 
     const getData = async () => {
-        // console.log(_class_id)
+        // //console.log(_class_id)
 
         const data = await getSubjects(null, 100, 0);
         // setSubjects(data)
         // setSubjects(data.result)
-        console.log(data);
+        // //console.log(data);
         const filterData = data.result.map((item) => {
             return {
                 value: item.subject_id,

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
@@ -7,6 +6,7 @@ import { toast } from 'react-toastify'
 import { getNotices } from '../../services/fetchFunction'
 import "./notice.css"
 import Spinner from '../../components/loader/Spinner'
+import axiosInstance from '../../services/axiosInstance'
 const NoticePage = () => {
     const [notices, setNotices] = useState();
     const [loading, setLoading] = useState(false);
@@ -17,16 +17,16 @@ const NoticePage = () => {
         if (window.confirm("Are you sure to delete")) {
 
             try {
-                await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/notice/${id}`, {
+                await axiosInstance.delete(`${process.env.REACT_APP_SERVER_URL}/api/notice/${id}`, {
                     withCredentials: true
                 })
                 toast.warn("Deleted Successfully")
                 getData();
 
-                // console.log(response)
+                // //console.log(response)
             } catch (error) {
                 toast.error("Error deleting")
-                console.log(error);
+                //console.log(error);
             }
         } else {
 
@@ -39,7 +39,7 @@ const NoticePage = () => {
             setNotices(data)
             setLoading(false)
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             setLoading(false)
             toast.error("Error occured")
         }

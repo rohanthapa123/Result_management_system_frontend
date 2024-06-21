@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { defaults } from "chart.js/auto";
 import React, { useCallback, useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import "./dashboard.css";
 import Spinner from '../../../components/loader/Spinner';
+import axiosInstance from "../../../services/axiosInstance";
 
 defaults.maintainAspectRatio = true;
 defaults.responsive = true;
@@ -41,7 +41,7 @@ const StudentDashboard = () => {
     const getTerminalData = useCallback(async (e) => {
         try {
             const termId = e?.target?.value || 1;
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/terminalMarks/${termId}`, {
+            const res = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/terminalMarks/${termId}`, {
                 withCredentials: true,
             });
             const marksData = res.data.data[0];
@@ -65,7 +65,7 @@ const StudentDashboard = () => {
 
     const getAllTermMarks = useCallback(async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/allterminalmarks`, {
+            const res = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/allterminalmarks`, {
                 withCredentials: true,
             });
             const rawAllTermMarksData = res.data.data[0];
@@ -84,7 +84,7 @@ const StudentDashboard = () => {
                 subjectMap[item.subject_name].data.push(item.marks_obtained);
             });
             setAllTermMarks(Object.values(subjectMap));
-            console.log(Object.values(subjectMap));
+            //console.log(Object.values(subjectMap));
         } catch (error) {
             console.error('Error fetching all term marks:', error);
         }
@@ -95,7 +95,7 @@ const StudentDashboard = () => {
             try {
                 // Fetch terms
                 setLoading(true)
-                const termsRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/terms`, {
+                const termsRes = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/terms`, {
                     withCredentials: true,
                 });
                 setTerms(termsRes.data.data);

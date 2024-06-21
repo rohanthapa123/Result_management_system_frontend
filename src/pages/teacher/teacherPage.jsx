@@ -9,17 +9,17 @@ import "./teacher.css"
 import Spinner from '../../components/loader/Spinner'
 const TeacherPage = () => {
   const [teachers, setTeacher] = useState();
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const getData = async () => {
     setLoading(true)
     const data = await getTeachers();
-    console.log(data)
+    //console.log(data)
     setTeacher(data)
     setLoading(false)
   }
   useEffect(() => {
     getData();
-    // console.log(teachers)
+    // //console.log(teachers)
   }, [])
   const handleDelete = useCallback(async (id) => {
     if (window.confirm("Are you sure to Delete?")) {
@@ -28,7 +28,7 @@ const TeacherPage = () => {
         toast.warning("Teacher deleted successfully")
         getData();
       } catch (error) {
-        console.log(error)
+        //console.log(error)
       }
     }
   }, []);
@@ -40,33 +40,33 @@ const TeacherPage = () => {
       </div>
       {
         loading ? <Spinner /> : <table className='dashboardtable' >
-        <thead>
-          <tr>
-            <th></th>
-            <th>Fname</th>
-            <th>Mname</th>
-            <th>Lname</th>
-            <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            teachers?.map((teacher, index) => {
-              return <tr className={index % 2 === 0 ? "even" : "odd"} key={teacher.teacher_id}>
-                <td><img className='dpprofile' src={teacher.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
-                <td>{teacher.fname}</td>
-                <td>{teacher.mname}</td>
-                <td>{teacher.lname}</td>
-                <td>{teacher.email}</td>
-                <td className='action'><Link to={`edit/${teacher.teacher_id}`}><FaEdit size={20} color="green" /></Link></td>
-                <td className='action'><button onClick={(e) => handleDelete(teacher.user_id)}><MdDelete size={20} color="red" /></button></td>
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Fname</th>
+              <th>Mname</th>
+              <th>Lname</th>
+              <th>Email</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              teachers?.map((teacher, index) => {
+                return <tr className={index % 2 === 0 ? "even" : "odd"} key={teacher.teacher_id}>
+                  <td><img className='dpprofile' src={teacher.image ? `${process.env.REACT_APP_SERVER_URL}/api/images/${teacher.image}` : oip} height={50} width={50} alt="profile" /></td>
+                  <td>{teacher.fname}</td>
+                  <td>{teacher.mname}</td>
+                  <td>{teacher.lname}</td>
+                  <td>{teacher.email}</td>
+                  <td className='action'><Link to={`edit/${teacher.teacher_id}`}><FaEdit size={20} color="green" /></Link></td>
+                  <td className='action'><button onClick={(e) => handleDelete(teacher.user_id)}><MdDelete size={20} color="red" /></button></td>
+                </tr>
+              })
+            }
+          </tbody>
+        </table>
       }
     </>
   )

@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import "./dashboard.css";
 import Spinner from "../../components/loader/Spinner";
+import axiosInstance from "../../services/axiosInstance";
+import "./dashboard.css";
 const Dashboard = () => {
     const [roleCount, setRoleCount] = useState();
     const [loading, setLoading] = useState(false)
@@ -10,13 +10,11 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchRoleCount = async () => {
             setLoading(true)
-            await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/count`, {
-                withCredentials: true,
-            }).then((response) => {
-                // console.log
+            await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/users/count`).then((response) => {
+                // //console.log
                 setRoleCount(response.data.data);
             }).catch((error) => {
-                console.log(error)
+                //console.log(error)
             })
             setLoading(false)
         }
@@ -25,20 +23,18 @@ const Dashboard = () => {
     const resetsEmail = async (e) => {
         e.preventDefault();
         if (window.confirm(`Are you sure to reset password for ${resetEmail}`)) {
-            // console.log(resetEmail)
+            // //console.log(resetEmail)
             try {
-                await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/resetpassword`, {
+                await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/resetpassword`, {
                     email: resetEmail
-                }, {
-                    withCredentials: true,
                 })
                 toast.success("Password Reset Successfully");
                 setResetEmail("")
             } catch (error) {
-                console.log(error)
+                //console.log(error)
             }
         }
-        // console.log()
+        // //console.log()
     }
     return (
         <>
@@ -46,8 +42,8 @@ const Dashboard = () => {
                 loading ? <Spinner /> : <>
                     <div className="countContainer">
                         {
-                            roleCount?.map((role) => {
-                                return <div className="count">
+                            roleCount?.map((role , index) => {
+                                return <div key={index} className="count">
                                     <h3>No of {role.role}</h3>
                                     <h1>{role.no_of_user}</h1>
                                 </div>

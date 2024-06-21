@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
 import { getSubjectsById } from '../../services/fetchFunction';
 import "./subject.css";
 const EditSubject = () => {
@@ -18,12 +18,12 @@ const EditSubject = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSubjectData(prev => ({ ...prev, [name]: value }));
-        console.log(subjectData)
+        //console.log(subjectData)
     }
     const handleEdit = (e) => {
         e.preventDefault();
-        console.log(subjectData)
-        const isEmptyField = Object.values(subjectData).some(value => typeof(value) === String && value.trim() === '');
+        //console.log(subjectData)
+        const isEmptyField = Object.values(subjectData).some(value => typeof (value) === String && value.trim() === '');
 
         if (isEmptyField) {
             toast.warning('Please fill in all fields');
@@ -31,25 +31,25 @@ const EditSubject = () => {
         }
         // alert("Form can be submitted")
 
-        axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/subject/edit`, subjectData, {
+        axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/subject/edit`, subjectData, {
             withCredentials: true,
         }).then(response => {
-            // console.log(response.data)
+            // //console.log(response.data)
             if (response.status === 200) {
                 toast.success("Subject Edited Successfully");
                 navigate("/admin/subject");
             }
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })
 
     }
-    const getData = useCallback( async () => {
+    const getData = useCallback(async () => {
         const result = await getSubjectsById(id);
-        console.log("result", result[0])
+        //console.log("result", result[0])
         const filterData = {
             subject_name: result[0].subject_name,
             subject_code: result[0].subject_code,
@@ -59,7 +59,7 @@ const EditSubject = () => {
         setSubjectData(filterData)
 
 
-    },[id])
+    }, [id])
     useEffect(() => {
         getData();
     }, [getData])

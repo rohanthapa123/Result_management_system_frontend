@@ -1,14 +1,15 @@
-import axios from 'axios';
+
 import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
 import "./class.css";
+import axiosInstance from '../../services/axiosInstance';
 const AddClass = () => {
     const navigate = useNavigate();
-    
-    const [selectedOptions  , setSelectedOptions] = useState([])
+
+    const [selectedOptions, setSelectedOptions] = useState([])
     const [classData, setClassData] = useState({
         class_name: '',
         desc: '',
@@ -19,33 +20,33 @@ const AddClass = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setClassData(prev => ({ ...prev, [name]: value }));
-        console.log("classData", classData)
+        //console.log("classData", classData)
     }
-    const handleChangeSubject = (selectedOptions) =>{
+    const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setClassData(prev => ({ ...prev, subjects: selectedOptions }));
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(classData)
+        //console.log(classData)
         // alert("Form can be submitted")
 
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/class`, classData, {
+        axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/class`, classData, {
             withCredentials: true,
         }).then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             toast.success("Class created successfully");
             navigate("/admin/class");
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })
 
     }
-    
+
     return (
         <div>
             <div className='backmenu'>

@@ -1,10 +1,10 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getClass } from '../../services/fetchFunction';
 import "./section.css";
+import axiosInstance from '../../services/axiosInstance';
 const AddSection = () => {
     const navigate = useNavigate();
     const [classes, setClasses] = useState();
@@ -18,22 +18,22 @@ const AddSection = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSectionData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(sectionData)
+        //console.log(sectionData)
         // alert("Form can be submitted")
 
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/section`, sectionData, {
+        axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/section`, sectionData, {
             withCredentials: true,
         }).then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             toast.success("Section Added successfully")
             navigate("/admin/section");
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })

@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import Spinner from "./loader/Spinner";
 import BookLoader from "./loader/BookLoader";
+import axiosInstance from "../services/axiosInstance";
 
 const ProtectedRoute = ({ Component, permittedRole }) => {
   const [auth, setAuth] = useState(null); // Use null to indicate loading state
@@ -10,19 +9,17 @@ const ProtectedRoute = ({ Component, permittedRole }) => {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/api/check-auth`,
-          { withCredentials: true }
-        );
-        // console.log(response.data.role)
+        const response = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/check-auth`);
+        //console.log(response.data.role)
         if (response.status === 200) {
           setAuth(true);
           setUserrole(response.data.role)
         } else {
           setAuth(false);
+          localStorage.clear();
         }
       } catch (error) {
-        console.log("Error checking Session", error);
+        //console.log("Error checking Session", error);
         setAuth(false);
       }
     };
@@ -34,11 +31,17 @@ const ProtectedRoute = ({ Component, permittedRole }) => {
       }
     };
 
+    const handleStorageChange = () => {
+      checkAuthentication();
+    };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('storage', handleStorageChange);
 
     // Clean up the event listener when the component unmounts
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('storage', handleStorageChange);
     };
 
     // eslint-disable-next-line
@@ -46,7 +49,7 @@ const ProtectedRoute = ({ Component, permittedRole }) => {
 
   // While authentication status is loading, you can choose to show a loading spinner or a message
   if (auth === null) {
-    return <BookLoader /> ;
+    return <BookLoader />;
   }
   const hasRequiredRole = permittedRole ? userrole === permittedRole : true;
 

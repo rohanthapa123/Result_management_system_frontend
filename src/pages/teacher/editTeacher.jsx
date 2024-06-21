@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
+import axiosInstance from '../../services/axiosInstance';
 import { getTeacherById } from '../../services/fetchFunction';
 import "./teacher.css";
 const EditTeacher = () => {
@@ -29,12 +29,12 @@ const EditTeacher = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setTeacherData(prev => ({ ...prev, [name]: value }));
-        console.log(teacherData)
+        //console.log(teacherData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setTeacherData(prev => ({ ...prev, subjects: selectedOptions }));
     }
     const handleSubmit = (e) => {
@@ -44,18 +44,18 @@ const EditTeacher = () => {
             // alert("Fill form correctly")
             toast.warn("Fill form correctly")
         } else {
-            console.log(teacherData)
+            //console.log(teacherData)
             // alert("Form can be submitted")
 
-            axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/update/`, teacherData, {
+            axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/update/`, teacherData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Teacher edited Successfully")
                 navigate("/admin/teachers");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     // alert(error.response.data.error)
                     toast.error(error.response.data.error)
                 }
@@ -64,7 +64,7 @@ const EditTeacher = () => {
     }
     const getData = useCallback(async () => {
         const result = await getTeacherById(id);
-        console.log("result", result)
+        //console.log("result", result)
         const filteredData = {
             fname: result[0].fname,
             mname: result[0].mname,
@@ -85,7 +85,7 @@ const EditTeacher = () => {
         setSelectedOptions(result[0].subjects)
         setTeacherData(filteredData);
         // setSubjects(data)
-    },[id])
+    }, [id])
     useEffect(() => {
         getData();
     }, [getData])
