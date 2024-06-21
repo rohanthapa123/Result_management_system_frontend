@@ -26,7 +26,7 @@ const AdminComplain = () => {
     <>
       <h2 className='heading_edit'>Complains</h2>
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
             <thead>
               <tr>
 

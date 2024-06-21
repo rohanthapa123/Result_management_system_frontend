@@ -93,3 +93,7 @@ button{
 ::placeholder{
     color: rgba(29, 26, 26, 0.825);
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

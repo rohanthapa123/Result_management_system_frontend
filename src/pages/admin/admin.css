@@ -73,8 +73,12 @@ input , select{
     justify-content: space-between;
     height: 80px;
     width: 100%;
+    min-width: 800px;
 }
 
+.dashboardtable{
+    min-width: 800px;
+}
 
 .dpprofile{
     height: 50px;

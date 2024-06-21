@@ -94,7 +94,7 @@ const SubjectPage = () => {
                 <Link className="link" to={"add"}><button className="add">Add New Subject</button></Link>
             </div>
             {
-                loading ? <Spinner /> : <table >
+                loading ? <Spinner /> : <table className='dashboardtable' >
                 <thead>
                     <tr>
                         <th>Subject Name</th>

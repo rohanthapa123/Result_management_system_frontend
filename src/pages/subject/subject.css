@@ -27,3 +27,7 @@ thead{
     background-color: #b33b3b8e;
     color: rgb(0, 0, 0);
 }
+
+.dashboardtable{
+    min-width: 800px;
+}

@@ -136,7 +136,7 @@ const MarkPage = () => {
       <br />
       <hr />
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
         {studentMarks.length > 0 && <thead>
           <tr>
             <th>First Name</th>

@@ -171,7 +171,7 @@ const StudentPage = () => {
 
       {
         loading ? <Spinner /> : <table className={toogleUpdateClass ? "faded" : ""}>
-        <thead>
+        <thead className="dashboardtable">
           <tr>
             <th>
               <input

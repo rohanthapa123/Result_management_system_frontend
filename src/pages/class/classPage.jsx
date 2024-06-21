@@ -40,7 +40,7 @@ const ClassPage = () => {
         <Link className="link" to={"add"}><button className="add">Create Class </button></Link>
       </div>
       {
-        loading ? <Spinner /> : <table >
+        loading ? <Spinner /> : <table className='dashboardtable' >
         <thead>
           <tr>
             <th>Class Name</th>

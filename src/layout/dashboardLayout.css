@@ -44,7 +44,7 @@ ul{
     padding: 15px 0;
     padding-left: 40%;
     width: 100%;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     cursor: pointer;
     color: rgb(240, 227, 227);
@@ -62,7 +62,7 @@ ul{
     width: 100%;
     /* background: red; */
     color: white;
-    padding: 15px 0;
+    padding: 1rem 0;
     padding-left: 40%;
     font-weight: 600;
     margin-bottom: 35px;
@@ -82,13 +82,13 @@ nav{
     display: flex;
     width: calc(100% - 15% - 50px );
     position: fixed;
-    top: 25px;
+    top: 1.563rem;
     z-index: 1;
     background-color: transparent;
     /* margin: 10px; */
     margin-top: 0;
-    padding: 0 25px;
-    border-radius:  25px 0 0 0 ;
+    padding: 0 1.563rem;
+    border-radius:  1.563rem 0 0 0 ;
     background-color: rgba(0, 0, 0, 0.2);
     /* background-image : linear-gradient(to bottom  , rgba(0, 0, 0, 0.1), rgba(0,0,0,0.11)); */
     backdrop-filter: blur(13px);
@@ -108,7 +108,7 @@ nav{
 nav > ul{
     display: flex;
     align-items: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     justify-content: space-between;
     width: 100%;
     position: relative;
@@ -136,7 +136,14 @@ nav > ul{
 
     box-shadow: -5px 5px  22px 4px rgba(0, 0, 0, 0.37);
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: scroll;
+    /* min-width: 700px; */
+}
+
+@media screen and (min-width: 1024) {
+    .outlet{
+        overflow-x: hidden;
+    }
 }
 
 .icons{

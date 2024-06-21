@@ -1,16 +1,15 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FaXmarksLines } from "react-icons/fa6";
 import { GiTeacher } from "react-icons/gi";
 import { Md6FtApart, MdAdminPanelSettings, MdAnnouncement, MdDashboard, MdFlightClass, MdLogout, MdReportProblem } from "react-icons/md";
 import { PiExam, PiStudent } from "react-icons/pi";
 import { SiBookstack } from "react-icons/si";
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/DashboardComponent/NavBar';
 import "./dashboardLayout.css";
 const DashboardLayout = () => {
     const navigate = useNavigate();
-    const params = useParams();
     const handleLogout = async () => {
         await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
             withCredentials: true,
@@ -19,9 +18,6 @@ const DashboardLayout = () => {
         navigate("/login");
         // console.log(resp);
     }
-    useEffect(() => {
-        console.log(params)
-    })
     return (
         <div className='parent'>
             <aside>
