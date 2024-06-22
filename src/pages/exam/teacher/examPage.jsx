@@ -23,7 +23,7 @@ const TeacherExamPage = () => {
             <h2>Exams</h2>
 
             {
-                loading ? <Spinner /> : <table>
+                loading ? <Spinner /> : <table className='dashboardtable'>
                     <thead>
                         <tr>
                             <th>Exam Name</th>

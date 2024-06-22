@@ -4,11 +4,12 @@ import { MdDelete } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import oip from "../../assets/OIP.jpeg"
+import Spinner from '../../components/loader/Spinner'
 import { deleteUser, getAdmins } from '../../services/fetchFunction'
 import "./admin.css"
-import Spinner from '../../components/loader/Spinner'
 const AdminPage = () => {
   const [admins, setAdmins] = useState();
+  // const [peekData, setPeekData] = useState();
   const [loading, setLoading] = useState(false)
   const getData = async () => {
     setLoading(true)
@@ -21,6 +22,12 @@ const AdminPage = () => {
     getData();
     // //console.log(admins)
   }, [])
+
+  // const handlePeek = (user_id) => {
+  //   const userData = admins.filter((item) => item.user_id === user_id)
+  //   setPeekData(userData[0])
+  //   console.log(userData[0])
+  // }
   const handleDelete = useCallback(async (id) => {
     if (window.confirm("Are you sure to Delete?")) {
       try {
@@ -34,6 +41,7 @@ const AdminPage = () => {
   }, []);
   return (
     <>
+
       <div className='heading_edit'>
         <div>
 
@@ -51,6 +59,7 @@ const AdminPage = () => {
               <th>Mname</th>
               <th>Lname</th>
               <th>Email</th>
+              {/* <th>Peek</th> */}
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -64,6 +73,27 @@ const AdminPage = () => {
                   <td>{admin.mname}</td>
                   <td>{admin.lname}</td>
                   <td>{admin.email}</td>
+                  {/* <td className='peektd'>
+                    <button className='peekbutton' onClick={(e) => handlePeek(admin.user_id)}> <FaEye size={20} color='white' /></button>
+                    {
+                      peekData ? <div className="peekcontainer">
+                        <div className="name">
+
+                          {peekData.fname} {peekData.mname} {peekData.lname}
+                        </div>
+                        <div className="dob">
+
+                          {peekData.dob}
+                        </div>
+                        <div className="email">
+
+                          {peekData.email}
+                        </div>
+                        
+
+                      </div> : ""
+                    }
+                  </td> */}
                   <td className='action'><Link to={`edit/${admin.admin_id}`}><FaEdit size={20} color="green" /></Link></td>
                   <td className='action'><button onClick={(e) => handleDelete(admin.user_id)}><MdDelete size={20} color="red" /></button></td>
                 </tr>

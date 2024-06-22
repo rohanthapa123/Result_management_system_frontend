@@ -139,7 +139,7 @@ const TeacherMarkPage = () => {
       <hr />
 
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
           {
             result ? <thead>
               <tr>

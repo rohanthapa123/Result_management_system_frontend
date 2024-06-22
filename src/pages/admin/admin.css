@@ -90,3 +90,23 @@ input , select{
     border: 2px solid rgba(99, 99, 99, 0.487);
     display: block;
 }
+
+/* .peektd{
+    position: relative;
+}
+.peekbutton{
+    text-align: center;
+    width: 50px;
+    cursor: pointer;
+}
+
+.peekcontainer{
+    width: 40vw;
+    z-index: 100;
+    height: 40vh;
+    background-color: whitesmoke;
+    position: absolute;
+    right: 100px;
+    top: -100px;
+
+} */

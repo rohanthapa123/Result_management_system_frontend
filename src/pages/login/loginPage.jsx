@@ -22,7 +22,7 @@ const LoginPage = () => {
         event.preventDefault();
         try {
             setLoading(true)
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values,{
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
                 withCredentials: true
             }, {
                 headers: {
@@ -74,8 +74,9 @@ const LoginPage = () => {
             } catch (error) {
 
                 console.error("Error checking authentication status", error);
-            } 
+            }
         };
+
         checkAuthStatus();
 
         // eslint-disable-next-line

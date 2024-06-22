@@ -85,7 +85,7 @@ const ResultPage = () => {
                 <button onClick={printResult}>Print</button>
             </div>
 
-            {result ? loading ? <Spinner /> : <div className="marksheet">
+            {result ? loading ? <Spinner /> : <div className="marksheet dashboardtable">
                 <span><em>"Education for all"</em></span>
                 <h2>College Name</h2>
                 <h4>Address of the college or school</h4>
@@ -103,7 +103,7 @@ const ResultPage = () => {
                     <br />
                     <span>Date of Birth: {user?.dob}</span>
                 </div>
-                <table border={2}>
+                <table className='' border={2}>
                     <thead>
                         <tr>
 

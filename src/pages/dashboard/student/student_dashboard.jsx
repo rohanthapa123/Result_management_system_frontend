@@ -166,7 +166,6 @@ const StudentDashboard = () => {
                                     /> : <h1>No data</h1>
                             }
                         </div>
-                        <div>Anything</div>
                     </div>
                 </>
             }

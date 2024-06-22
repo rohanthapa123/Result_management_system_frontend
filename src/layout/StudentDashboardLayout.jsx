@@ -20,7 +20,7 @@ const StudentDashboardLayout = () => {
         <div className='parent'>
             <aside>
                 <ul>
-                    <li className='headdd'>Student Dashboard</li>
+                    <li className='headdd'>STD</li>
                     <NavLink className='link' to={"/student/dashboard"}>
 
                         <li className='li'><MdDashboard className='icons' /><span className="sidemenu">Dashboard</span> </li>
