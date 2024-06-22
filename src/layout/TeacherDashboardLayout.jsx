@@ -19,7 +19,7 @@ const TeacherDashboardLayout = () => {
         <div className='parent'>
             <aside>
                 <ul>
-                    <li className='headdd'>Teacher Dashboard</li>
+                    <li className='headdd'>TD</li>
                     <NavLink className='link' to={"/teacher/dashboard"}>
 
                         <li className='li'><MdDashboard className='icons' /><span className="sidemenu">Dashboard</span> </li>

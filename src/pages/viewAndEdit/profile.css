@@ -52,12 +52,24 @@
 }
 
 .details-container{
-    width: 60%;
+    width: 100%;
+    /* background-color: red; */
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
     font-size: 20px;
     font-weight: 500;
+}
+
+@media screen and (min-width : 1000px) {
+    .details-container{
+        width: 70%;
+        margin: 10px auto;
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        font-weight: 500;
+    }
 }
 .details-container div:nth-child(1){
     width: 40%;

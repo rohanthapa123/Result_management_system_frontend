@@ -1,5 +1,5 @@
 .notice{
-    width: 90%;
+    width: 100%;
     margin: auto;
     margin-top: 24px;
     background-color: #37244163;
@@ -7,10 +7,27 @@
     box-shadow: 2px 5px 20px 8px rgba(0, 0, 0, .37);
     border-bottom: 1px solid white;
     border-right: 1px solid white;
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
     color: rgba(237, 229, 229, 0.935);
     min-height: 200px;
+    min-width: 700px;
+}
+@media  screen and (min-width : 1024px) {
+    .notice{
+        width: 90%;
+        margin: auto;
+        margin-top: 24px;
+        background-color: #37244163;
+        backdrop-filter: blur(10px);
+        box-shadow: 2px 5px 20px 8px rgba(0, 0, 0, .37);
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+        padding: 15px;
+        border-radius: 10px;
+        color: rgba(237, 229, 229, 0.935);
+        min-height: 200px;
+    }
 }
 .notices{
     padding-top: 10px;

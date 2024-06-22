@@ -6,6 +6,7 @@
     /* object-fit: cover; */
     background-size: cover;
     background-attachment: fixed;
+    overflow-y: hidden;
 }
 aside{
     height: 95vh;
@@ -18,7 +19,7 @@ aside{
     color: white;
     width: 15%;
     border-radius: 25px;
-    margin: 25px;
+    margin: 25px 5px 0 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,8 +30,8 @@ aside{
 }
 .content{
     height: 95vh;
-    width: calc(100% - 15% - 50px );
-    margin-left: calc(15% + 50px);
+    width: calc(100% - 15% - 10px );
+    margin-left: calc(15% + 10px);
     /* background: red; */
     /* box-sizing: border-box; */
 }
@@ -80,7 +81,7 @@ ul{
 nav{
     height: 10vh;
     display: flex;
-    width: calc(100% - 15% - 50px );
+    width: calc(100% - 15% - 10px );
     position: fixed;
     top: 1.563rem;
     z-index: 1;
@@ -172,6 +173,7 @@ nav > ul{
     }
     aside{
         width: 20%;
+        margin: 25px;
     }
     .link > .li{
         padding: 15px 50px;
