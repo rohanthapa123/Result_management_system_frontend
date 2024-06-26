@@ -51,7 +51,7 @@ const LoginPage = () => {
             setLoading(false);
             setEmailError("");
             setPasswordError("")
-            if (error.response.data.message) {
+            if (error.response?.data?.message) {
                 if (error.response.data.message === 'Wrong Credentials') {
                     setEmailError(error.response.data.message)
                 } else {

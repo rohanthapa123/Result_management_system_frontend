@@ -99,7 +99,7 @@ const SubjectPage = () => {
                         <tr>
                             <th>Subject Name</th>
                             <th>Subject Code</th>
-                            <th>Description</th>
+                            <th className='description'>Description</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -110,7 +110,7 @@ const SubjectPage = () => {
                                 return <tr key={subject.subject_id} className={index % 2 === 0 ? "even" : "odd"}>
                                     <td>{subject.subject_name}</td>
                                     <td>{subject.subject_code}</td>
-                                    <td>{subject.desc}</td>
+                                    <td className='description'>{subject.desc}</td>
                                     <td className='action'><Link to={`edit/${subject.subject_id}`}><FaEdit size={20} color="green" /></Link></td>
                                     <td className='action'><button onClick={(e) => handleDelete(subject.subject_id)}><MdDelete size={20} color="red" /></button></td>
                                 </tr>
