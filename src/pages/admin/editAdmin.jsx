@@ -1,10 +1,10 @@
-import React, {  useEffect, useState } from 'react'
-import "./admin.css"
-import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
 import { getAdminById } from '../../services/fetchFunction';
+import "./admin.css";
 const EditAdmin = () => {
     const navigate = useNavigate();
     const [validationError, setValidationError] = useState({
@@ -13,14 +13,14 @@ const EditAdmin = () => {
         secondary_contact: ''
 
     });
-    const {id} = useParams();
+    const { id } = useParams();
     const [adminData, setAdminData] = useState({
         fname: '',
         mname: '',
         lname: '',
         email: '',
         dob: '',
-        gender:'',
+        gender: '',
         primary_contact: '',
         secondary_contact: '',
         temporary_address: '',
@@ -40,7 +40,7 @@ const EditAdmin = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setAdminData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleSubmit = (e) => {
@@ -49,32 +49,32 @@ const EditAdmin = () => {
         if (hasErrors) {
             alert("Fill form correctly")
         } else {
-            console.log(adminData)
+            //console.log(adminData)
             // alert("Form can be submitted")
 
-            axios.patch("http://localhost:8080/api/update", adminData, {
+            axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/update`, adminData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Admin edited successfully")
                 navigate("/admin/admins");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     toast.error(error.response.data.error)
                     // alert(error.response.data.error)
                 }
             })
         }
     }
-    useEffect(()=>{
-        const getData = async () =>{
-            const result = await getAdminById(id);
-            console.log(result);
-            setAdminData(result[0]);
-        }
+    const getData = useCallback(async () => {
+        const result = await getAdminById(id);
+        //console.log(result);
+        setAdminData(result[0]);
+    }, [id]);
+    useEffect(() => {
         getData();
-    },[])
+    }, [getData])
 
     return (
         <div>
@@ -116,9 +116,12 @@ const EditAdmin = () => {
                 <div className='input-container gender'>
 
                     <label htmlFor="gender">Gender</label>
-                    <input checked={adminData?.gender === 'M'} required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
-                    <input checked={adminData?.gender === 'F'} required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
-                    <input checked={adminData?.gender === 'O'} required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    <div className="genderinput">
+
+                        <input checked={adminData?.gender === 'M'} required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
+                        <input checked={adminData?.gender === 'F'} required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
+                        <input checked={adminData?.gender === 'O'} required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    </div>
                 </div>
                 <div className='input-container'>
 

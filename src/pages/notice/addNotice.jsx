@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import "./notice.css"
-import axios from 'axios'
+
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getClass } from '../../services/fetchFunction';
+import "./notice.css";
+// import { getClass } from '../../services/fetchFunction';
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { toast } from 'react-toastify';
-import { IoMdArrowRoundBack } from "react-icons/io"
+import MultiClass from '../../components/MultiClass';
+import axiosInstance from '../../services/axiosInstance';
 const AddNotice = ({ role }) => {
-    const [classes, setClasses] = useState();
+    // const [classes, setClasses] = useState();
     const [noticeData, setNoticeData] = useState({
-        class_id: null,
+        class: [],
         notice_text: ''
     })
+    const [selectedOptions, setSelectedOptions] = useState();
     const navigate = useNavigate()
-    const getData = async () => {
+    // const getData = async () => {
 
-        const data = await getClass();
-        setClasses(data)
-    }
-    useEffect(() => {
-        getData();
-    }, [])
+    //     const data = await getClass();
+    //     // setClasses(data)
+    // }
+    // useEffect(() => {
+    //     getData();
+    // }, [])
     const submitNotice = async (e) => {
         e.preventDefault();
         try {
-            // console.log()
-            const response = await axios.post("http://localhost:8080/api/notice", noticeData, {
+            // //console.log()
+            const response = await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/notice`, noticeData, {
                 withCredentials: true,
             })
             toast.success("Notice Added Succussfully")
@@ -32,12 +35,17 @@ const AddNotice = ({ role }) => {
                 navigate(`/${role}/notice`)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
     const handleChange = (e) => {
         setNoticeData(prev => ({ ...prev, [e.target.name]: e.target.value }))
-        console.log(noticeData)
+        //console.log(noticeData)
+    }
+    const handleChangeClass = (selectedOptions) => {
+        setSelectedOptions(selectedOptions);
+        //console.log(selectedOptions)
+        setNoticeData(prev => ({ ...prev, class: selectedOptions }));
     }
     return (
         <>
@@ -53,7 +61,7 @@ const AddNotice = ({ role }) => {
                 <div className="contain input-container classSelect">
 
                     <label htmlFor="class">Select Class</label>
-                    <select className='selectBox' name="class_id" id="class" onChange={handleChange}>
+                    {/* <select className='selectBox' name="class_id" id="class" onChange={handleChange}>
 
                         <option value={''}>Open Notice</option>
                         {
@@ -62,11 +70,12 @@ const AddNotice = ({ role }) => {
                             })
                         }
 
-                    </select>
+                    </select> */}
+                    <MultiClass selectedOptions={selectedOptions} handleChangeClass={handleChangeClass} />
                 </div>
                 <div className="contain input-container">
                     <label htmlFor="message">Message</label>
-                    <textarea onChange={handleChange} name="notice_text" id="message" cols="30" rows="10"></textarea>
+                    <textarea  onChange={handleChange} name="notice_text" id="message" cols="30" rows="10"></textarea>
 
                 </div>
                 <button className='btn'>Submit</button>

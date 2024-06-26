@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import "./dashboardLayout.css"
-import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { PiExam, PiStudent } from "react-icons/pi"
+import React from 'react';
+import { FaXmarksLines } from "react-icons/fa6";
 import { GiTeacher } from "react-icons/gi";
+import { Md6FtApart, MdAdminPanelSettings, MdAnnouncement, MdDashboard, MdFlightClass, MdLogout, MdReportProblem } from "react-icons/md";
+import { PiExam, PiStudent } from "react-icons/pi";
 import { SiBookstack } from "react-icons/si";
-import {FaXmarksLines} from "react-icons/fa6"
-import { MdAnnouncement,MdAdminPanelSettings, Md6FtApart, MdDashboard, MdFlightClass, MdLogout, MdReportProblem } from "react-icons/md";
-import axios from 'axios';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/DashboardComponent/NavBar';
+import "./dashboardLayout.css";
+import axiosInstance from '../services/axiosInstance';
 const DashboardLayout = () => {
     const navigate = useNavigate();
-    const params = useParams();
-    const location = useLocation();
     const handleLogout = async () => {
-        await axios.post("http://localhost:8080/api/logout", null, {
+        await axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, null, {
             withCredentials: true,
         })
         localStorage.clear();
         navigate("/login");
-        // console.log(resp);
+        // //console.log(resp);
     }
-    useEffect(() => {
-        console.log(params)
-    })
     return (
         <div className='parent'>
             <aside>

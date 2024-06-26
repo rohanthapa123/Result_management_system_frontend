@@ -1,59 +1,61 @@
-import React, { useEffect, useState } from 'react'
-import "./class.css"
-import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import { getClassById } from '../../services/fetchFunction';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
+import axiosInstance from '../../services/axiosInstance';
+import { getClassById } from '../../services/fetchFunction';
+import "./class.css";
 const EditClass = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [classData, setClassData] = useState();
-    const [selectedOptions  , setSelectedOptions] = useState([])
+    const [selectedOptions, setSelectedOptions] = useState([])
     const handleChange = (e) => {
         const { name, value } = e.target;
         setClassData(prev => ({ ...prev, [name]: value }));
-        console.log(classData)
+        //console.log(classData)
     }
     const handleUpdate = (e) => {
         e.preventDefault();
-        console.log(classData)
+        //console.log(classData)
         // alert("Form can be submitted")
 
-        axios.patch("http://localhost:8080/api/class/edit", classData, {
+        axiosInstance.patch(`${process.env.REACT_APP_SERVER_URL}/api/class/edit`, classData, {
             withCredentials: true,
         }).then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             toast.success("Class edited successfully");
             navigate("/admin/class");
         }).catch(error => {
             if (error.response) {
-                console.log(error.response)
+                //console.log(error.response)
                 alert(error.response.data.error)
             }
         })
 
     }
-    useEffect(() => {
-        const getData = async () => {
-            const result = await getClassById(id)
-            console.log("result", result)
-            const filteredData = {
-                class_name: result[0].class_name,
-                desc: result[0].desc,
-                academic_year: result[0].academic_year,
-                subjects : result[0].subjects,
-                class_id: result[0].class_id
-            }
-            setSelectedOptions(result[0].subjects)
-            setClassData(filteredData);
+    const getData = useCallback(async () => {
+        const result = await getClassById(id)
+        //console.log("result", result)
+        const filteredData = {
+            class_name: result[0].class_name,
+            desc: result[0].desc,
+            academic_year: result[0].academic_year,
+            subjects: result[0].subjects,
+            class_id: result[0].class_id
         }
+        setSelectedOptions(result[0].subjects)
+        setClassData(filteredData);
+    }, [id]);
+
+    useEffect(() => {
         getData();
-    }, [])
-    const handleChangeSubject = (selectedOptions) =>{
+    }, [getData])
+
+    const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setClassData(prev => ({ ...prev, subjects: selectedOptions }));
     }
     return (

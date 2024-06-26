@@ -6,6 +6,7 @@
     /* object-fit: cover; */
     background-size: cover;
     background-attachment: fixed;
+    overflow-y: hidden;
 }
 aside{
     height: 95vh;
@@ -18,7 +19,7 @@ aside{
     color: white;
     width: 15%;
     border-radius: 25px;
-    margin: 25px;
+    margin: 25px 5px 0 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,8 +30,8 @@ aside{
 }
 .content{
     height: 95vh;
-    width: calc(100% - 15% - 50px );
-    margin-left: calc(15% + 50px);
+    width: calc(100% - 15% - 10px );
+    margin-left: calc(15% + 10px);
     /* background: red; */
     /* box-sizing: border-box; */
 }
@@ -44,7 +45,7 @@ ul{
     padding: 15px 0;
     padding-left: 40%;
     width: 100%;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     cursor: pointer;
     color: rgb(240, 227, 227);
@@ -62,7 +63,7 @@ ul{
     width: 100%;
     /* background: red; */
     color: white;
-    padding: 15px 0;
+    padding: 1rem 0;
     padding-left: 40%;
     font-weight: 600;
     margin-bottom: 35px;
@@ -80,15 +81,15 @@ ul{
 nav{
     height: 10vh;
     display: flex;
-    width: calc(100% - 15% - 50px );
+    width: calc(100% - 15% - 10px );
     position: fixed;
-    top: 25px;
+    top: 1.563rem;
     z-index: 1;
     background-color: transparent;
     /* margin: 10px; */
     margin-top: 0;
-    padding: 0 25px;
-    border-radius:  25px 0 0 0 ;
+    padding: 0 1.563rem;
+    border-radius:  1.563rem 0 0 0 ;
     background-color: rgba(0, 0, 0, 0.2);
     /* background-image : linear-gradient(to bottom  , rgba(0, 0, 0, 0.1), rgba(0,0,0,0.11)); */
     backdrop-filter: blur(13px);
@@ -108,18 +109,13 @@ nav{
 nav > ul{
     display: flex;
     align-items: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     justify-content: space-between;
     width: 100%;
+    position: relative;
 }
 
-.profile{
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid rgba(99, 99, 99, 0.487);
-}
+
 
 .outlet{
     /* margin: 10px; */
@@ -141,7 +137,14 @@ nav > ul{
 
     box-shadow: -5px 5px  22px 4px rgba(0, 0, 0, 0.37);
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: scroll;
+    /* min-width: 700px; */
+}
+
+@media screen and (min-width: 1024) {
+    .outlet{
+        overflow-x: hidden;
+    }
 }
 
 .icons{
@@ -170,6 +173,7 @@ nav > ul{
     }
     aside{
         width: 20%;
+        margin: 25px;
     }
     .link > .li{
         padding: 15px 50px;
@@ -191,19 +195,33 @@ nav > ul{
 }
 
 @media print {
-    body{
+    .parent > aside{
         visibility: hidden;
+        position: absolute;
+        display: none;
     }
-    aside, nav{
+    .parent{
+        position: relative;
+    }
+    nav{
         visibility: hidden;
+        position: absolute; 
+        display: none ;
     }
-
+    .outlet{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 85vh;
+    }
     .marksheet{
         visibility: visible;
-        position: fixed;
+        position: relative;
+        display: block;
         width: 100%;
         height: 100vh;
-        top: 0;
+        top: -15vh;
         left: 0;
       }
 }

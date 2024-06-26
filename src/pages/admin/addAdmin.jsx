@@ -1,9 +1,10 @@
-import React, {  useState } from 'react'
-import "./admin.css"
-import axios from 'axios';
+
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
+import "./admin.css";
 const AddAdmin = () => {
     const navigate = useNavigate();
     const [validationError, setValidationError] = useState({
@@ -18,7 +19,7 @@ const AddAdmin = () => {
         lname: '',
         email: '',
         dob: '',
-        gender:'',
+        gender: '',
         primary_contact: '',
         secondary_contact: '',
         temporary_address: '',
@@ -38,7 +39,7 @@ const AddAdmin = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setAdminData(prev => ({ ...prev, [name]: value }));
-        // console.log(studentData)
+        // //console.log(studentData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
     const handleSubmit = (e) => {
@@ -47,18 +48,18 @@ const AddAdmin = () => {
         if (hasErrors) {
             alert("Fill form correctly")
         } else {
-            console.log(adminData)
+            //console.log(adminData)
             // alert("Form can be submitted")
 
-            axios.post("http://localhost:8080/api/register", adminData, {
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, adminData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Admin created successfully")
                 navigate("/admin/admins");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     toast.error(error.response.data.error)
                     // alert(error.response.data.error)
                 }
@@ -107,9 +108,12 @@ const AddAdmin = () => {
                 <div className='input-container gender'>
 
                     <label htmlFor="gender">Gender</label>
-                    <input required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
-                    <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
-                    <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    <div className="genderinput">
+
+                        <input required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
+                        <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
+                        <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    </div>
                 </div>
                 <div className='input-container'>
 

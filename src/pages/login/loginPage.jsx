@@ -1,11 +1,9 @@
-import "./loginPage.css"
-
-import image from "../../assets/sms image.png"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import OpenNotice from "../../components/OpenNotice/OpenNotice";
-import ScrollingNotice from "../../components/OpenNotice/ScrollingNotice/ScrollingNotice";
+import "./loginPage.css";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../services/axiosInstance";
 const LoginPage = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
@@ -14,63 +12,71 @@ const LoginPage = () => {
         password: ''
     })
     const [loggedIn, setLoggedIn] = useState(false)
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const handleInput = (event) => {
         setValues(prev => ({ ...prev, [event.target.name]: event.target.value }))
-        // console.log(values)
+        // //console.log(values)
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-
-            const response = await axios.post("http://localhost:8080/api/login", values, {
+            setLoading(true)
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
+                withCredentials: true
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                withCredentials: true,
+                }
             })
             if (response.status === 200) {
                 const data = response.data;
+                //console.log(data)
                 setLoggedIn(true);
-                // console.log(data.data[0].role);
-                const userRole = data.data[0].role;
+                const { authToken, userData } = data;
                 // setIsAuthenticated(true);
                 // setRole(userRole)
-                localStorage.setItem("name", data.data[0].fname);
-                localStorage.setItem("image", data.data[0].image)
+                localStorage.setItem("name", userData?.fname);
+                localStorage.setItem("image", userData?.image)
+                localStorage.setItem("accessToken", authToken);
+                localStorage.setItem("userData", JSON.stringify(userData));
 
-                navigate(`/${userRole}/dashboard`)
+                navigate(`/${userData.role}/dashboard`)
                 // window.location.href = `/${data.data[0].role}`;
             } else {
-                console.log("Login Failed");
+                //console.log("Login Failed");
             }
+            setLoading(false)
         } catch (error) {
+            setLoading(false);
             setEmailError("");
             setPasswordError("")
-            if (error.response.data.message) {
+            if (error.response?.data?.message) {
                 if (error.response.data.message === 'Wrong Credentials') {
                     setEmailError(error.response.data.message)
                 } else {
                     setPasswordError(error.response.data.message)
                 }
             }
-            console.log(error);
+            //console.log(error);
         }
     }
     // const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const checkAuthStatus = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/check-auth", { withCredentials: true });
-
-                if (response.data.authenticated) {
-                    navigate(`/${response.data.role}/dashboard`);
+                const accessToken = localStorage.getItem("accessToken");
+                if (accessToken) {
+                    await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/check-auth`);
+                    const userData = JSON.parse(localStorage.getItem("userData"));
+                    navigate(`/${userData.role}/dashboard`);
                 }
             } catch (error) {
 
                 console.error("Error checking authentication status", error);
             }
         };
+
         checkAuthStatus();
 
         // eslint-disable-next-line
@@ -94,15 +100,13 @@ const LoginPage = () => {
                             <input className="loginInput" type="password" name="password" onChange={handleInput} placeholder="Enter your password" />
                             <span>{passwordError}</span>
                         </div>
-                        <button className="loginBtn">Submit</button>
+                        {
+                            loading ? <button className="loginBtn"><div className="loadingsubmit" /></button> : <button className="loginBtn">Submit</button>
+                        }
                     </form>
                     <p className="reset"><i>Contact College Admin to reset password</i> </p>
-                </div>
-                <span className="scroll">
-
-                    <ScrollingNotice />
-                </span>
-            </div>
+                </div >
+            </div >
         </>
     )
 }

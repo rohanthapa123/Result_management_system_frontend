@@ -1,8 +1,9 @@
 .heading_edit{
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     height: 80px;
+    width: 100%;
 }
 table{
     width: 100%;
@@ -94,4 +95,34 @@ textarea{
 .back{
     position: absolute;
     left: 10%;
+}
+
+.dashboardtable{
+    min-width: 800px;
+}
+
+#message{
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 24px;
+    background-color: #37244163;
+    color: wheat;
+    
+    backdrop-filter: blur(10px);
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    box-shadow: 4px 5px 20px 8px rgba(0,0,0,0.37);
+}
+#message::placeholder{
+    color: wheat;
+}
+#message :focus{
+    outline: none;
+}
+
+::placeholder{
+    color: rgba(29, 26, 26, 0.825);
 }

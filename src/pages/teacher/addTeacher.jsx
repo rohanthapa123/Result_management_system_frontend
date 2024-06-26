@@ -1,11 +1,11 @@
-import React, {  useState } from 'react'
-import "./teacher.css"
-import axios from 'axios';
+
+import React, { useState } from 'react';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import SubjectInput from '../../components/SubjectInput';
 import { toast } from 'react-toastify';
 import MultipleSubject from '../../components/MultipleSubject';
+import "./teacher.css";
+import axiosInstance from '../../services/axiosInstance';
 const AddTeacher = () => {
     const navigate = useNavigate();
     const [selectedOptions, setSelectedOptions] = useState();
@@ -26,7 +26,7 @@ const AddTeacher = () => {
         secondary_contact: '',
         temporary_address: '',
         permanent_address: '',
-        subjects : [],
+        subjects: [],
         role: 'teacher'
 
     });
@@ -42,12 +42,12 @@ const AddTeacher = () => {
         const regexPattern = regexPatterns[name];
         const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
         setTeacherData(prev => ({ ...prev, [name]: value }));
-        console.log(teacherData)
+        //console.log(teacherData)
         setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
     }
-    const handleChangeSubject = (selectedOptions) =>{
+    const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions)
+        //console.log(selectedOptions)
         setTeacherData(prev => ({ ...prev, subjects: selectedOptions }));
     }
     const handleSubmit = (e) => {
@@ -57,29 +57,29 @@ const AddTeacher = () => {
             // alert("Fill form correctly")
             toast.warning("Fill form correctly");
         } else {
-            console.log(teacherData)
+            //console.log(teacherData)
             // alert("Form can be submitted")
 
-            axios.post("http://localhost:8080/api/register", teacherData, {
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, teacherData, {
                 withCredentials: true,
             }).then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 toast.success("Teacher Added Successfully")
                 navigate("/admin/teachers");
             }).catch(error => {
                 if (error.response) {
-                    console.log(error.response)
+                    //console.log(error.response)
                     // alert(error.response.data.error)
                     toast.error(error.response.data.error)
                 }
             })
         }
     }
-   
+
 
     return (
         <div>
-             <div className='backmenu'>
+            <div className='backmenu'>
                 <h1 className='back'>
 
                     <Link className='link' to={`/admin/teachers`}> <IoMdArrowRoundBack /></Link>
@@ -117,9 +117,12 @@ const AddTeacher = () => {
                 <div className='input-container gender'>
 
                     <label htmlFor="gender">Gender</label>
-                    <input required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
-                    <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
-                    <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    <div className="genderinput">
+
+                        <input required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
+                        <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
+                        <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                    </div>
                 </div>
                 <div className='input-container'>
 
@@ -145,8 +148,8 @@ const AddTeacher = () => {
                     <label htmlFor="permanent_address">Permanent Address</label>
                     <input required onChange={handleChange} type="text" name="permanent_address" placeholder='Enter your secondary address' />
                 </div>
-                
-                
+
+
                 <div className='input-container'>
 
                     <label htmlFor="subject">Subjects</label>

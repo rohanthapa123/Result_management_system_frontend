@@ -1,3 +1,32 @@
 .small{
-    width: fit-content;
+    width: fit-content !important;
+}
+
+.search{
+    width: 250px;
+    margin-right: 25px;
+}
+
+@media print{
+    nav{
+        display: none;
+        position: absolute;
+        top: -500px;
+        visibility: hidden;
+    }
+}
+
+.profile{
+    height: 50px;
+    width: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(99, 99, 99, 0.487);
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(+50%);
+    right: 25px;
 }

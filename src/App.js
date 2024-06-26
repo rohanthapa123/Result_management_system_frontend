@@ -2,51 +2,48 @@ import {
   BrowserRouter,
   Navigate,
   Route,
-  Routes,
-  useNavigate,
-  redirect,
+  Routes
 } from "react-router-dom";
-import LoginPage from "./pages/login/loginPage";
-import Dashboard from "./pages/dashboard/dashboard";
-import DashboardLayout from "./layout/DashboardLayout";
-import StudentPage from "./pages/student/studentPage";
-import TeacherPage from "./pages/teacher/teacherPage";
 import ProtectedRoute from "./components/ProtecttedRoute";
-import NoticePage from "./pages/notice/noticePage";
-import AddNotice from "./pages/notice/addNotice";
-import AddStudent from "./pages/student/addStudent";
-import AddTeacher from "./pages/teacher/addTeacher";
-import ClassPage from "./pages/class/classPage";
-import AddClass from "./pages/class/addClass";
+import DashboardLayout from "./layout/DashboardLayout";
 import StudentDashboardLayout from "./layout/StudentDashboardLayout";
 import TeacherDashboardLayout from "./layout/TeacherDashboardLayout";
-import StudentComplain from "./pages/complain/StudentComplain";
-import AdminComplain from "./pages/complain/AdminComplain";
-import Profile from "./pages/viewAndEdit/profile";
-import StudentNotice from "./pages/notice/student/student.notice";
-import SectionPage from "./pages/section/sectionPage";
-import AddSection from "./pages/section/addSection";
-import SubjectPage from "./pages/subject/subjectPage";
-import AddSubject from "./pages/subject/addSubject";
-import ExamPage from "./pages/exam/examPage";
-import AddExam from "./pages/exam/addExam";
-import MarkPage from "./pages/mark/admin/markPage";
-import AddMark from "./pages/mark/teacher/addMark";
-import AdminPage from "./pages/admin/adminPage";
 import AddAdmin from "./pages/admin/addAdmin";
-import TeacherExamPage from "./pages/exam/teacher/examPage";
-import TeacherMarkPage from "./pages/mark/teacher/markPage";
-import TeacherAddMark from "./pages/mark/teacher/addMark";
-import ResultPage from "./pages/result/student/result";
-import StudentDashboard from "./pages/dashboard/student/student_dashboard";
-import EditNotice from "./pages/notice/editNotice";
-import EditSubject from "./pages/subject/editSubject";
-import EditExam from "./pages/exam/editExam";
-import EditClass from "./pages/class/editClass";
-import EditSection from "./pages/section/editSection";
-import EditTeacher from "./pages/teacher/editTeacher";
-import EditStudent from "./pages/student/editStudent";
+import AdminPage from "./pages/admin/adminPage";
 import EditAdmin from "./pages/admin/editAdmin";
+import AddClass from "./pages/class/addClass";
+import ClassPage from "./pages/class/classPage";
+import EditClass from "./pages/class/editClass";
+import AdminComplain from "./pages/complain/AdminComplain";
+import StudentComplain from "./pages/complain/StudentComplain";
+import Dashboard from "./pages/dashboard/dashboard";
+import StudentDashboard from "./pages/dashboard/student/student_dashboard";
+import TeacherDashboard from "./pages/dashboard/teacher/TeacherDashboard";
+import AddExam from "./pages/exam/addExam";
+import EditExam from "./pages/exam/editExam";
+import ExamPage from "./pages/exam/examPage";
+import TeacherExamPage from "./pages/exam/teacher/examPage";
+import LoginPage from "./pages/login/loginPage";
+import MarkPage from "./pages/mark/admin/markPage";
+import TeacherMarkPage from "./pages/mark/teacher/markPage";
+import AddNotice from "./pages/notice/addNotice";
+import EditNotice from "./pages/notice/editNotice";
+import NoticePage from "./pages/notice/noticePage";
+import StudentNotice from "./pages/notice/student/student.notice";
+import ResultPage from "./pages/result/student/result";
+import AddSection from "./pages/section/addSection";
+import EditSection from "./pages/section/editSection";
+import SectionPage from "./pages/section/sectionPage";
+import AddStudent from "./pages/student/addStudent";
+import EditStudent from "./pages/student/editStudent";
+import StudentPage from "./pages/student/studentPage";
+import AddSubject from "./pages/subject/addSubject";
+import EditSubject from "./pages/subject/editSubject";
+import SubjectPage from "./pages/subject/subjectPage";
+import AddTeacher from "./pages/teacher/addTeacher";
+import EditTeacher from "./pages/teacher/editTeacher";
+import TeacherPage from "./pages/teacher/teacherPage";
+import Profile from "./pages/viewAndEdit/profile";
 
 function App() {
   return (
@@ -107,6 +104,7 @@ function App() {
           <Route path="notice" element={<StudentNotice />} />
           <Route path="complains" element={<StudentComplain />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<Navigate to={"/login"} />} />
         </Route>
         <Route
           path="/teacher/*"
@@ -117,16 +115,17 @@ function App() {
             />
           }
         >
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="students" element={<StudentPage />} />
+          <Route path="dashboard" element={<TeacherDashboard />} />
           <Route path="exam" element={<TeacherExamPage />} />
           <Route path="mark" element={<TeacherMarkPage />} />
-          <Route path="mark/add" element={<TeacherAddMark />} />
           <Route path="notice" element={<NoticePage />} />
           <Route path="notice/add" element={<AddNotice role="teacher" />} />
-          <Route path="notice/edit/:id" element={<EditNotice role="teacher" />} />
-          <Route path="teachers" element={<TeacherPage />} />
+          <Route
+            path="notice/edit/:id"
+            element={<EditNotice role="teacher" />}
+          />
           <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<Navigate to={"/login"} />} />
         </Route>
         <Route path="*" element={<Navigate to={"/login"} />} />
       </Routes>

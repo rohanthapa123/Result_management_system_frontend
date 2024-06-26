@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { getMyComplains } from '../../services/fetchFunction';
-import "./complain.css"
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { IoMdSend } from 'react-icons/io';
 import Spinner from '../../components/loader/Spinner';
+import { getMyComplains } from '../../services/fetchFunction';
+import "./complain.css";
+import axiosInstance from '../../services/axiosInstance';
 const StudentComplain = () => {
   const [complains, setComplains] = useState();
   const [loading, setLoading] = useState(false)
@@ -23,14 +23,14 @@ const StudentComplain = () => {
     e.preventDefault();
     if (window.confirm("Did you mentioned your problem correctly?")) {
       //update the database status for that complain 
-      axios.post("http://localhost:8080/api/complain", complainData, {
+      axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/complain`, complainData, {
         withCredentials: true,
       }).then((response) => {
-        console.log(response);
+        //console.log(response);
         setComplainData({ message: '' })
         getMyComplainData();
       }).catch((error) => {
-        console.log(error);
+        //console.log(error);
       })
     }
   }
@@ -46,7 +46,7 @@ const StudentComplain = () => {
       </form>
       <h1>My Complains</h1>
       {
-        loading ? <Spinner /> : <table>
+        loading ? <Spinner /> : <table className='dashboardtable'>
           <thead>
             <tr>
 
@@ -59,7 +59,7 @@ const StudentComplain = () => {
           <tbody className='tbody'>
             {
               complains?.map((complain, index) => {
-                return <tr key={complain.complain_id} className={complain.status ? index % 2 == 0 ? "even" : "odd" : 'red'}>
+                return <tr key={complain.complain_id} className={complain.status ? index % 2 === 0 ? "even" : "odd" : 'red'}>
 
                   <td>{complain.created_at}</td>
                   <td>{complain.message}</td>

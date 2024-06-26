@@ -7,7 +7,7 @@ const OpenNotice = () => {
     useEffect(() => {
         const fetchOpenNotice = async () => {
             setLoading(true);
-            const response = await fetch("http://localhost:8080/api/opennotice")
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/opennotice`)
             const data = await response.json();
             setNotices(data.data);
             setLoading(false);

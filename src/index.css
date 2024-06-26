@@ -30,3 +30,8 @@ body{
 :root{
   --toastify-color-light: #a694944f;
 }
+
+
+.backmenu > h1 {
+  color: #FFF;
+}
