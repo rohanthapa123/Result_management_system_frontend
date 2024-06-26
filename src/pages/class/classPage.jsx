@@ -23,10 +23,14 @@ const ClassPage = () => {
   const handleDelete = useCallback(async (id) => {
     try {
       if (window.confirm("Are you sure to delete")) {
-        await deleteClass(id);
+        if(await deleteClass(id)){
 
-        toast.warning("Class Deleted");
+          
+          toast.warning("Class Deleted");
         getData();
+        }else{
+          toast.error("Class assigned to student can't be deleted")
+        }
       }
     } catch (error) {
       //console.log(error)

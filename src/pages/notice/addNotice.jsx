@@ -75,7 +75,7 @@ const AddNotice = ({ role }) => {
                 </div>
                 <div className="contain input-container">
                     <label htmlFor="message">Message</label>
-                    <textarea onChange={handleChange} name="notice_text" id="message" cols="30" rows="10"></textarea>
+                    <textarea  onChange={handleChange} name="notice_text" id="message" cols="30" rows="10"></textarea>
 
                 </div>
                 <button className='btn'>Submit</button>

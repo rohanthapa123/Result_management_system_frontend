@@ -31,3 +31,9 @@ thead{
 .dashboardtable{
     min-width: 800px;
 }
+
+
+
+.description{
+    max-width: 400px;
+}

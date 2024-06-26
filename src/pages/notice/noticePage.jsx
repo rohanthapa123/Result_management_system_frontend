@@ -69,7 +69,7 @@ const NoticePage = () => {
                             {
                                 notices?.map((notice, index) => {
                                     return <tr key={notice.notice_id} className={index % 2 === 0 ? "even" : "odd"}>
-                                        <td>{notice.notice_text}</td>
+                                        <td className='description'>{notice.notice_text}</td>
                                         <td>{notice.date_posted}</td>
                                         <td><Link className={"link"} to={`edit/${notice.notice_id}`}><FaEdit size={20} color="green" /></Link> </td>
                                         <td><button onClick={(e) => handleDelete(notice.notice_id)}><MdDelete size={20} color="red" /></button></td>
