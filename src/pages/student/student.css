@@ -64,6 +64,8 @@ td > img{
     background-color: red;
     /* margin-top: 5px; */
 }
+
+
 .student_form > div > input{
     
     width: 100%;
@@ -194,4 +196,14 @@ td > img{
 
 .dashboardtable{
     min-width: 800px;
+}
+
+@media screen and (max-width : 768px) {
+    .student_form{
+        /* background-color: red; */
+        padding: 0;
+    }
+    .student_form > .input-container {
+        width: 100%;
+    }
 }
