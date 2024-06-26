@@ -186,7 +186,7 @@ const MarkPage = () => {
   const [classes, setClasses] = useState([]);
   const [term, setTerm] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
-  const [studentMarks, setStudentMarks] = useState([]);
+  const [studentMarks, setStudentMarks] = useState();
 
   useEffect(() => {
     const getClassData = async () => {
@@ -233,20 +233,22 @@ const MarkPage = () => {
       <hr />
 
       <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            {/* <th>User ID</th> */}
-            {/* <th>Student ID</th> */}
-            {studentMarks.length > 0 && studentMarks[0].subjects_marks.map((subject) => (
-              <th key={subject.subject_id}>{subject.subject_name}</th>
-            ))}
-          </tr>
-        </thead>
+        {
+          studentMarks ? <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              {/* <th>User ID</th> */}
+              {/* <th>Student ID</th> */}
+              {studentMarks?.length > 0 && studentMarks[0]?.subjects_marks.map((subject) => (
+                <th key={subject.subject_id}>{subject.subject_name}</th>
+              ))}
+            </tr>
+          </thead> : ""
+        }
         <tbody>
-          {studentMarks.map((student) => (
+          {studentMarks?.map((student) => (
             <tr key={student.student_id}>
               <td>{student.fname}</td>
               <td>{student.mname}</td>
