@@ -4,6 +4,7 @@ import "./loginPage.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
+import { toast } from "react-toastify";
 const LoginPage = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
@@ -21,32 +22,37 @@ const LoginPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            setLoading(true)
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
-                withCredentials: true
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            if (response.status === 200) {
-                const data = response.data;
-                //console.log(data)
-                setLoggedIn(true);
-                const { authToken, userData } = data;
-                // setIsAuthenticated(true);
-                // setRole(userRole)
-                localStorage.setItem("name", userData?.fname);
-                localStorage.setItem("image", userData?.image)
-                localStorage.setItem("accessToken", authToken);
-                localStorage.setItem("userData", JSON.stringify(userData));
+            if (values.email && values.password) {
 
-                navigate(`/${userData.role}/dashboard`)
-                // window.location.href = `/${data.data[0].role}`;
+                setLoading(true)
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, values, {
+                    withCredentials: true
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                if (response.status === 200) {
+                    const data = response.data;
+                    //console.log(data)
+                    setLoggedIn(true);
+                    const { authToken, userData } = data;
+                    // setIsAuthenticated(true);
+                    // setRole(userRole)
+                    localStorage.setItem("name", userData?.fname);
+                    localStorage.setItem("image", userData?.image)
+                    localStorage.setItem("accessToken", authToken);
+                    localStorage.setItem("userData", JSON.stringify(userData));
+
+                    navigate(`/${userData.role}/dashboard`)
+                    // window.location.href = `/${data.data[0].role}`;
+                } else {
+                    //console.log("Login Failed");
+                }
+                setLoading(false)
             } else {
-                //console.log("Login Failed");
+                toast.error("Please Enter your credentias");
             }
-            setLoading(false)
         } catch (error) {
             setLoading(false);
             setEmailError("");

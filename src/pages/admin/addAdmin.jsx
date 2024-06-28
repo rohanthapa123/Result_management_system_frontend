@@ -67,7 +67,13 @@ const AddAdmin = () => {
         }
     }
 
-
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear() - 15;
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const day = today.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
     return (
         <div>
             <div className='backmenu'>
@@ -103,7 +109,7 @@ const AddAdmin = () => {
                 <div className='input-container'>
 
                     <label htmlFor="dob">Dob</label>
-                    <input required onChange={handleChange} type="date" name="dob" placeholder='Enter your dob' />
+                    <input required onChange={handleChange} type="date" name="dob" placeholder='Enter your dob' max={getTodayDate()} />
                 </div>
                 <div className='input-container gender'>
 

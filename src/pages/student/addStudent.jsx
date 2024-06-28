@@ -12,7 +12,8 @@ const AddStudent = () => {
     const [validationError, setValidationError] = useState({
         email: '',
         primary_contact: '',
-        secondary_contact: ''
+        secondary_contact: '',
+        permanent_address: '',
 
     });
     const [studentData, setStudentData] = useState({
@@ -92,6 +93,13 @@ const AddStudent = () => {
         getSectionData(studentData.class_id);
     }, [studentData.class_id])
 
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear() - 5;
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const day = today.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
     return (
         <div className='main_container'>
@@ -104,7 +112,7 @@ const AddStudent = () => {
                 <h1 style={{ textAlign: 'center' }}>Add Student</h1>
             </div>
 
-            <form onSubmit={handleSubmit} className='student_form' action="">
+            <form onSubmit={handleSubmit} className='student_form' action="" >
                 <div className='input-container'>
 
                     <label htmlFor="fname">First Name</label>
@@ -129,7 +137,7 @@ const AddStudent = () => {
                 <div className='input-container'>
 
                     <label htmlFor="dob">Dob</label>
-                    <input required onChange={handleChange} id='dob' type="date" name="dob" />
+                    <input required onChange={handleChange} id='dob' type="date" name="dob" max={getTodayDate()} />
                 </div>
                 <div className='input-container'>
                     <label htmlFor="contacts">Contact One</label>

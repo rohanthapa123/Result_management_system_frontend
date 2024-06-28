@@ -20,7 +20,7 @@ const ResultPage = () => {
                 const response = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/result/${term}`, {
                     withCredentials: true,
                 })
-                // //console.log(response.data.data);
+                // console.log(response.data.data.markData[0]);
                 setResult(response.data.data.markData[0])
                 setUser(response.data.data.userData)
                 setStudent(response.data.data.studentData)
@@ -85,7 +85,7 @@ const ResultPage = () => {
                 <button onClick={printResult}>Print</button>
             </div>
 
-            {result ? loading ? <Spinner /> : <div className="marksheet dashboardtable">
+            {result?.length > 0 ? loading ? <Spinner /> : <div className="marksheet dashboardtable">
                 <span><em>"Education for all"</em></span>
                 <h2>College Name</h2>
                 <h4>Address of the college or school</h4>
@@ -143,7 +143,7 @@ const ResultPage = () => {
                 <br /><br />
                 <span><em><u>* This sheet is for the general idea of grade(s) you secured. This is not for official use. </u></em></span>
 
-            </div> : ""
+            </div> : <h1>No Data Available</h1>
             }
         </div>
     )
