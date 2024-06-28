@@ -85,9 +85,12 @@ student-result-management-frontend/
 │   ├── index.html
 │   └── ...
 ├── src/
+│   ├── assets/
 │   ├── components/
+│   ├── layout/
 │   ├── pages/
 │   ├── services/
+│   ├── utils   /
 │   ├── App.js
 │   ├── index.js
 │   └── ...
