@@ -40,13 +40,16 @@ Follow these steps to set up the project locally:
    ``` bash
    git clone https://github.com/rohanthapa123/Result_management_system_frontend
    cd student-result-management-frontend
-npm install
+   npm install
 Start the development server:
 
-npm start
+    ``` bash
+    npm start
 
-    ``` 
-
+Environment Variable
+  ``` bash
+  REACT_APP_SERVER_URL = 'http://localhost:8080'
+```
 The application will be available at http://localhost:3000.
 
 ## Usage
