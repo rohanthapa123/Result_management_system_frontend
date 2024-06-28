@@ -1,24 +1,106 @@
-<h4>Student Result Management System is a web-based application that designed and developed for teacher and students. It maintains records of student, teacher, class, subject, exam and students result that occur at any educational institute. It maintains two types of users, administrator level and normal user. User is divided into two, the student and the subject teacher, who maintain all the students result for their respective subject. Students can easily access this platform to view their mark sheet for respective exam. On the other hand, the administrator level encompasses educational faculty head who are responsible for managing and overseeing the entire system's operations including the creation of user accounts.</h4>
+# Student Result Management System - Frontend
 
-<h4>It is make with waterfall model</h4>
+This repository contains the frontend code for the Student Result Management System, a web-based application designed to manage and display student results. The system is built using React.js and interacts with the backend to provide a seamless user experience.
 
-<h4>
-  
-The current outdated system will take long time utilization, the manual procedure used for managing result is time consuming process. So, by using this web-based result insertion to the system the management is properly managed. The system's efficiency in managing student results and gathering result to generate mark sheet significantly reduces the time spent in creating result, making educational services more accessible and convenient for students. In conclusion, the Student Result Management System is a trans-formative solution that enhances the student and teacher experience and streamlines the resulting process through web-based technology, ensuring effective result management and a more efficient educational system.
-</h4>
+## Table of Contents
 
-<h3>This is the frontend</h3>
-<h3>Made with</h3>
-<ul>
-  <li>React JS</li>
-  <li>CSS</li>
-</ul>
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Demo Credentials](#demo-credentials)
+- [Project Structure](#project-structure)
+- [License](#license)
+- [Contact](#contact)
 
-<u><p>How to run</p></u>
-<ol type="1">
-  <li>Fork the repository and clone</li>
-  <li>npm i to install all the dependencies</li>
-  <li>npm start</li> --to run the project
-  
-</ol>
-<h1>Note: You also need the backend and database to run</h1>
+## Features
+
+- User authentication (Admin, Teacher, Student)
+- Role-based access control
+- Student result management
+- Marksheet generation and viewing
+- Class and subject management
+- User-friendly interface with responsive design
+
+## Technologies Used
+
+- React.js
+- Axios
+- React Router
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Bootstrap (optional, if used for styling)
+
+## Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository:**
+   ``` bash
+   git clone https://github.com/rohanthapa123/Result_management_system_frontend
+   cd student-result-management-frontend
+npm install
+Start the development server:
+
+npm start
+
+    ``` 
+
+The application will be available at http://localhost:3000.
+
+## Usage
+After starting the development server, open your browser and navigate to http://localhost:3000.
+Log in using the demo credentials provided below to explore different roles and functionalities.
+
+## Demo Available at
+https://srmss.netlify.app
+
+Demo Credentials
+- Admin
+Username: admin@gmail.com
+Password: admin123
+- Teacher
+Username: teacher@gmail.com
+Password: teacher123
+- Student
+Username: student@gmail.com
+Password: student123
+
+
+student-result-management-frontend/
+├── public/
+│   ├── favicon.ico
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.js
+│   ├── index.js
+│   └── ...
+├── package.json
+├── README.md
+└── ...
+
+
+
+- public/: Contains static files, including the HTML template.
+- src/: Contains the main source code for the application.
+- components/: Reusable components.
+- pages/: Different pages of the application.
+- services/: API service calls.
+- App.js: The main app component.
+- index.js: Entry point of the application.
+
+
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+Contact
+For any questions or suggestions, please contact:
+
+- **Rohan Thapa** - [Email](mailto:thaparohan2019@gmail.com)
+- **LinkedIn**: [Rohan Thapa](https://www.linkedin.com/in/rohanthapa)
