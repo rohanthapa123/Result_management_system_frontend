@@ -27,28 +27,36 @@ This repository contains the frontend code for the Student Result Management Sys
 - React.js
 - Axios
 - React Router
+- jspdf
+- jspdf-autotable
+- react-csv
+- react-icons
+- chart.js
+- react-select
+- react-toastify
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- Bootstrap (optional, if used for styling)
 
 ## Installation
 
 Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
-   ``` bash
+``` bash
    git clone https://github.com/rohanthapa123/Result_management_system_frontend
-   cd student-result-management-frontend
+   cd Result_management_system_frontend
    npm install
+```
+
 Start the development server:
 
-    ``` bash
-    npm start
-
+``` bash
+   npm start
+```
 Environment Variable
-  ``` bash
-  REACT_APP_SERVER_URL = 'http://localhost:8080'
+``` bash
+   REACT_APP_SERVER_URL = 'http://localhost:8080'
 ```
 The application will be available at http://localhost:3000.
 
