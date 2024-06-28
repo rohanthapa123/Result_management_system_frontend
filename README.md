@@ -43,40 +43,48 @@ This repository contains the frontend code for the Student Result Management Sys
 Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
-``` bash
+
+```bash
    git clone https://github.com/rohanthapa123/Result_management_system_frontend
    cd Result_management_system_frontend
+   git checkout development
    npm install
 ```
 
 Start the development server:
 
-``` bash
+```bash
    npm start
 ```
+
 Environment Variable
-``` bash
+
+```bash
    REACT_APP_SERVER_URL = 'http://localhost:8080'
 ```
+
 The application will be available at http://localhost:3000.
 
 ## Usage
+
 After starting the development server, open your browser and navigate to http://localhost:3000.
 Log in using the demo credentials provided below to explore different roles and functionalities.
 
 ## Demo Available at
+
 https://srmss.netlify.app
 
 Demo Credentials
+
 - Admin
-Username: admin@gmail.com
-Password: admin123
+  Username: admin@gmail.com
+  Password: admin123
 - Teacher
-Username: teacher@gmail.com
-Password: teacher123
+  Username: teacher@gmail.com
+  Password: teacher123
 - Student
-Username: student@gmail.com
-Password: student123
+  Username: student@gmail.com
+  Password: student123
 
 ```bash
 student-result-management-frontend/
@@ -100,6 +108,7 @@ student-result-management-frontend/
 
 
 ```
+
 - public/: Contains static files, including the HTML template.
 - src/: Contains the main source code for the application.
 - components/: Reusable components.
@@ -107,8 +116,6 @@ student-result-management-frontend/
 - services/: API service calls.
 - App.js: The main app component.
 - index.js: Entry point of the application.
-
-
 
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
