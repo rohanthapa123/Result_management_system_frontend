@@ -70,7 +70,7 @@ Password: teacher123
 Username: student@gmail.com
 Password: student123
 
-
+```bash
 student-result-management-frontend/
 ├── public/
 │   ├── favicon.ico
@@ -88,7 +88,7 @@ student-result-management-frontend/
 └── ...
 
 
-
+```
 - public/: Contains static files, including the HTML template.
 - src/: Contains the main source code for the application.
 - components/: Reusable components.
