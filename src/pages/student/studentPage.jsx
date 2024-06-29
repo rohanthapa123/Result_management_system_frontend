@@ -186,6 +186,7 @@ const StudentPage = () => {
             <th>Mname</th>
             <th>Lname</th>
             <th>Class</th>
+            <th>Roll NO</th>
             <th>Email</th>
             <th className="action">Edit</th>
             <th className="action">Delete</th>
@@ -215,6 +216,7 @@ const StudentPage = () => {
               <td>{student.mname}</td>
               <td>{student.lname}</td>
               <td>{student.class_name}</td>
+              <td>{student.roll_no}</td>
               <td>{student.email}</td>
               <td className="action">
                 <Link to={`edit/${student.student_id}`}>

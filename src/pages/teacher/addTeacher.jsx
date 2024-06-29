@@ -10,9 +10,14 @@ const AddTeacher = () => {
     const navigate = useNavigate();
     const [selectedOptions, setSelectedOptions] = useState();
     const [validationError, setValidationError] = useState({
+        fname: '',
+        lname: '',
         email: '',
+        dob: '',
         primary_contact: '',
-        secondary_contact: ''
+        secondary_contact: '',
+        permanent_address: '',
+        gender: '',
 
     });
     const [teacherData, setTeacherData] = useState({
@@ -32,27 +37,68 @@ const AddTeacher = () => {
     });
     const regexPatterns = {
 
+        fname: /^[A-Za-z\s'-]+$/,
+        lname: /^[A-Za-z\s'-]+$/,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         primary_contact: /^\d{10}$/,
-        secondary_contact: /^\d{10}$/,
+        secondary_contact: /^(?:\d{10})?$/,
 
     };
     const handleChange = (e) => {
         const { name, value } = e.target;
         const regexPattern = regexPatterns[name];
-        const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
+        let ifValid = true;
+
+        if (name in regexPatterns) {
+            ifValid = regexPattern.test(value);
+        }
+
         setTeacherData(prev => ({ ...prev, [name]: value }));
-        //console.log(teacherData)
-        setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
+        setValidationError(prev => ({ ...prev, [name]: ifValid ? '' : `Invalid ${name}` }));
     }
+
     const handleChangeSubject = (selectedOptions) => {
         setSelectedOptions(selectedOptions);
         //console.log(selectedOptions)
         setTeacherData(prev => ({ ...prev, subjects: selectedOptions }));
     }
+
+    const checkEmptyValue = () => {
+        let errors = {};
+
+        if (teacherData.fname.trim() === "") {
+            errors.fname = "Enter a first name";
+        }
+        if (teacherData.lname.trim() === "") {
+            errors.lname = "Enter a last name";
+        }
+        if (teacherData.email.trim() === "") {
+            errors.email = "Enter a email";
+        }
+        if (teacherData.primary_contact.trim() === "") {
+            errors.primary_contact = "Enter a primary contact";
+        }
+        if (teacherData.dob.trim() === "") {
+            errors.dob = "Enter a date of birth";
+        }
+        if (teacherData.permanent_address.trim() === "") {
+            errors.permanent_address = "Enter a permanent address";
+        }
+        if (teacherData.gender.trim() === "") {
+            errors.gender = "Enter a gender";
+        }
+
+        setValidationError(prev => ({ ...prev, ...errors }));
+        return errors;
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const hasErrors = Object.values(validationError).some((error) => error);
+        const errors = checkEmptyValue()
+
+        const hasErrors = Object.values(errors).some(error => error !== '') || Object.values(validationError).some(error => error !== '');
+
         if (hasErrors) {
             // alert("Fill form correctly")
             toast.warning("Fill form correctly");
@@ -93,11 +139,12 @@ const AddTeacher = () => {
 
                 <h1 style={{ textAlign: 'center' }}>Add Teacher</h1>
             </div>
-            <form onSubmit={handleSubmit} className='student_form' action="">
+            <form onSubmit={handleSubmit} className='student_form' action="" noValidate>
                 <div className='input-container'>
 
                     <label htmlFor="fname">First Name</label>
                     <input onChange={handleChange} type="text" name="fname" placeholder='Enter first name' required />
+                    {validationError.fname && (<span>{validationError.fname}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -108,6 +155,7 @@ const AddTeacher = () => {
 
                     <label htmlFor="lname">Last Name</label>
                     <input onChange={handleChange} type="text" name="lname" placeholder='Enter last name' required />
+                    {validationError.lname && (<span>{validationError.lname}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -119,6 +167,7 @@ const AddTeacher = () => {
 
                     <label htmlFor="dob">Dob</label>
                     <input required onChange={handleChange} type="date" name="dob" placeholder='Enter your dob' max={getTodayDate()} />
+                    {validationError.dob && (<span>{validationError.dob}</span>)}
                 </div>
                 <div className='input-container gender'>
 
@@ -129,6 +178,7 @@ const AddTeacher = () => {
                         <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
                         <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
                     </div>
+                    {validationError.gender && (<span>{validationError.gender}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -147,12 +197,13 @@ const AddTeacher = () => {
                 <div className='input-container'>
 
                     <label htmlFor="temporary_address">Temporary Address</label>
-                    <input required onChange={handleChange} type="text" name="temporary_address" placeholder='Enter your Permanent Address' />
+                    <input required onChange={handleChange} type="text" name="temporary_address" placeholder='Enter your Secondary Address' />
                 </div>
                 <div className='input-container'>
 
                     <label htmlFor="permanent_address">Permanent Address</label>
-                    <input required onChange={handleChange} type="text" name="permanent_address" placeholder='Enter your secondary address' />
+                    <input required onChange={handleChange} type="text" name="permanent_address" placeholder='Enter your permanent address' />
+                    {validationError.permanent_address && (<span>{validationError.permanent_address}</span>)}
                 </div>
 
 
@@ -163,7 +214,7 @@ const AddTeacher = () => {
                     <MultipleSubject handleChangeSubject={handleChangeSubject} selectedOptions={selectedOptions} />
                 </div>
                 <button className='btn'>Submit</button>
-            </form> 
+            </form>
         </div>
     )
 }

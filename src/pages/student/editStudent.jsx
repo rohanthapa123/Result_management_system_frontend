@@ -3,18 +3,27 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ClassInput from '../../components/ClassInput';
+import axiosInstance from '../../services/axiosInstance';
 import { getSectionByClass, getStudentById } from '../../services/fetchFunction';
 import "./student.css";
-import axiosInstance from '../../services/axiosInstance';
 const EditStudent = () => {
     const navigate = useNavigate();
     // const [classes, setClasses] = useState();
     const { id } = useParams();
     const [section, setSection] = useState();
     const [validationError, setValidationError] = useState({
+        fname: '',
+        lname: '',
         email: '',
+        dob: '',
         primary_contact: '',
-        secondary_contact: ''
+        secondary_contact: '',
+        permanent_address: '',
+        gender: '',
+        class_id: '',
+        section_id: '',
+        blood_group: '',
+        nationality: '',
 
     });
     const [studentData, setStudentData] = useState({
@@ -36,23 +45,71 @@ const EditStudent = () => {
     });
     const regexPatterns = {
 
+        fname: /^[A-Za-z\s'-]+$/,
+        lname: /^[A-Za-z\s'-]+$/,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         primary_contact: /^\d{10}$/,
-        secondary_contact: /^\d{10}$/,
+        secondary_contact: /^(?:\d{10})?$/,
 
     };
     const handleChange = (e) => {
         const { name, value } = e.target;
         const regexPattern = regexPatterns[name];
-        const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
+        let ifValid = true;
+
+        if (name in regexPatterns) {
+            ifValid = regexPattern.test(value);
+        }
+
         setStudentData(prev => ({ ...prev, [name]: value }));
-        //console.log(studentData)
-        setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
+        setValidationError(prev => ({ ...prev, [name]: ifValid ? '' : `Invalid ${name}` }));
+        // console.log(studentData)
     }
+    const checkEmptyValue = () => {
+        let errors = {};
+
+        if (studentData.fname.trim() === "") {
+            errors.fname = "Enter a first name";
+        }
+        if (studentData.lname.trim() === "") {
+            errors.lname = "Enter a last name";
+        }
+        if (studentData.email.trim() === "") {
+            errors.email = "Enter a email";
+        }
+        if (studentData.primary_contact.trim() === "") {
+            errors.primary_contact = "Enter a primary contact";
+        }
+        if (studentData.dob.trim() === "") {
+            errors.dob = "Enter a date of birth";
+        }
+        if (studentData.permanent_address.trim() === "") {
+            errors.permanent_address = "Enter a permanent address";
+        }
+        if (studentData.class_id.toString().trim() === "") {
+            errors.class_id = "Enter a class ID";
+        }
+        if (studentData.section_id.toString().trim() === "") {
+            errors.section_id = "Enter a section ID";
+        }
+        if (studentData.gender.trim() === "") {
+            errors.gender = "Enter a gender";
+        }
+        if (studentData.blood_group.trim() === "") {
+            errors.blood_group = "Enter a blood group";
+        }
+        if (studentData.nationality.trim() === "") {
+            errors.nationality = "Enter a nationality";
+        }
+
+        setValidationError(prev => ({ ...prev, ...errors }));
+        return errors;
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
+        const errors = checkEmptyValue();
+        const hasErrors = Object.values(errors).some(error => error !== '') || Object.values(validationError).some(error => error !== '');
 
-        const hasErrors = Object.values(validationError).some((error) => error);
         if (hasErrors) {
             alert("Fill form correctly")
         } else {
@@ -106,11 +163,12 @@ const EditStudent = () => {
                 <h1 style={{ textAlign: 'center' }}>Edit Student</h1>
             </div>
 
-            <form onSubmit={handleSubmit} className='student_form' action="">
+            <form onSubmit={handleSubmit} className='student_form' action="" noValidate>
                 <div className='input-container'>
 
                     <label htmlFor="fname">First Name</label>
                     <input value={studentData?.fname} onChange={handleChange} type="text" id='fname' name="fname" required />
+                    {validationError.fname && (<span>{validationError.fname}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -121,6 +179,7 @@ const EditStudent = () => {
 
                     <label htmlFor="lname">Last Name</label>
                     <input value={studentData?.lname} onChange={handleChange} id='lname' type="text" name="lname" required />
+                    {validationError.lname && (<span>{validationError.lname}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -132,6 +191,7 @@ const EditStudent = () => {
 
                     <label htmlFor="dob">Dob</label>
                     <input value={studentData?.dob} required onChange={handleChange} id='dob' type="date" name="dob" />
+                    {validationError.dob && (<span>{validationError.dob}</span>)}
                 </div>
                 <div className='input-container'>
                     <label htmlFor="contacts">Contact One</label>
@@ -150,11 +210,13 @@ const EditStudent = () => {
 
                     <label htmlFor="temporary_address">Temporary Address</label>
                     <input value={studentData?.temporary_address} required onChange={handleChange} id='temporary_address' type="text" name="temporary_address" />
+
                 </div>
                 <div className='input-container'>
 
                     <label htmlFor="permanent_address">Permanent Address</label>
                     <input value={studentData?.permanent_address} required onChange={handleChange} id='permanent_address' type="text" name="permanent_address" />
+                    {validationError.permanent_address && (<span>{validationError.permanent_address}</span>)}
                 </div>
                 <div className='input-container gender'>
 
@@ -165,12 +227,14 @@ const EditStudent = () => {
                         <input checked={studentData?.gender === 'F'} required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
                         <input checked={studentData?.gender === 'O'} required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
                     </div>
+                    {validationError.gender && (<span>{validationError.gender}</span>)}
                 </div>
                 <div className='input-container'>
 
                     <label htmlFor="class_id">Class</label>
 
                     <ClassInput value={studentData?.class_id} handleChange={handleChange} />
+                    {validationError.class_id && (<span>{validationError.class_id}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -183,10 +247,11 @@ const EditStudent = () => {
                             })
                         }
                     </select>
+                    {validationError.section_id && (<span>{validationError.section_id}</span>)}
                 </div>
                 <div className='input-container'>
                     <label htmlFor="roll_no">Roll No</label>
-                    <input value={studentData?.roll_no} required onChange={handleChange} id='roll_no' type="number" name="roll_no" />
+                    <input disabled style={{ color: "white" }} value={studentData?.roll_no} required onChange={handleChange} id='roll_no' type="number" name="roll_no" />
 
                 </div>
                 <div className='input-container'>
@@ -203,6 +268,7 @@ const EditStudent = () => {
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
                     </select>
+                    {validationError.blood_group && (<span>{validationError.blood_group}</span>)}
                 </div>
                 <div className='input-container'>
 
@@ -215,6 +281,7 @@ const EditStudent = () => {
                         <option value="australian">Australian</option>
                         <option value="japanese">Japanese</option>
                     </select>
+                    {validationError.nationality && (<span>{validationError.nationality}</span>)}
                 </div>
                 <button className='btn'>Submit</button>
             </form>
