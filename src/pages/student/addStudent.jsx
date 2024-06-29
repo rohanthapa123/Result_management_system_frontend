@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../services/axiosInstance';
 import { getClass, getSectionByClass } from '../../services/fetchFunction';
 import "./student.css";
+
 const AddStudent = () => {
     const navigate = useNavigate();
-    const [classes, setClasses] = useState();
-    const [section, setSection] = useState();
+    const [classes, setClasses] = useState([]);
+    const [section, setSection] = useState([]);
     const [validationError, setValidationError] = useState({
+        fname: '',
+        lname: '',
         email: '',
+        dob: '',
         primary_contact: '',
         secondary_contact: '',
         permanent_address: '',
-
+        gender: '',
+        class_id: '',
+        section_id: '',
+        blood_group: '',
+        nationality: '',
     });
     const [studentData, setStudentData] = useState({
         fname: '',
@@ -32,66 +40,129 @@ const AddStudent = () => {
         blood_group: '',
         nationality: '',
         role: 'student',
-        gender: ''
-
+        gender: '',
     });
-    const regexPatterns = {
 
+    const regexPatterns = {
+        fname: /^[A-Za-z\s'-]+$/,
+        lname: /^[A-Za-z\s'-]+$/,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         primary_contact: /^\d{10}$/,
-        secondary_contact: /^\d{10}$/,
-
+        secondary_contact: /^(?:\d{10})?$/,
     };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         const regexPattern = regexPatterns[name];
-        const ifValid = value === '' || (regexPattern ? regexPattern.test(value) : true);
+        let ifValid = true;
+
+        if (name in regexPatterns) {
+            ifValid = regexPattern.test(value);
+        }
+
         setStudentData(prev => ({ ...prev, [name]: value }));
-        // //console.log(studentData)
-        setValidationError((prev) => ({ ...prev, [name]: ifValid ? '' : `Invalid ` }))
-    }
+        setValidationError(prev => ({ ...prev, [name]: ifValid ? '' : `Invalid ${name}` }));
+        // console.log(studentData)
+    };
+
+    const checkEmptyValue = () => {
+        let errors = {};
+
+        if (studentData.fname.trim() === "") {
+            errors.fname = "Enter a first name";
+        }
+        if (studentData.lname.trim() === "") {
+            errors.lname = "Enter a last name";
+        }
+        if (studentData.email.trim() === "") {
+            errors.email = "Enter a email";
+        }
+        if (studentData.primary_contact.trim() === "") {
+            errors.primary_contact = "Enter a primary contact";
+        }
+        if (studentData.dob.trim() === "") {
+            errors.dob = "Enter a date of birth";
+        }
+        if (studentData.permanent_address.trim() === "") {
+            errors.permanent_address = "Enter a permanent address";
+        }
+        if (studentData.class_id.trim() === "") {
+            errors.class_id = "Enter a class ID";
+        }
+        if (studentData.section_id.trim() === "") {
+            errors.section_id = "Enter a section ID";
+        }
+        if (studentData.gender.trim() === "") {
+            errors.gender = "Enter a gender";
+        }
+        if (studentData.blood_group.trim() === "") {
+            errors.blood_group = "Enter a blood group";
+        }
+        if (studentData.nationality.trim() === "") {
+            errors.nationality = "Enter a nationality";
+        }
+
+        setValidationError(prev => ({ ...prev, ...errors }));
+        return errors;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const errors = checkEmptyValue();
+        const hasErrors = Object.values(errors).some(error => error !== '') || Object.values(validationError).some(error => error !== '');
 
-        const hasErrors = Object.values(validationError).some((error) => error);
         if (hasErrors) {
-            toast.warning("Fill form correctly")
+            toast.warning("Fill form correctly");
         } else {
-            //console.log(studentData)
-            // alert("Form can be submitted")
-
-            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, studentData, {
-                withCredentials: true,
-            }).then(response => {
-                //console.log(response.data)
-                toast.success("Student Added Successfully")
-                navigate("/admin/students");
-            }).catch(error => {
-                if (error.response) {
-                    //console.log(error.response);
-                    toast.error(error.response.data.error)
-                    alert(error.response.data.error)
-                }
-            })
+            axiosInstance.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, studentData, { withCredentials: true })
+                .then(response => {
+                    toast.success("Student Added Successfully");
+                    navigate("/admin/students");
+                }).catch(error => {
+                    if (error.response) {
+                        toast.error(error.response.data.error);
+                    }
+                });
         }
-    }
+    };
+
     const getClassData = async () => {
         const classData = await getClass();
-        setClasses(classData)
-    }
+        setClasses(classData);
+    };
+
     const getSectionData = async (class_id) => {
         if (class_id) {
-
             const sectionData = await getSectionByClass(class_id);
-            setSection(sectionData)
+            setSection(sectionData);
         }
-    }
+    };
+
+    const getNextRollNo = useCallback(async () => {
+        try {
+            if (studentData.class_id) {
+                const resp = await axiosInstance.get(`${process.env.REACT_APP_SERVER_URL}/api/getnextrollno/${studentData.class_id}`);
+                // console.log(resp.data.data)
+                const newroll = resp.data.data;
+                setStudentData((prev) => ({ ...prev, roll_no: newroll.toString() }))
+            }
+        } catch (error) {
+            toast.error(error.response.data.message)
+            // console.log(error)
+        }
+    },[studentData.class_id])
+
     useEffect(() => {
         getClassData();
-    }, [])
+    }, []);
+
     useEffect(() => {
         getSectionData(studentData.class_id);
-    }, [studentData.class_id])
+    }, [studentData.class_id]);
+
+    useEffect(() => {
+        getNextRollNo();
+    }, [getNextRollNo])
 
     const getTodayDate = () => {
         const today = new Date();
@@ -105,101 +176,87 @@ const AddStudent = () => {
         <div className='main_container'>
             <div className='backmenu'>
                 <h1 className='back'>
-
-                    <Link className='link' to={`/admin/students`}> <IoMdArrowRoundBack /></Link>
+                    <Link className='link' to={`/admin/students`}><IoMdArrowRoundBack /></Link>
                 </h1>
-
                 <h1 style={{ textAlign: 'center' }}>Add Student</h1>
             </div>
 
-            <form onSubmit={handleSubmit} className='student_form' action="" >
+            <form onSubmit={handleSubmit} className='student_form' noValidate>
                 <div className='input-container'>
-
                     <label htmlFor="fname">First Name</label>
                     <input onChange={handleChange} type="text" id='fname' name="fname" required />
+                    {validationError.fname && (<span>{validationError.fname}</span>)}
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="mname">Middle Name</label>
                     <input onChange={handleChange} id='mname' type="text" name="mname" />
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="lname">Last Name</label>
                     <input onChange={handleChange} id='lname' type="text" name="lname" required />
+                    {validationError.lname && (<span>{validationError.lname}</span>)}
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="email">Email</label>
-                    <input required onChange={handleChange} id='email' type="text" name="email" />
+                    <input onChange={handleChange} id='email' type="text" name="email" required />
                     {validationError.email && (<span>{validationError.email}</span>)}
                 </div>
                 <div className='input-container'>
-
-                    <label htmlFor="dob">Dob</label>
-                    <input required onChange={handleChange} id='dob' type="date" name="dob" max={getTodayDate()} />
+                    <label htmlFor="dob">DOB</label>
+                    <input onChange={handleChange} id='dob' type="date" name="dob" max={getTodayDate()} required />
+                    {validationError.dob && (<span>{validationError.dob}</span>)}
                 </div>
                 <div className='input-container'>
-                    <label htmlFor="contacts">Contact One</label>
-                    <input required onChange={handleChange} id='contacts' type="text" name="primary_contact" />
+                    <label htmlFor="primary_contact">Primary Contact</label>
+                    <input onChange={handleChange} id='primary_contact' type="text" name="primary_contact" required />
                     {validationError.primary_contact && (<span>{validationError.primary_contact}</span>)}
-
                 </div>
                 <div className='input-container'>
-
-                    <label htmlFor="contacts">Contact Two</label>
-                    <input required onChange={handleChange} type="text" name="secondary_contact" />
+                    <label htmlFor="secondary_contact">Secondary Contact</label>
+                    <input onChange={handleChange} id='secondary_contact' type="text" name="secondary_contact" />
                     {validationError.secondary_contact && (<span>{validationError.secondary_contact}</span>)}
-
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="temporary_address">Temporary Address</label>
-                    <input required onChange={handleChange} id='temporary_address' type="text" name="temporary_address" />
+                    <input onChange={handleChange} id='temporary_address' type="text" name="temporary_address" required />
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="permanent_address">Permanent Address</label>
-                    <input required onChange={handleChange} id='permanent_address' type="text" name="permanent_address" />
+                    <input onChange={handleChange} id='permanent_address' type="text" name="permanent_address" required />
+                    {validationError.permanent_address && (<span>{validationError.permanent_address}</span>)}
                 </div>
                 <div className='input-container gender'>
-
                     <label htmlFor="gender">Gender</label>
                     <div className='genderinput'>
-
-                        <input required onChange={handleChange} type="radio" name="gender" value={"M"} />Male
-                        <input required onChange={handleChange} type="radio" name="gender" value={"F"} />Female
-                        <input required onChange={handleChange} type="radio" name="gender" value={"O"} />Other
+                        <input onChange={handleChange} type="radio" name="gender" value="M" required /> Male
+                        <input onChange={handleChange} type="radio" name="gender" value="F" required /> Female
+                        <input onChange={handleChange} type="radio" name="gender" value="O" required /> Other
                     </div>
+                    {validationError.gender && (<span>{validationError.gender}</span>)}
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="class_id">Class</label>
-                    <select required className='selectBox' onChange={handleChange} name="class_id" id="">
+                    <select onChange={handleChange} name="class_id" required>
                         <option value="">Select Class</option>
-                        {
-                            classes?.map((_class) => {
-                                return <option key={_class.class_id} value={_class.class_id}>{_class.class_name}</option>
-                            })
-                        }
+                        {classes.map(_class => (
+                            <option key={_class.class_id} value={_class.class_id}>{_class.class_name}</option>
+                        ))}
                     </select>
+                    {validationError.class_id && (<span>{validationError.class_id}</span>)}
                 </div>
                 <div className='input-container'>
-
                     <label htmlFor="section_id">Section</label>
-                    <select required className='selectBox' onChange={handleChange} name="section_id" id="">
+                    <select onChange={handleChange} name="section_id" required>
                         <option value="">Select Section</option>
-                        {
-                            section?.map((sec) => {
-                                return <option key={sec.section_id} value={sec.section_id}>{sec.section_name}</option>
-                            })
-                        }
+                        {section.map(sec => (
+                            <option key={sec.section_id} value={sec.section_id}>{sec.section_name}</option>
+                        ))}
                     </select>
+                    {validationError.section_id && (<span>{validationError.section_id}</span>)}
                 </div>
                 <div className='input-container'>
                     <label htmlFor="roll_no">Roll No</label>
-                    <input required onChange={handleChange} id='roll_no' type="number" name="roll_no" />
-
+                    <input required placeholder='select class to generate roll no' onChange={handleChange} value={studentData?.roll_no} id='roll_no' type="number" name="roll_no" disabled />
                 </div>
                 <div className='input-container'>
 
@@ -215,6 +272,7 @@ const AddStudent = () => {
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
                     </select>
+                    {validationError.blood_group && (<span>{validationError.blood_group}</span>)}
                 </div>
                 <div className='input-container'>
                     <label htmlFor="nationality">Nationality</label>
@@ -226,6 +284,7 @@ const AddStudent = () => {
                         <option value="australian">Australian</option>
                         <option value="japanese">Japanese</option>
                     </select>
+                    {validationError.nationality && (<span>{validationError.nationality}</span>)}
                 </div>
                 <button className='btn'>Submit</button>
             </form>
