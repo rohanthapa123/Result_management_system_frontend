@@ -85,6 +85,19 @@ const LoginPage = () => {
 
         checkAuthStatus();
 
+        alert("Check credentials in console for login!");
+
+        console.log("Admin Credentials:")
+        console.log("Email: admin@gmail.com")
+        console.log("Password: admin123")
+
+        console.log("Teacher Credentials:")
+        console.log("Email: teacher@gmail.com")
+        console.log("Password: teacher123")
+
+        console.log("Student Credentials:")
+        console.log("Email: student@gmail.com")
+        console.log("Password: student123")
         // eslint-disable-next-line
     }, [])
     return (
